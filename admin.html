@@ -9,529 +9,1074 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --n:    #0a0808;
-  --n2:   #120e0e;
-  --n3:   #1c1616;
-  --creme:#faf5ee;
-  --creme2:#f2ebe0;
-  --creme3:#e8dfd2;
+  --n2:   #110d0d;
+  --n3:   #1a1414;
+  --n4:   #221a1a;
   --blush:#e8b4b8;
   --blush2:#d4888e;
   --blush3:#c06870;
   --or:   #c8a060;
   --or2:  #e0b878;
-  --texte:#2a1e1e;
+  --creme:#faf5ee;
+  --creme2:#f0e8da;
   --ok:   #7dba8c;
   --err:  #c06870;
+  --warn: #e0b878;
+  --tab-h:52px;
 }
-html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:var(--n2);color:var(--creme);min-height:100vh}
+html,body{font-family:'DM Sans',sans-serif;background:var(--n2);color:var(--creme);height:100%;margin:0}
 
-/* ── GATE ── */
+/* ══════════════════
+   GATE
+══════════════════ */
 #gate{
-  position:fixed;inset:0;z-index:999;
-  background:var(--n);
+  position:fixed;inset:0;z-index:9999;background:var(--n);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;
 }
-.gate-brand{font-family:'Playfair Display',serif;font-style:italic;font-size:2rem;color:rgba(250,245,238,.2);margin-bottom:2.5rem}
+.gate-deco{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:3rem;color:rgba(250,245,238,.06);margin-bottom:3rem;letter-spacing:.05em;
+}
 .gate-box{
-  background:rgba(250,245,238,.03);
-  border:1px solid rgba(250,245,238,.07);
-  padding:2.5rem 3rem;
-  display:flex;flex-direction:column;gap:1rem;
-  min-width:320px;
+  background:rgba(250,245,238,.03);border:1px solid rgba(250,245,238,.07);
+  padding:2.5rem 3rem;min-width:340px;display:flex;flex-direction:column;gap:1rem;
 }
-.gate-title{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(250,245,238,.25);margin-bottom:.5rem}
-.gate-input{
-  background:rgba(250,245,238,.04);
-  border:1px solid rgba(250,245,238,.1);
-  color:var(--creme);
-  padding:.85rem 1.1rem;
-  font-family:'DM Sans',sans-serif;font-size:.9rem;
-  width:100%;outline:none;transition:border-color .3s;
+.gate-lbl{font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(250,245,238,.22)}
+.gate-inp{
+  background:rgba(250,245,238,.04);border:1px solid rgba(250,245,238,.1);
+  color:var(--creme);padding:.9rem 1.1rem;
+  font-family:'DM Sans',sans-serif;font-size:.95rem;width:100%;outline:none;transition:border-color .3s;
 }
-.gate-input:focus{border-color:rgba(232,180,184,.35)}
+.gate-inp:focus{border-color:rgba(232,180,184,.35)}
 .gate-btn{
-  background:var(--blush2);color:#fff;
-  border:none;padding:.9rem 1.5rem;
-  font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
-  cursor:pointer;transition:background .3s;
+  background:var(--blush2);color:#fff;border:none;
+  padding:.9rem;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.72rem;
+  letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background .3s;
 }
 .gate-btn:hover{background:var(--blush3)}
-.gate-err{font-size:.75rem;color:var(--err);text-align:center;min-height:1rem}
+.gate-err{font-size:.72rem;color:var(--err);text-align:center;min-height:1.1rem}
 
-/* ── LAYOUT ── */
-.admin-wrap{display:none;min-height:100vh;flex-direction:column}
-.admin-wrap.visible{display:flex}
+/* ══════════════════
+   SHELL
+══════════════════ */
+#shell{display:none;height:100vh;flex-direction:column}
+#shell.on{display:flex}
 
-/* ── TOPBAR ── */
+/* TOP BAR */
 .topbar{
-  background:var(--n3);
-  border-bottom:1px solid rgba(232,180,184,.08);
-  padding:1rem 2.5rem;
-  display:flex;align-items:center;justify-content:space-between;
-  position:sticky;top:0;z-index:10;
+  height:50px;flex-shrink:0;
+  background:var(--n3);border-bottom:1px solid rgba(232,180,184,.07);
+  display:flex;align-items:center;justify-content:space-between;padding:0 1.8rem;
+  position:relative;z-index:20;
 }
-.topbar-brand{font-family:'Playfair Display',serif;font-style:italic;font-size:1.1rem;color:rgba(250,245,238,.3)}
-.topbar-title{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--blush);font-weight:600}
-.topbar-actions{display:flex;gap:1rem;align-items:center}
-.topbar-link{
-  color:rgba(250,245,238,.35);text-decoration:none;
-  font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;transition:color .3s;
+.tb-brand{font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:rgba(250,245,238,.2)}
+.tb-center{display:flex;align-items:center;gap:1.5rem}
+.tb-updated{font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(250,245,238,.18)}
+.tb-right{display:flex;gap:.7rem;align-items:center}
+.tb-link{
+  font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(250,245,238,.28);text-decoration:none;padding:.3rem .8rem;
+  border:1px solid rgba(250,245,238,.07);transition:all .3s;
 }
-.topbar-link:hover{color:var(--creme)}
+.tb-link:hover{color:var(--creme);border-color:rgba(250,245,238,.15)}
 #toast{
-  font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ok);
-  opacity:0;transition:opacity .4s;
+  font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ok);opacity:0;transition:opacity .4s;padding:.3rem .8rem;
+  background:rgba(125,186,140,.08);border:1px solid rgba(125,186,140,.15);
 }
 #toast.show{opacity:1}
 
-/* ── MAIN GRID ── */
-.admin-main{padding:2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:1200px;margin:0 auto;width:100%}
-@media(max-width:800px){.admin-main{grid-template-columns:1fr}}
-
-/* ── SECTION CARD ── */
-.adm-card{
-  background:rgba(250,245,238,.03);
-  border:1px solid rgba(250,245,238,.06);
-  padding:2rem;
-  display:flex;flex-direction:column;gap:1.2rem;
+/* TABS */
+.tabs-bar{
+  height:var(--tab-h);flex-shrink:0;
+  background:var(--n2);border-bottom:1px solid rgba(250,245,238,.05);
+  display:flex;align-items:stretch;padding:0 1.8rem;gap:0;position:relative;z-index:10;
 }
-.adm-card.full{grid-column:span 2}
-@media(max-width:800px){.adm-card.full{grid-column:span 1}}
-.card-title{
-  font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;
-  color:rgba(250,245,238,.25);padding-bottom:.8rem;
+.tab{
+  padding:0 1.5rem;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(250,245,238,.28);cursor:pointer;border-bottom:2px solid transparent;
+  display:flex;align-items:center;gap:.5rem;transition:all .3s;
+}
+.tab:hover{color:rgba(250,245,238,.6)}
+.tab.active{color:var(--blush);border-color:var(--blush)}
+.tab .t-ico{font-size:.85rem}
+
+/* CONTENT */
+.content{flex:1;overflow-y:auto;padding:2rem 1.8rem}
+.panel{display:none}
+.panel.active{display:block}
+
+/* ══════════════════
+   COMPONENTS
+══════════════════ */
+.card{
+  background:rgba(250,245,238,.03);border:1px solid rgba(250,245,238,.06);
+  padding:1.8rem;margin-bottom:1.5rem;
+}
+.card-hd{
+  font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(250,245,238,.22);padding-bottom:.9rem;
   border-bottom:1px solid rgba(250,245,238,.05);
-  display:flex;align-items:center;gap:.6rem;
+  display:flex;align-items:center;gap:.6rem;margin-bottom:1.2rem;
 }
-.card-title::before{content:'✦';color:var(--blush2);font-size:.45rem}
-
-/* ── FIELD ── */
+.card-hd::before{content:'✦';color:var(--blush2);font-size:.4rem}
+.card-hd .hd-right{margin-left:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
 .field{display:flex;flex-direction:column;gap:.4rem}
-.field label{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(250,245,238,.3)}
+.field label{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(250,245,238,.28)}
 .field input,.field select,.field textarea{
-  background:rgba(250,245,238,.04);
-  border:1px solid rgba(250,245,238,.08);
-  color:var(--creme);
-  padding:.75rem 1rem;
-  font-family:'DM Sans',sans-serif;font-size:.88rem;
-  width:100%;outline:none;transition:border-color .3s;
-  resize:vertical;
+  background:rgba(250,245,238,.04);border:1px solid rgba(250,245,238,.08);
+  color:var(--creme);padding:.72rem .9rem;
+  font-family:'DM Sans',sans-serif;font-size:.88rem;width:100%;outline:none;
+  transition:border-color .3s;resize:none;
 }
 .field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(232,180,184,.3)}
-.field select option{background:var(--n2);color:var(--creme)}
+.field select option{background:var(--n2)}
 
-/* ── COLLAB GROUP ── */
-.collab-group{
-  background:rgba(250,245,238,.02);
-  border:1px solid rgba(250,245,238,.05);
-  padding:1.2rem;
-  display:flex;flex-direction:column;gap:.8rem;
+/* Buttons */
+.btn{
+  background:var(--blush2);color:#fff;border:none;
+  padding:.72rem 1.6rem;font-family:'DM Sans',sans-serif;font-weight:700;
+  font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .3s;
+  display:inline-flex;align-items:center;gap:.5rem;
 }
-.collab-group-title{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(232,180,184,.4)}
-.fields-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.btn:hover{background:var(--blush3);transform:translateY(-1px)}
+.btn.or{background:var(--or);color:var(--n)}
+.btn.or:hover{background:var(--or2)}
+.btn.ghost{background:transparent;border:1px solid rgba(250,245,238,.1);color:rgba(250,245,238,.4)}
+.btn.ghost:hover{border-color:rgba(250,245,238,.25);color:var(--creme);transform:none}
+.btn.danger{background:transparent;border:1px solid rgba(192,104,112,.25);color:var(--err)}
+.btn.danger:hover{background:rgba(192,104,112,.1)}
+.btn.sm{padding:.5rem 1rem;font-size:.6rem}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.btn-row{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1rem}
 
-/* ── PHOTO GRID ── */
-.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
-@media(max-width:600px){.photo-grid{grid-template-columns:1fr 1fr}}
-.photo-slot{display:flex;flex-direction:column;gap:.5rem}
-.photo-preview{
-  width:100%;aspect-ratio:3/4;
-  background:rgba(250,245,238,.04);
-  border:1px solid rgba(250,245,238,.07);
-  position:relative;overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
-}
-.photo-preview img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
-.photo-preview .ph-label{font-family:'Playfair Display',serif;font-style:italic;font-size:.75rem;color:rgba(250,245,238,.12);position:relative;z-index:2;text-align:center;padding:.5rem}
-.photo-slot label.upload-btn{
-  display:flex;align-items:center;justify-content:center;gap:.5rem;
-  background:rgba(250,245,238,.04);border:1px solid rgba(250,245,238,.07);
-  padding:.55rem;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
-  color:rgba(250,245,238,.3);cursor:pointer;transition:all .3s;
-}
-.photo-slot label.upload-btn:hover{background:rgba(232,180,184,.07);border-color:rgba(232,180,184,.2);color:var(--blush)}
-.photo-slot input[type=file]{display:none}
-.photo-key{font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(250,245,238,.15);text-align:center}
-
-/* ── SAVE BTN ── */
-.save-btn{
-  background:var(--blush2);color:#fff;
-  border:none;padding:.9rem 2rem;
-  font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
-  cursor:pointer;transition:all .3s;align-self:flex-start;
-  display:flex;align-items:center;gap:.6rem;
-}
-.save-btn:hover{background:var(--blush3);transform:translateY(-1px)}
-.save-btn.or{background:var(--or);color:var(--n)}
-.save-btn.or:hover{background:var(--or2)}
-
-/* ── RESET BTN ── */
-.reset-btn{
-  background:transparent;border:1px solid rgba(250,245,238,.08);
-  color:rgba(250,245,238,.3);
-  padding:.7rem 1.4rem;
-  font-family:'DM Sans',sans-serif;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
-  cursor:pointer;transition:all .3s;
-}
-.reset-btn:hover{border-color:var(--err);color:var(--err)}
-
-/* ── INFO BOX ── */
+/* Info / Alert */
 .info-box{
   background:rgba(200,160,96,.06);border:1px solid rgba(200,160,96,.15);
-  padding:1rem 1.2rem;font-size:.78rem;color:rgba(250,245,238,.4);line-height:1.65;
+  padding:1rem 1.2rem;font-size:.78rem;color:rgba(250,245,238,.4);line-height:1.7;
+  margin-bottom:1rem;
 }
-.info-box strong{color:rgba(200,160,96,.7)}
+.info-box strong{color:rgba(200,160,96,.8)}
+.info-box a{color:var(--blush);text-decoration:none}
+.info-box a:hover{text-decoration:underline}
+.warn-box{
+  background:rgba(192,104,112,.06);border:1px solid rgba(192,104,112,.2);
+  padding:1rem 1.2rem;font-size:.78rem;color:rgba(250,245,238,.4);line-height:1.7;margin-bottom:1rem;
+}
+.warn-box strong{color:var(--err)}
+
+/* Collab group */
+.collab-grp{
+  background:rgba(250,245,238,.02);border:1px solid rgba(250,245,238,.05);
+  padding:1.2rem;margin-bottom:.8rem;
+}
+.collab-grp-title{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(232,180,184,.38);margin-bottom:.8rem}
+
+/* Separator */
+.sep{height:1px;background:rgba(250,245,238,.05);margin:1.5rem 0}
+
+/* ══════════════════
+   TAB 1 — DASHBOARD
+══════════════════ */
+.dash-grid{display:grid;grid-template-columns:1fr 420px;gap:1.5rem;align-items:start}
+.dash-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem}
+.kpi{
+  background:rgba(250,245,238,.03);border:1px solid rgba(250,245,238,.06);
+  padding:1.2rem 1.4rem;
+}
+.kpi-n{
+  font-family:'DM Sans',sans-serif;font-weight:700;font-size:2rem;
+  color:var(--creme);line-height:1;margin-bottom:.3rem;
+}
+.kpi-l{font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;color:rgba(250,245,238,.22)}
+.kpi.hl{border-color:rgba(232,180,184,.15);background:rgba(232,180,184,.04)}
+.kpi.hl .kpi-n{color:var(--blush)}
+
+.preview-wrap{
+  background:rgba(250,245,238,.02);border:1px solid rgba(250,245,238,.06);overflow:hidden;
+}
+.preview-hd{
+  padding:.7rem 1rem;background:rgba(250,245,238,.02);border-bottom:1px solid rgba(250,245,238,.05);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.preview-hd-title{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(250,245,238,.2)}
+.preview-dots{display:flex;gap:.3rem}
+.preview-dots span{width:8px;height:8px;border-radius:50%;background:rgba(250,245,238,.06)}
+.preview-dots span:first-child{background:rgba(192,104,112,.4)}
+.preview-dots span:nth-child(2){background:rgba(224,184,120,.3)}
+.preview-dots span:nth-child(3){background:rgba(125,186,140,.3)}
+#site-iframe{
+  width:100%;height:420px;border:none;
+  transform-origin:top left;
+  display:block;
+}
+.dash-actions{display:flex;flex-direction:column;gap:.8rem}
+.dash-action-item{
+  background:rgba(250,245,238,.03);border:1px solid rgba(250,245,238,.06);
+  padding:1rem 1.2rem;display:flex;align-items:center;justify-content:space-between;
+}
+.da-label{font-size:.8rem;color:rgba(250,245,238,.5)}
+.da-sub{font-size:.6rem;color:rgba(250,245,238,.2);margin-top:.2rem;letter-spacing:.05em}
+
+/* ══════════════════
+   TAB 3 — INSTAGRAM
+══════════════════ */
+.ig-connect-box{
+  background:linear-gradient(135deg,rgba(232,180,184,.06),rgba(200,160,96,.04));
+  border:1px solid rgba(232,180,184,.12);
+  padding:2rem;margin-bottom:1.5rem;
+}
+.ig-guide{display:flex;flex-direction:column;gap:1rem;margin-bottom:1.5rem}
+.ig-step{display:flex;align-items:flex-start;gap:1rem}
+.ig-step-n{
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(232,180,184,.1);border:1px solid rgba(232,180,184,.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.65rem;font-weight:700;color:var(--blush);flex-shrink:0;margin-top:.1rem;
+}
+.ig-step-body{font-size:.8rem;color:rgba(250,245,238,.4);line-height:1.7}
+.ig-step-body strong{color:rgba(250,245,238,.7)}
+.ig-step-body a{color:var(--blush);text-decoration:none}
+.ig-step-body a:hover{text-decoration:underline}
+
+.ig-token-row{display:flex;gap:.8rem;align-items:stretch}
+.ig-token-row input{
+  flex:1;background:rgba(250,245,238,.04);border:1px solid rgba(250,245,238,.08);
+  color:var(--creme);padding:.8rem 1rem;
+  font-family:'DM Sans',sans-serif;font-size:.85rem;outline:none;transition:border-color .3s;
+}
+.ig-token-row input:focus{border-color:rgba(232,180,184,.3)}
+.ig-token-row input::placeholder{color:rgba(250,245,238,.18)}
+
+.ig-status{
+  display:flex;align-items:center;gap:.8rem;padding:.8rem 1rem;
+  background:rgba(250,245,238,.03);border:1px solid rgba(250,245,238,.05);
+  margin-bottom:1.2rem;min-height:42px;
+}
+.ig-status .st-dot{width:8px;height:8px;border-radius:50%;background:rgba(250,245,238,.15);flex-shrink:0}
+.ig-status.connected .st-dot{background:var(--ok)}
+.ig-status.error .st-dot{background:var(--err)}
+.ig-status .st-text{font-size:.72rem;color:rgba(250,245,238,.35)}
+
+.ig-profile{
+  background:rgba(250,245,238,.03);border:1px solid rgba(250,245,238,.06);
+  padding:1.2rem;display:flex;align-items:center;gap:1.2rem;margin-bottom:1.2rem;
+}
+.ig-avatar{
+  width:52px;height:52px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blush),var(--or));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-style:italic;font-size:1.4rem;color:var(--n);flex-shrink:0;
+}
+.ig-pname{font-weight:700;font-size:.9rem;color:var(--creme)}
+.ig-pstats{display:flex;gap:1.5rem;margin-top:.4rem}
+.ig-ps-item{font-size:.75rem;color:rgba(250,245,238,.4)}
+.ig-ps-item strong{color:var(--creme);font-weight:700}
+
+.ig-media-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;
+}
+.ig-thumb{
+  aspect-ratio:1;background:rgba(250,245,238,.04);border:1px solid rgba(250,245,238,.05);
+  overflow:hidden;position:relative;cursor:pointer;transition:opacity .3s;
+}
+.ig-thumb:hover{opacity:.75}
+.ig-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.ig-thumb .ig-type{
+  position:absolute;top:.4rem;right:.4rem;
+  font-size:.55rem;background:rgba(10,8,8,.6);color:rgba(250,245,238,.6);
+  padding:.1rem .4rem;letter-spacing:.08em;text-transform:uppercase;
+}
+.ig-sync-note{font-size:.7rem;color:rgba(250,245,238,.2);margin-top:.8rem;line-height:1.6;font-style:italic}
+
+/* ══════════════════
+   TAB 4 — PHOTOS
+══════════════════ */
+.photo-section-title{
+  font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(250,245,238,.2);margin:1.2rem 0 .8rem;
+  display:flex;align-items:center;gap:.6rem;
+}
+.photo-section-title::after{content:'';flex:1;height:1px;background:rgba(250,245,238,.05)}
+
+.photo-zones{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.pz{display:flex;flex-direction:column;gap:0;position:relative}
+.pz-label{
+  font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(250,245,238,.3);margin-bottom:.4rem;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.pz-label span{color:rgba(250,245,238,.15);font-size:.52rem}
+
+.pz-drop{
+  aspect-ratio:3/4;
+  background:rgba(250,245,238,.03);border:1px solid rgba(250,245,238,.07);
+  border-radius:2px;
+  position:relative;overflow:hidden;cursor:pointer;
+  transition:all .3s;display:flex;align-items:center;justify-content:center;
+}
+.pz-drop.wide{aspect-ratio:16/9}
+.pz-drop:hover,.pz-drop.drag-over{
+  background:rgba(232,180,184,.07);border-color:rgba(232,180,184,.25);border-style:dashed;
+}
+.pz-drop img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.pz-drop .pz-ph{
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  color:rgba(250,245,238,.15);text-align:center;position:relative;z-index:2;pointer-events:none;
+}
+.pz-drop.has-img .pz-ph{display:none}
+.pz-ph-ico{font-size:1.4rem}
+.pz-ph-txt{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;line-height:1.5}
+
+.pz-actions{
+  display:flex;gap:0;
+}
+.pz-action{
+  flex:1;padding:.5rem;background:rgba(250,245,238,.03);border:1px solid rgba(250,245,238,.05);
+  border-top:none;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(250,245,238,.3);cursor:pointer;transition:all .3s;text-align:center;
+}
+.pz-action:hover{background:rgba(232,180,184,.07);color:var(--blush)}
+.pz-action.del{border-left:none}
+.pz-action.del:hover{background:rgba(192,104,112,.08);color:var(--err)}
+.pz-action input[type=file]{display:none}
+
+.pz-drop .pz-overlay{
+  position:absolute;inset:0;background:rgba(10,8,8,.55);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .3s;z-index:3;
+  font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--creme);
+}
+.pz-drop:hover .pz-overlay{opacity:1}
+
+.git-box{
+  background:rgba(250,245,238,.02);border:1px solid rgba(250,245,238,.05);
+  border-left:2px solid var(--or);padding:1.2rem 1.4rem;margin-top:1.2rem;
+}
+.git-box-title{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(200,160,96,.5);margin-bottom:.7rem}
+.git-steps{display:flex;flex-direction:column;gap:.5rem}
+.git-step{font-size:.77rem;color:rgba(250,245,238,.35);line-height:1.6;display:flex;gap:.8rem}
+.git-step .gs-n{color:var(--or);font-weight:700;flex-shrink:0;min-width:1.2rem}
+.git-step code{
+  background:rgba(250,245,238,.06);color:var(--blush);
+  padding:.1rem .4rem;font-family:'Courier New',monospace;font-size:.76rem;
+}
 </style>
 </head>
 <body>
 
-<!-- ── GATE MOT DE PASSE ── -->
+<!-- ════════════════ GATE ════════════════ -->
 <div id="gate">
-  <div class="gate-brand">DigitalScho</div>
+  <div class="gate-deco">DigitalScho</div>
   <div class="gate-box">
-    <div class="gate-title">Panneau d'administration</div>
-    <input type="password" class="gate-input" id="pwd" placeholder="Mot de passe" autocomplete="current-password">
+    <div class="gate-lbl">Panneau d'administration — accès réservé</div>
+    <input type="password" class="gate-inp" id="pwd" placeholder="Mot de passe" autocomplete="current-password">
     <button class="gate-btn" onclick="checkPwd()">Accéder →</button>
     <div class="gate-err" id="gate-err"></div>
   </div>
 </div>
 
-<!-- ── PANNEAU ADMIN ── -->
-<div class="admin-wrap" id="adminWrap">
+<!-- ════════════════ SHELL ════════════════ -->
+<div id="shell">
 
   <!-- TOPBAR -->
   <div class="topbar">
-    <div>
-      <div class="topbar-brand">DigitalScho</div>
-    </div>
-    <div class="topbar-title">Panneau Admin</div>
-    <div class="topbar-actions">
+    <div class="tb-brand">DigitalScho</div>
+    <div class="tb-center">
+      <div class="tb-updated" id="last-update"></div>
       <span id="toast">✓ Sauvegardé</span>
-      <a href="index.html" class="topbar-link" target="_blank">Voir le site ↗</a>
-      <a href="mediakit.html" class="topbar-link" target="_blank">Media Kit ↗</a>
+    </div>
+    <div class="tb-right">
+      <a href="index.html" target="_blank" class="tb-link">Site ↗</a>
+      <a href="mediakit.html" target="_blank" class="tb-link">Media Kit ↗</a>
     </div>
   </div>
 
-  <!-- CONTENU -->
-  <div class="admin-main">
+  <!-- TABS -->
+  <div class="tabs-bar">
+    <div class="tab active" data-tab="dashboard"><span class="t-ico">⊞</span> Dashboard</div>
+    <div class="tab" data-tab="stats"><span class="t-ico">◎</span> Stats & Collabs</div>
+    <div class="tab" data-tab="instagram"><span class="t-ico">✦</span> Instagram</div>
+    <div class="tab" data-tab="photos"><span class="t-ico">□</span> Photos</div>
+  </div>
 
-    <!-- ── STATS ── -->
-    <div class="adm-card">
-      <div class="card-title">Statistiques Instagram</div>
-      <div class="field">
-        <label>Followers</label>
-        <input type="text" id="adm-followers" placeholder="2 177">
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- ─── TAB : DASHBOARD ─── -->
+    <div class="panel active" id="panel-dashboard">
+
+      <div class="dash-kpis">
+        <div class="kpi hl">
+          <div class="kpi-n" id="kpi-followers">2 177</div>
+          <div class="kpi-l">Followers Instagram</div>
+        </div>
+        <div class="kpi hl">
+          <div class="kpi-n" id="kpi-publications">385</div>
+          <div class="kpi-l">Publications</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-n" style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.4rem">SALE Beauty</div>
+          <div class="kpi-l">Collaboration active</div>
+        </div>
       </div>
-      <div class="field">
-        <label>Publications</label>
-        <input type="text" id="adm-publications" placeholder="385">
+
+      <div class="dash-grid">
+        <div>
+          <div class="card">
+            <div class="card-hd">Aperçu du site en direct
+              <div class="hd-right"><button class="btn sm ghost" onclick="reloadPreview()">↺ Actualiser</button></div>
+            </div>
+            <div class="preview-wrap">
+              <div class="preview-hd">
+                <div class="preview-dots"><span></span><span></span><span></span></div>
+                <div class="preview-hd-title">plateoo.github.io/digitalscho</div>
+              </div>
+              <div style="overflow:hidden;height:420px;position:relative">
+                <iframe id="site-iframe" src="index.html" scrolling="no"
+                  style="width:1200px;height:900px;transform:scale(0.62);transform-origin:top left;pointer-events:none">
+                </iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-actions">
+          <div class="card">
+            <div class="card-hd">Actions rapides</div>
+
+            <div class="dash-action-item">
+              <div>
+                <div class="da-label">Stats Instagram</div>
+                <div class="da-sub">Followers · Publications</div>
+              </div>
+              <button class="btn sm" onclick="goTab('stats')">Modifier</button>
+            </div>
+            <div class="dash-action-item" style="margin-top:.5rem">
+              <div>
+                <div class="da-label">Connexion Instagram</div>
+                <div class="da-sub" id="dash-ig-status">Non connecté</div>
+              </div>
+              <button class="btn sm or" onclick="goTab('instagram')">Connecter</button>
+            </div>
+            <div class="dash-action-item" style="margin-top:.5rem">
+              <div>
+                <div class="da-label">Photos du site</div>
+                <div class="da-sub">9 zones disponibles</div>
+              </div>
+              <button class="btn sm ghost" onclick="goTab('photos')">Gérer</button>
+            </div>
+            <div class="dash-action-item" style="margin-top:.5rem">
+              <div>
+                <div class="da-label">Collaborations</div>
+                <div class="da-sub">3 partenariats</div>
+              </div>
+              <button class="btn sm ghost" onclick="goTab('stats')">Modifier</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-hd">Liens directs</div>
+            <div style="display:flex;flex-direction:column;gap:.5rem">
+              <a href="index.html" target="_blank" class="btn" style="text-decoration:none;justify-content:center">Voir le site ↗</a>
+              <a href="mediakit.html" target="_blank" class="btn or" style="text-decoration:none;justify-content:center">Voir le Media Kit ↗</a>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
+
+    <!-- ─── TAB : STATS & COLLABS ─── -->
+    <div class="panel" id="panel-stats">
+
+      <div class="card">
+        <div class="card-hd">Statistiques Instagram</div>
+        <div class="grid2">
+          <div class="field"><label>Followers</label><input type="text" id="adm-followers" placeholder="2 177"></div>
+          <div class="field"><label>Publications</label><input type="text" id="adm-publications" placeholder="385"></div>
+        </div>
+        <div class="btn-row">
+          <button class="btn" onclick="saveStats()">Sauvegarder les stats</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-hd">Collaborations</div>
+
+        <div class="collab-grp">
+          <div class="collab-grp-title">Collaboration 1</div>
+          <div class="field"><label>Marque</label><input type="text" id="c1-name" placeholder="SALE Beauty"></div>
+          <div class="grid2" style="margin-top:.8rem">
+            <div class="field"><label>Catégorie</label><input type="text" id="c1-cat" placeholder="Beauté · Cosmétiques"></div>
+            <div class="field"><label>Statut</label>
+              <select id="c1-badge">
+                <option value="Partenariat actif">Partenariat actif</option>
+                <option value="Disponible">Disponible</option>
+                <option value="Sur devis">Sur devis</option>
+                <option value="Terminé">Terminé</option>
+              </select>
+            </div>
+          </div>
+          <div class="field" style="margin-top:.8rem"><label>Description</label><textarea id="c1-desc" rows="2"></textarea></div>
+        </div>
+
+        <div class="collab-grp">
+          <div class="collab-grp-title">Collaboration 2</div>
+          <div class="field"><label>Marque</label><input type="text" id="c2-name" placeholder="Mode & Style"></div>
+          <div class="grid2" style="margin-top:.8rem">
+            <div class="field"><label>Catégorie</label><input type="text" id="c2-cat" placeholder="Vêtements · Accessoires"></div>
+            <div class="field"><label>Statut</label>
+              <select id="c2-badge">
+                <option value="Disponible">Disponible</option>
+                <option value="Partenariat actif">Partenariat actif</option>
+                <option value="Sur devis">Sur devis</option>
+                <option value="Terminé">Terminé</option>
+              </select>
+            </div>
+          </div>
+          <div class="field" style="margin-top:.8rem"><label>Description</label><textarea id="c2-desc" rows="2"></textarea></div>
+        </div>
+
+        <div class="collab-grp">
+          <div class="collab-grp-title">Collaboration 3</div>
+          <div class="field"><label>Marque</label><input type="text" id="c3-name" placeholder="Lifestyle & Travel"></div>
+          <div class="grid2" style="margin-top:.8rem">
+            <div class="field"><label>Catégorie</label><input type="text" id="c3-cat" placeholder="Voyage · Food · Beauty"></div>
+            <div class="field"><label>Statut</label>
+              <select id="c3-badge">
+                <option value="Sur devis">Sur devis</option>
+                <option value="Partenariat actif">Partenariat actif</option>
+                <option value="Disponible">Disponible</option>
+                <option value="Terminé">Terminé</option>
+              </select>
+            </div>
+          </div>
+          <div class="field" style="margin-top:.8rem"><label>Description</label><textarea id="c3-desc" rows="2"></textarea></div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn or" onclick="saveCollabs()">Sauvegarder les collaborations</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── TAB : INSTAGRAM ─── -->
+    <div class="panel" id="panel-instagram">
+
+      <div class="warn-box">
+        <strong>Note :</strong> L'API Instagram Basic Display a été <strong>dépréciée par Meta en septembre 2024</strong>.
+        Le système ci-dessous utilise l'<strong>Instagram Graph API</strong> (gratuite), qui nécessite un compte
+        Instagram <strong>Business ou Creator</strong> lié à une Page Facebook.
+        <a href="https://developers.facebook.com/docs/instagram-api" target="_blank" rel="noopener">Documentation Meta →</a>
+      </div>
+
+      <div class="card">
+        <div class="card-hd">Guide — Obtenir ton Access Token en 3 étapes</div>
+        <div class="ig-guide">
+          <div class="ig-step">
+            <div class="ig-step-n">1</div>
+            <div class="ig-step-body">
+              <strong>Crée une application Meta :</strong> Va sur
+              <a href="https://developers.facebook.com/apps" target="_blank" rel="noopener">developers.facebook.com/apps</a>
+              → "Créer une application" → choisir "Consommateur" ou "Business" → ajouter le produit <strong>Instagram Graph API</strong>.
+            </div>
+          </div>
+          <div class="ig-step">
+            <div class="ig-step-n">2</div>
+            <div class="ig-step-body">
+              <strong>Convertis ton compte Instagram :</strong> Paramètres Instagram → Compte → Passer en compte Professionnel (Creator ou Business).
+              Lie-le à une <strong>Page Facebook</strong>. Puis dans Meta for Developers → Instagram → ajouter ton compte comme compte de test.
+            </div>
+          </div>
+          <div class="ig-step">
+            <div class="ig-step-n">3</div>
+            <div class="ig-step-body">
+              <strong>Génère un token longue durée :</strong> Dans l'Explorateur API Graph de Meta →
+              sélectionne ton app → génère un token avec les permissions
+              <code>instagram_basic</code>, <code>pages_show_list</code>, <code>instagram_manage_insights</code>.
+              Le token longue durée dure <strong>60 jours</strong> (renouvelable).
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-hd">Connexion Instagram</div>
+
+        <div class="ig-status" id="ig-status-bar">
+          <span class="st-dot"></span>
+          <span class="st-text" id="ig-status-text">En attente de connexion</span>
+        </div>
+
+        <div class="ig-connect-box">
+          <div class="field" style="margin-bottom:1rem">
+            <label>Identifiant d'app Meta (App ID)</label>
+            <input type="text" id="ig-app-id" placeholder="123456789012345" autocomplete="off">
+          </div>
+          <div class="field" style="margin-bottom:1rem">
+            <label>Access Token Instagram</label>
+            <div class="ig-token-row">
+              <input type="password" id="ig-token" placeholder="EAAxxxxxx..." autocomplete="off">
+              <button class="btn" onclick="syncInstagram()">↺ Synchroniser</button>
+            </div>
+          </div>
+          <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+            <button class="btn ghost sm" onclick="toggleTokenVis()">Afficher / Masquer le token</button>
+            <button class="btn danger sm" onclick="disconnectIG()">Déconnecter</button>
+          </div>
+        </div>
+
+        <div id="ig-profile-block" style="display:none">
+          <div class="ig-profile">
+            <div class="ig-avatar" id="ig-av-letter">C</div>
+            <div>
+              <div class="ig-pname" id="ig-pname">—</div>
+              <div class="ig-pstats">
+                <div class="ig-ps-item"><strong id="ig-p-followers">—</strong> followers</div>
+                <div class="ig-ps-item"><strong id="ig-p-media">—</strong> publications</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-hd" style="margin:1rem 0 .8rem">12 dernières publications</div>
+          <div class="ig-media-grid" id="ig-media-grid">
+            <!-- thumbnails injectées par JS -->
+          </div>
+          <div class="ig-sync-note">
+            Les stats réelles (followers, publications) ont été synchronisées et appliquées sur ton site et ton media kit automatiquement.
+            Clique "Synchroniser" à chaque mise à jour.
+          </div>
+
+          <div class="btn-row">
+            <button class="btn or" onclick="applyIGStats()">Appliquer les stats sur le site</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── TAB : PHOTOS ─── -->
+    <div class="panel" id="panel-photos">
+
       <div class="info-box">
-        <strong>Astuce :</strong> Ces chiffres s'affichent sur la page d'accueil et dans le media kit. Mets à jour après chaque jalon.
-      </div>
-      <button class="save-btn" onclick="saveStats()">Sauvegarder les stats</button>
-    </div>
-
-    <!-- ── COLLABS ── -->
-    <div class="adm-card">
-      <div class="card-title">Collaborations</div>
-
-      <div class="collab-group">
-        <div class="collab-group-title">Collab 1</div>
-        <div class="field"><label>Marque</label><input type="text" id="c1-name" placeholder="SALE Beauty"></div>
-        <div class="fields-row">
-          <div class="field"><label>Catégorie</label><input type="text" id="c1-cat" placeholder="Beauté · Cosmétiques"></div>
-          <div class="field">
-            <label>Statut</label>
-            <select id="c1-badge">
-              <option value="Partenariat actif">Partenariat actif</option>
-              <option value="Disponible">Disponible</option>
-              <option value="Sur devis">Sur devis</option>
-              <option value="Terminé">Terminé</option>
-            </select>
-          </div>
-        </div>
-        <div class="field"><label>Description</label><textarea id="c1-desc" rows="2" placeholder="Description..."></textarea></div>
+        <strong>Drag & drop</strong> ou clic sur une zone pour uploader une photo.
+        Les images sont <strong>compressées automatiquement</strong> à 800px max et stockées localement.
+        Pour rendre les changements permanents sur GitHub, suis les instructions en bas de page.
       </div>
 
-      <div class="collab-group">
-        <div class="collab-group-title">Collab 2</div>
-        <div class="field"><label>Marque</label><input type="text" id="c2-name" placeholder="Mode & Style"></div>
-        <div class="fields-row">
-          <div class="field"><label>Catégorie</label><input type="text" id="c2-cat" placeholder="Vêtements · Accessoires"></div>
-          <div class="field">
-            <label>Statut</label>
-            <select id="c2-badge">
-              <option value="Disponible">Disponible</option>
-              <option value="Partenariat actif">Partenariat actif</option>
-              <option value="Sur devis">Sur devis</option>
-              <option value="Terminé">Terminé</option>
-            </select>
-          </div>
-        </div>
-        <div class="field"><label>Description</label><textarea id="c2-desc" rows="2" placeholder="Description..."></textarea></div>
+      <div class="photo-section-title">Collage "À propos" (4 cases)</div>
+      <div class="photo-zones" style="grid-template-columns:repeat(4,1fr)">
+        <!-- generated by JS -->
       </div>
 
-      <div class="collab-group">
-        <div class="collab-group-title">Collab 3</div>
-        <div class="field"><label>Marque</label><input type="text" id="c3-name" placeholder="Lifestyle & Travel"></div>
-        <div class="fields-row">
-          <div class="field"><label>Catégorie</label><input type="text" id="c3-cat" placeholder="Voyage · Food · Beauty"></div>
-          <div class="field">
-            <label>Statut</label>
-            <select id="c3-badge">
-              <option value="Sur devis">Sur devis</option>
-              <option value="Partenariat actif">Partenariat actif</option>
-              <option value="Disponible">Disponible</option>
-              <option value="Terminé">Terminé</option>
-            </select>
-          </div>
-        </div>
-        <div class="field"><label>Description</label><textarea id="c3-desc" rows="2" placeholder="Description..."></textarea></div>
+      <div class="photo-section-title">Portfolio — 4 téléphones</div>
+      <div class="photo-zones" id="pz-portfolio" style="grid-template-columns:repeat(4,1fr)">
       </div>
 
-      <button class="save-btn or" onclick="saveCollabs()">Sauvegarder les collabs</button>
-    </div>
-
-    <!-- ── PHOTOS ── -->
-    <div class="adm-card full">
-      <div class="card-title">Photos du site</div>
-      <div class="info-box">
-        <strong>Comment ça marche :</strong> Clique sur une case pour uploader une photo depuis ton appareil. Elle sera stockée localement et s'affichera immédiatement sur le site et le media kit. Formats supportés : JPG, PNG, WebP.
+      <div class="photo-section-title">Media Kit — Photo principale</div>
+      <div class="photo-zones" id="pz-mk" style="grid-template-columns:repeat(3,1fr)">
       </div>
 
-      <div style="margin-bottom:.5rem;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,245,238,.2)">Collage "À propos"</div>
-      <div class="photo-grid">
-        <div class="photo-slot">
-          <div class="photo-preview" id="prev-portrait">
-            <img id="padm-portrait" src="" style="display:none">
-            <span class="ph-label">Portrait<br>(grande case)</span>
-          </div>
-          <label class="upload-btn" for="upl-portrait">↑ Changer</label>
-          <input type="file" id="upl-portrait" accept="image/*" onchange="uploadPhoto('portrait',this)">
-          <div class="photo-key">photo-portrait.jpg</div>
-        </div>
-        <div class="photo-slot">
-          <div class="photo-preview" id="prev-rome">
-            <img id="padm-rome" src="" style="display:none">
-            <span class="ph-label">Rome · Voyage</span>
-          </div>
-          <label class="upload-btn" for="upl-rome">↑ Changer</label>
-          <input type="file" id="upl-rome" accept="image/*" onchange="uploadPhoto('rome',this)">
-          <div class="photo-key">photo-rome.jpg</div>
-        </div>
-        <div class="photo-slot">
-          <div class="photo-preview" id="prev-lifestyle">
-            <img id="padm-lifestyle" src="" style="display:none">
-            <span class="ph-label">Lifestyle</span>
-          </div>
-          <label class="upload-btn" for="upl-lifestyle">↑ Changer</label>
-          <input type="file" id="upl-lifestyle" accept="image/*" onchange="uploadPhoto('lifestyle',this)">
-          <div class="photo-key">photo-lifestyle.jpg</div>
-        </div>
-        <div class="photo-slot">
-          <div class="photo-preview" id="prev-mode">
-            <img id="padm-mode" src="" style="display:none">
-            <span class="ph-label">Mode · Style</span>
-          </div>
-          <label class="upload-btn" for="upl-mode">↑ Changer</label>
-          <input type="file" id="upl-mode" accept="image/*" onchange="uploadPhoto('mode',this)">
-          <div class="photo-key">photo-mode.jpg</div>
+      <div class="git-box">
+        <div class="git-box-title">Rendre les photos permanentes sur GitHub</div>
+        <div class="git-steps">
+          <div class="git-step"><span class="gs-n">1</span><span>Renomme tes fichiers photos avec les noms exacts : <code>photo-portrait.jpg</code>, <code>photo-celine.jpg</code>, etc.</span></div>
+          <div class="git-step"><span class="gs-n">2</span><span>Copie-les dans le dossier <code>digitalscho\</code> sur ton PC (remplace les anciens).</span></div>
+          <div class="git-step"><span class="gs-n">3</span><span>Ouvre un terminal dans ce dossier et tape :</span></div>
+          <div class="git-step"><span class="gs-n"> </span><span><code>git add . &amp;&amp; git commit -m "Update photos" &amp;&amp; git push</code></span></div>
+          <div class="git-step"><span class="gs-n">4</span><span>Ton site GitHub Pages se met à jour en ~2 minutes automatiquement.</span></div>
         </div>
       </div>
 
-      <div style="margin:1rem 0 .5rem;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,245,238,.2)">Portfolio — 4 téléphones</div>
-      <div class="photo-grid">
-        <div class="photo-slot">
-          <div class="photo-preview">
-            <img id="padm-fashion" src="" style="display:none">
-            <span class="ph-label">Fashion</span>
-          </div>
-          <label class="upload-btn" for="upl-fashion">↑ Changer</label>
-          <input type="file" id="upl-fashion" accept="image/*" onchange="uploadPhoto('fashion',this)">
-          <div class="photo-key">photo-fashion.jpg</div>
-        </div>
-        <div class="photo-slot">
-          <div class="photo-preview">
-            <img id="padm-beauty" src="" style="display:none">
-            <span class="ph-label">Beauty</span>
-          </div>
-          <label class="upload-btn" for="upl-beauty">↑ Changer</label>
-          <input type="file" id="upl-beauty" accept="image/*" onchange="uploadPhoto('beauty',this)">
-          <div class="photo-key">photo-beauty.jpg</div>
-        </div>
-        <div class="photo-slot">
-          <div class="photo-preview">
-            <img id="padm-travel" src="" style="display:none">
-            <span class="ph-label">Travel</span>
-          </div>
-          <label class="upload-btn" for="upl-travel">↑ Changer</label>
-          <input type="file" id="upl-travel" accept="image/*" onchange="uploadPhoto('travel',this)">
-          <div class="photo-key">photo-travel.jpg</div>
-        </div>
-        <div class="photo-slot">
-          <div class="photo-preview">
-            <img id="padm-soiree" src="" style="display:none">
-            <span class="ph-label">Soirée · Lifestyle</span>
-          </div>
-          <label class="upload-btn" for="upl-soiree">↑ Changer</label>
-          <input type="file" id="upl-soiree" accept="image/*" onchange="uploadPhoto('soiree',this)">
-          <div class="photo-key">photo-soiree.jpg</div>
-        </div>
-      </div>
-
-      <div style="margin:1rem 0 .5rem;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,245,238,.2)">Media Kit</div>
-      <div class="photo-grid">
-        <div class="photo-slot">
-          <div class="photo-preview" style="aspect-ratio:2/3">
-            <img id="padm-celine" src="" style="display:none">
-            <span class="ph-label">Photo principale<br>Media Kit</span>
-          </div>
-          <label class="upload-btn" for="upl-celine">↑ Changer</label>
-          <input type="file" id="upl-celine" accept="image/*" onchange="uploadPhoto('celine',this)">
-          <div class="photo-key">photo-celine.jpg</div>
-        </div>
-      </div>
-
-      <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:.5rem">
-        <button class="reset-btn" onclick="resetPhotos()">Réinitialiser toutes les photos</button>
-        <button class="reset-btn" onclick="resetAll()">Tout réinitialiser (stats + collabs + photos)</button>
+      <div class="btn-row">
+        <button class="btn danger sm" onclick="resetAllPhotos()">Réinitialiser toutes les photos (localStorage)</button>
       </div>
     </div>
 
-  </div><!-- /admin-main -->
-</div><!-- /admin-wrap -->
+  </div><!-- /content -->
+</div><!-- /shell -->
 
 <script>
-const PASS = 'digitalscho2025';
-const PHOTOS = ['portrait','rome','lifestyle','mode','fashion','beauty','travel','soiree','celine'];
+/* ════════════════════════════════
+   CONSTANTS & STATE
+════════════════════════════════ */
+const PASS   = 'digitalscho2025';
+const PHOTOS = [
+  {key:'portrait',  label:'Portrait (grande case)',file:'photo-portrait.jpg'},
+  {key:'rome',      label:'Rome · Voyage',        file:'photo-rome.jpg'},
+  {key:'lifestyle', label:'Lifestyle',             file:'photo-lifestyle.jpg'},
+  {key:'mode',      label:'Mode · Style',          file:'photo-mode.jpg'},
+  {key:'fashion',   label:'Fashion',               file:'photo-fashion.jpg'},
+  {key:'beauty',    label:'Beauty',                file:'photo-beauty.jpg'},
+  {key:'travel',    label:'Travel',                file:'photo-travel.jpg'},
+  {key:'soiree',    label:'Soirée · Lifestyle',    file:'photo-soiree.jpg'},
+  {key:'celine',    label:'Photo principale MK',   file:'photo-celine.jpg'},
+];
 
-/* ── AUTH ── */
+let igData = null;
+
+/* ════════════════════════════════
+   AUTH
+════════════════════════════════ */
 function checkPwd() {
-  const val = document.getElementById('pwd').value;
-  if (val === PASS) {
+  const v = document.getElementById('pwd').value;
+  if (v === PASS) {
     document.getElementById('gate').style.display = 'none';
-    document.getElementById('adminWrap').classList.add('visible');
-    loadAll();
+    document.getElementById('shell').classList.add('on');
+    init();
   } else {
-    const err = document.getElementById('gate-err');
-    err.textContent = 'Mot de passe incorrect.';
-    setTimeout(() => { err.textContent = ''; }, 2000);
+    const e = document.getElementById('gate-err');
+    e.textContent = 'Mot de passe incorrect.';
+    setTimeout(() => e.textContent = '', 2000);
   }
 }
 document.getElementById('pwd').addEventListener('keydown', e => { if (e.key === 'Enter') checkPwd(); });
 
-/* ── TOAST ── */
-function toast() {
-  const t = document.getElementById('toast');
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2000);
+/* ════════════════════════════════
+   TABS
+════════════════════════════════ */
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => goTab(t.dataset.tab));
+});
+function goTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
 }
 
-/* ── LOAD ALL FROM LOCALSTORAGE ── */
-function loadAll() {
-  // Stats
+/* ════════════════════════════════
+   TOAST / UTILS
+════════════════════════════════ */
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = (msg || '✓ Sauvegardé');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+function markUpdated() {
+  const now = new Date();
+  const s = `Dernière MAJ : ${now.toLocaleDateString('fr-BE')} ${now.toLocaleTimeString('fr-BE',{hour:'2-digit',minute:'2-digit'})}`;
+  localStorage.setItem('ds_last_update', s);
+  document.getElementById('last-update').textContent = s;
+}
+
+/* ════════════════════════════════
+   INIT
+════════════════════════════════ */
+function init() {
+  // Last update
+  const lu = localStorage.getItem('ds_last_update');
+  if (lu) document.getElementById('last-update').textContent = lu;
+
+  // Load stats fields
   const f = localStorage.getItem('ds_followers');
   const p = localStorage.getItem('ds_publications');
-  if (f) document.getElementById('adm-followers').value = f;
-  if (p) document.getElementById('adm-publications').value = p;
+  if (f) { document.getElementById('adm-followers').value = f; document.getElementById('kpi-followers').textContent = f; }
+  if (p) { document.getElementById('adm-publications').value = p; document.getElementById('kpi-publications').textContent = p; }
 
-  // Collabs
+  // Load collabs
   [1,2,3].forEach(i => {
-    const get = (key, el) => { const v = localStorage.getItem(key); if (v && document.getElementById(el)) document.getElementById(el).value = v; };
-    get(`ds_collab${i}_name`,  `c${i}-name`);
-    get(`ds_collab${i}_cat`,   `c${i}-cat`);
-    get(`ds_collab${i}_desc`,  `c${i}-desc`);
-    // select badge
-    const badge = localStorage.getItem(`ds_collab${i}_badge`);
-    if (badge) {
-      const sel = document.getElementById(`c${i}-badge`);
-      if (sel) sel.value = badge;
-    }
+    const setVal = (id, key) => { const v = localStorage.getItem(key); if (v) { const el = document.getElementById(id); if (el) el.value = v; } };
+    setVal(`c${i}-name`,  `ds_collab${i}_name`);
+    setVal(`c${i}-cat`,   `ds_collab${i}_cat`);
+    setVal(`c${i}-desc`,  `ds_collab${i}_desc`);
+    const b = localStorage.getItem(`ds_collab${i}_badge`);
+    if (b) { const s = document.getElementById(`c${i}-badge`); if (s) s.value = b; }
   });
 
-  // Photos previews
-  PHOTOS.forEach(k => {
-    const d = localStorage.getItem('ds_photo_' + k);
-    if (d) {
-      const img = document.getElementById('padm-' + k);
-      if (img) { img.src = d; img.style.display = 'block'; }
-      const ph = document.querySelector(`#prev-${k} .ph-label`);
-      if (ph) ph.style.display = 'none';
-    }
-  });
+  // IG token
+  const tok = localStorage.getItem('ds_ig_token');
+  if (tok) {
+    document.getElementById('ig-token').value = tok;
+    const aid = localStorage.getItem('ds_ig_app_id');
+    if (aid) document.getElementById('ig-app-id').value = aid;
+    // restore saved IG data
+    const cached = localStorage.getItem('ds_ig_data');
+    if (cached) { igData = JSON.parse(cached); renderIGProfile(); }
+    updateIGStatusBar('connected', '@' + (igData?.username || '…') + ' connecté');
+    document.getElementById('dash-ig-status').textContent = 'Connecté · @' + (igData?.username || '…');
+  }
+
+  // Build photo zones
+  buildPhotoZones();
 }
 
-/* ── SAVE STATS ── */
+/* ════════════════════════════════
+   DASHBOARD
+════════════════════════════════ */
+function reloadPreview() {
+  const f = document.getElementById('site-iframe');
+  f.src = f.src;
+}
+
+/* ════════════════════════════════
+   STATS
+════════════════════════════════ */
 function saveStats() {
   const f = document.getElementById('adm-followers').value.trim();
   const p = document.getElementById('adm-publications').value.trim();
-  if (f) localStorage.setItem('ds_followers', f);
-  if (p) localStorage.setItem('ds_publications', p);
+  if (f) { localStorage.setItem('ds_followers', f); document.getElementById('kpi-followers').textContent = f; }
+  if (p) { localStorage.setItem('ds_publications', p); document.getElementById('kpi-publications').textContent = p; }
+  markUpdated();
   toast();
 }
 
-/* ── SAVE COLLABS ── */
 function saveCollabs() {
   [1,2,3].forEach(i => {
-    const save = (key, el) => {
-      const el2 = document.getElementById(el);
-      if (el2 && el2.value.trim()) localStorage.setItem(key, el2.value.trim());
+    const saveField = (key, id) => {
+      const el = document.getElementById(id);
+      if (el && el.value.trim()) localStorage.setItem(key, el.value.trim());
     };
-    save(`ds_collab${i}_name`,  `c${i}-name`);
-    save(`ds_collab${i}_cat`,   `c${i}-cat`);
-    save(`ds_collab${i}_desc`,  `c${i}-desc`);
-    save(`ds_collab${i}_badge`, `c${i}-badge`);
+    saveField(`ds_collab${i}_name`,  `c${i}-name`);
+    saveField(`ds_collab${i}_cat`,   `c${i}-cat`);
+    saveField(`ds_collab${i}_desc`,  `c${i}-desc`);
+    saveField(`ds_collab${i}_badge`, `c${i}-badge`);
   });
-  toast();
+  markUpdated();
+  toast('✓ Collaborations sauvegardées');
 }
 
-/* ── UPLOAD PHOTO ── */
-function uploadPhoto(key, input) {
-  const file = input.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    const data = e.target.result;
-    try {
-      localStorage.setItem('ds_photo_' + key, data);
-    } catch(err) {
-      alert('Photo trop lourde pour le stockage local. Compresse l\'image (< 1Mo recommandé).');
-      return;
-    }
-    // Update preview
-    const img = document.getElementById('padm-' + key);
-    if (img) { img.src = data; img.style.display = 'block'; }
-    const ph = document.querySelector(`#prev-${key} .ph-label`);
-    if (ph) ph.style.display = 'none';
-    toast();
+/* ════════════════════════════════
+   INSTAGRAM API
+════════════════════════════════ */
+function updateIGStatusBar(state, msg) {
+  const bar = document.getElementById('ig-status-bar');
+  const txt = document.getElementById('ig-status-text');
+  bar.className = 'ig-status ' + (state || '');
+  txt.textContent = msg || '';
+}
+
+async function syncInstagram() {
+  const token = document.getElementById('ig-token').value.trim();
+  const appId = document.getElementById('ig-app-id').value.trim();
+  if (!token) { updateIGStatusBar('error', 'Colle ton Access Token Instagram.'); return; }
+
+  updateIGStatusBar('', '⏳ Connexion en cours…');
+
+  try {
+    // — User info via Graph API
+    const userUrl = `https://graph.instagram.com/me?fields=id,username,name,followers_count,media_count,profile_picture_url&access_token=${token}`;
+    const userRes = await fetch(userUrl);
+    const user    = await userRes.json();
+
+    if (user.error) throw new Error(user.error.message);
+
+    // — Recent media
+    const mediaUrl = `https://graph.instagram.com/me/media?fields=id,media_type,media_url,thumbnail_url,permalink,timestamp&limit=12&access_token=${token}`;
+    const mediaRes = await fetch(mediaUrl);
+    const mediaObj = await mediaRes.json();
+
+    igData = { ...user, media: mediaObj.data || [] };
+    localStorage.setItem('ds_ig_token',   token);
+    if (appId) localStorage.setItem('ds_ig_app_id', appId);
+    localStorage.setItem('ds_ig_data', JSON.stringify(igData));
+
+    renderIGProfile();
+    updateIGStatusBar('connected', `✓ Connecté — @${user.username}`);
+    document.getElementById('dash-ig-status').textContent = `Connecté · @${user.username}`;
+
+    // Auto-apply stats
+    applyIGStats();
+    markUpdated();
+    toast('✓ Instagram synchronisé');
+
+  } catch(err) {
+    updateIGStatusBar('error', '✗ Erreur : ' + err.message.substring(0,80));
+    console.error('IG API Error:', err);
+  }
+}
+
+function renderIGProfile() {
+  if (!igData) return;
+  const block = document.getElementById('ig-profile-block');
+  block.style.display = 'block';
+
+  document.getElementById('ig-av-letter').textContent = (igData.username || 'C')[0].toUpperCase();
+  document.getElementById('ig-pname').textContent = igData.name || igData.username || '—';
+  document.getElementById('ig-p-followers').textContent = igData.followers_count != null ? igData.followers_count.toLocaleString('fr-BE') : '—';
+  document.getElementById('ig-p-media').textContent    = igData.media_count != null ? igData.media_count : '—';
+
+  // Media grid
+  const grid = document.getElementById('ig-media-grid');
+  grid.innerHTML = '';
+  (igData.media || []).slice(0,12).forEach(m => {
+    const src = m.media_type === 'VIDEO' ? (m.thumbnail_url || '') : (m.media_url || '');
+    const type = m.media_type === 'VIDEO' ? 'Vidéo' : (m.media_type === 'CAROUSEL_ALBUM' ? '⊞' : '');
+    const a = document.createElement('a');
+    a.href = m.permalink || '#';
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.className = 'ig-thumb';
+    a.innerHTML = src
+      ? `<img src="${src}" alt="Post Instagram" loading="lazy">${type ? `<span class="ig-type">${type}</span>` : ''}`
+      : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:rgba(250,245,238,.2)">Indisponible</div>`;
+    grid.appendChild(a);
+  });
+}
+
+function applyIGStats() {
+  if (!igData) return;
+  if (igData.followers_count != null) {
+    const v = igData.followers_count.toLocaleString('fr-BE');
+    localStorage.setItem('ds_followers', v);
+    document.getElementById('adm-followers').value = v;
+    document.getElementById('kpi-followers').textContent = v;
+  }
+  if (igData.media_count != null) {
+    const v = String(igData.media_count);
+    localStorage.setItem('ds_publications', v);
+    document.getElementById('adm-publications').value = v;
+    document.getElementById('kpi-publications').textContent = v;
+  }
+  toast('✓ Stats Instagram appliquées sur le site');
+}
+
+function toggleTokenVis() {
+  const inp = document.getElementById('ig-token');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+}
+
+function disconnectIG() {
+  if (!confirm('Déconnecter Instagram ?')) return;
+  ['ds_ig_token','ds_ig_app_id','ds_ig_data'].forEach(k => localStorage.removeItem(k));
+  igData = null;
+  document.getElementById('ig-token').value = '';
+  document.getElementById('ig-app-id').value = '';
+  document.getElementById('ig-profile-block').style.display = 'none';
+  updateIGStatusBar('', 'En attente de connexion');
+  document.getElementById('dash-ig-status').textContent = 'Non connecté';
+}
+
+/* ════════════════════════════════
+   IMAGE COMPRESSION
+════════════════════════════════ */
+function compressImage(file, maxPx = 800) {
+  return new Promise(resolve => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => {
+        let w = img.naturalWidth, h = img.naturalHeight;
+        if (w > maxPx || h > maxPx) {
+          if (w >= h) { h = Math.round(h * maxPx / w); w = maxPx; }
+          else        { w = Math.round(w * maxPx / h); h = maxPx; }
+        }
+        const c = document.createElement('canvas');
+        c.width = w; c.height = h;
+        c.getContext('2d').drawImage(img, 0, 0, w, h);
+        resolve(c.toDataURL('image/jpeg', 0.82));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+/* ════════════════════════════════
+   PHOTO ZONES
+════════════════════════════════ */
+const PZ_ABOUT     = ['portrait','rome','lifestyle','mode'];
+const PZ_PORTFOLIO = ['fashion','beauty','travel','soiree'];
+const PZ_MK        = ['celine'];
+
+function buildPhotoZones() {
+  const containers = {
+    'portrait':  document.querySelector('#panel-photos .photo-zones:first-of-type'),
+    'fashion':   document.getElementById('pz-portfolio'),
+    'celine':    document.getElementById('pz-mk'),
   };
-  reader.readAsDataURL(file);
-}
 
-/* ── RESET ── */
-function resetPhotos() {
-  if (!confirm('Réinitialiser toutes les photos ?')) return;
-  PHOTOS.forEach(k => localStorage.removeItem('ds_photo_' + k));
-  PHOTOS.forEach(k => {
-    const img = document.getElementById('padm-' + k);
-    if (img) { img.src = ''; img.style.display = 'none'; }
-    const ph = document.querySelector(`#prev-${k} .ph-label`);
-    if (ph) ph.style.display = '';
+  PHOTOS.forEach(p => {
+    const grpEl = PZ_ABOUT.includes(p.key)
+      ? document.querySelector('#panel-photos .photo-zones:first-of-type')
+      : PZ_PORTFOLIO.includes(p.key)
+        ? document.getElementById('pz-portfolio')
+        : document.getElementById('pz-mk');
+    if (!grpEl) return;
+
+    const stored = localStorage.getItem('ds_photo_' + p.key);
+    const hasImg = !!stored;
+
+    const pz = document.createElement('div');
+    pz.className = 'pz';
+    pz.innerHTML = `
+      <div class="pz-label">${p.label} <span>${p.file}</span></div>
+      <div class="pz-drop${hasImg ? ' has-img' : ''}" id="pzdrop-${p.key}">
+        ${hasImg ? `<img src="${stored}" alt="${p.key}">` : ''}
+        <div class="pz-ph">
+          <div class="pz-ph-ico">+</div>
+          <div class="pz-ph-txt">Glisser une photo<br>ou cliquer</div>
+        </div>
+        <div class="pz-overlay">↑ Changer la photo</div>
+      </div>
+      <div class="pz-actions">
+        <label class="pz-action">
+          ↑ Changer
+          <input type="file" accept="image/*" onchange="handlePhotoFile('${p.key}',this)">
+        </label>
+        <div class="pz-action del" onclick="deletePhoto('${p.key}')">✕ Supprimer</div>
+      </div>
+    `;
+    grpEl.appendChild(pz);
+
+    // Drag & drop
+    const drop = pz.querySelector('.pz-drop');
+    drop.addEventListener('click', () => pz.querySelector('input[type=file]').click());
+    drop.addEventListener('dragover', e => { e.preventDefault(); drop.classList.add('drag-over'); });
+    drop.addEventListener('dragleave', () => drop.classList.remove('drag-over'));
+    drop.addEventListener('drop', e => {
+      e.preventDefault();
+      drop.classList.remove('drag-over');
+      const file = e.dataTransfer.files[0];
+      if (file && file.type.startsWith('image/')) processPhoto(p.key, file);
+    });
   });
-  toast();
 }
 
-function resetAll() {
-  if (!confirm('Tout réinitialiser (stats, collabs, photos) ?')) return;
-  ['ds_followers','ds_publications',
-   'ds_collab1_name','ds_collab1_cat','ds_collab1_desc','ds_collab1_badge',
-   'ds_collab2_name','ds_collab2_cat','ds_collab2_desc','ds_collab2_badge',
-   'ds_collab3_name','ds_collab3_cat','ds_collab3_desc','ds_collab3_badge',
-   ...PHOTOS.map(k => 'ds_photo_' + k)
-  ].forEach(k => localStorage.removeItem(k));
-  location.reload();
+function handlePhotoFile(key, input) {
+  const file = input.files[0];
+  if (file) processPhoto(key, file);
+}
+
+async function processPhoto(key, file) {
+  try {
+    const data = await compressImage(file, 800);
+    localStorage.setItem('ds_photo_' + key, data);
+
+    const drop = document.getElementById('pzdrop-' + key);
+    if (drop) {
+      let img = drop.querySelector('img');
+      if (!img) { img = document.createElement('img'); img.alt = key; drop.prepend(img); }
+      img.src = data;
+      drop.classList.add('has-img');
+    }
+    markUpdated();
+    toast(`✓ ${key} mis à jour`);
+  } catch(err) {
+    alert('Erreur lors du traitement de la photo. Essaie avec une image plus petite.');
+  }
+}
+
+function deletePhoto(key) {
+  if (!confirm(`Supprimer la photo "${key}" ?`)) return;
+  localStorage.removeItem('ds_photo_' + key);
+  const drop = document.getElementById('pzdrop-' + key);
+  if (drop) {
+    const img = drop.querySelector('img');
+    if (img) img.remove();
+    drop.classList.remove('has-img');
+  }
+  toast(`✓ ${key} supprimé`);
+}
+
+function resetAllPhotos() {
+  if (!confirm('Supprimer toutes les photos du localStorage ?')) return;
+  PHOTOS.forEach(p => {
+    localStorage.removeItem('ds_photo_' + p.key);
+    const drop = document.getElementById('pzdrop-' + p.key);
+    if (drop) { const img = drop.querySelector('img'); if (img) img.remove(); drop.classList.remove('has-img'); }
+  });
+  toast('✓ Toutes les photos réinitialisées');
 }
 </script>
 </body>
