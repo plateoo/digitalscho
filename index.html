@@ -280,10 +280,16 @@ footer{background:var(--n);padding:2rem 0;border-top:1px solid rgba(232,180,184,
 .fi{max-width:1200px;margin:0 auto;padding:0 5rem;display:flex;align-items:center;justify-content:space-between}
 .flo{font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:rgba(250,245,238,.22)}
 .fm{font-size:.6rem;color:rgba(250,245,238,.14)}
+@keyframes shimmer{0%,100%{box-shadow:0 0 6px rgba(200,160,96,.3),0 0 0 1px #c8a060}50%{box-shadow:0 0 14px rgba(200,160,96,.7),0 0 0 1px #e8c87a}}
 .fc{font-size:.6rem;color:rgba(250,245,238,.1)}
-.fc span{color:rgba(232,180,184,.25)}
-.admin-link{position:fixed;bottom:1.2rem;right:1.5rem;font-size:.65rem;color:rgba(250,245,238,.3);text-decoration:none;opacity:.3;transition:opacity .3s}
-.admin-link:hover{opacity:1}
+.serenity-badge{display:inline-flex;align-items:center;gap:.55rem;background:#0a0808;border:1px solid #c8a060;border-radius:2rem;padding:.35rem .85rem .35rem .55rem;text-decoration:none;animation:shimmer 2.8s ease-in-out infinite;transition:transform .2s}
+.serenity-badge:hover{transform:scale(1.03)}
+.sb-logo{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#c8a060,#8a5c2e);display:flex;align-items:center;justify-content:center;font-size:.5rem;font-weight:700;color:#0a0808;letter-spacing:.03em;flex-shrink:0}
+.sb-text{display:flex;flex-direction:column;line-height:1.3}
+.sb-main{font-size:.58rem;color:rgba(250,245,238,.75);letter-spacing:.04em}
+.sb-sub{font-size:.46rem;color:#c8a060;letter-spacing:.07em;text-transform:uppercase}
+.nav-admin{color:rgba(250,245,238,.4);text-decoration:none;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;transition:color .3s}
+.nav-admin:hover{color:var(--creme)}
 
 /* ── SCROLL REVEAL ── */
 /* localStorage override: photos loaded dynamically by JS */
@@ -374,6 +380,7 @@ footer{background:var(--n);padding:2rem 0;border-top:1px solid rgba(232,180,184,
     <li><a href="#collabs" onclick="closeMenu()">Collabs</a></li>
     <li><a href="#mediakit" onclick="closeMenu()">Media Kit</a></li>
     <li><a href="#contact" class="nav-cta" onclick="closeMenu()">Contact</a></li>
+    <li><a href="https://digitalscho.be/admin.html" class="nav-admin">⚙️ Admin</a></li>
   </ul>
   <button class="nav-burger" id="burger" aria-label="Menu" onclick="toggleMenu()">
     <span></span><span></span><span></span>
@@ -676,9 +683,14 @@ footer{background:var(--n);padding:2rem 0;border-top:1px solid rgba(232,180,184,
   <div class="fi">
     <div class="flo">DigitalScho</div>
     <div class="fm">© 2025 Céline Scholinckx · Tous droits réservés</div>
-    <div class="fc">Site réalisé par <span>Serenity Studio</span></div>
+    <a href="https://plateoo.github.io/serenity-studio/" target="_blank" rel="noopener" class="serenity-badge">
+      <div class="sb-logo">SS</div>
+      <div class="sb-text">
+        <span class="sb-main">Réalisé par Serenity Studio</span>
+        <span class="sb-sub">Digital &amp; Technology — Belgique</span>
+      </div>
+    </a>
   </div>
-  <a href="https://digitalscho.be/admin.html" class="admin-link" title="Espace admin">⚙️ Espace admin</a>
 </footer>
 
 <script>
