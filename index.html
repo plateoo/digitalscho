@@ -114,10 +114,9 @@ nav.scrolled{background:rgba(10,8,8,.95);backdrop-filter:blur(24px);border-botto
 .cp:nth-child(2){background:linear-gradient(135deg,#1c1616 0%,#d4888e 100%)}
 .cp:nth-child(3){background:linear-gradient(135deg,#3d2828 0%,#c8a060 100%)}
 .cp:nth-child(4){background:linear-gradient(90deg,#2a1e1e 0%,#e8b4b8 60%,#c8a060 100%)}
-.cp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s}
-.cp img.loaded{opacity:1}
+.cp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
 .cp-tag{position:absolute;bottom:.7rem;left:.7rem;background:rgba(10,8,8,.55);backdrop-filter:blur(8px);padding:.2rem .6rem;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(250,245,238,.7);z-index:2}
-.cp-init{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-style:italic;font-size:2.5rem;color:rgba(250,245,238,.08);pointer-events:none;z-index:1}
+.phone img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:27px;z-index:1}
 
 .slbl{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(42,30,30,.35);margin-bottom:1rem;display:flex;align-items:center;gap:.8rem}
 .slbl::after{content:'';width:35px;height:1px;background:rgba(42,30,30,.15)}
@@ -285,6 +284,7 @@ footer{background:var(--n);padding:2rem 0;border-top:1px solid rgba(232,180,184,
 .fc span{color:rgba(232,180,184,.25)}
 
 /* ── SCROLL REVEAL ── */
+/* localStorage override: photos loaded dynamically by JS */
 .rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
 .rl{opacity:0;transform:translateX(-30px);transition:opacity .8s ease,transform .8s ease}
 .rv.on,.rl.on{opacity:1;transform:none}
@@ -396,12 +396,12 @@ footer{background:var(--n);padding:2rem 0;border-top:1px solid rgba(232,180,184,
     <div class="hero-side-stats">
       <div class="hss-label">— Stats</div>
       <div class="hss-item">
-        <div class="hss-n">2 177</div>
+        <div class="hss-n" id="stat-followers">2 177</div>
         <div class="hss-l">Followers Instagram</div>
       </div>
       <div class="hss-div"></div>
       <div class="hss-item">
-        <div class="hss-n">385</div>
+        <div class="hss-n" id="stat-publications">385</div>
         <div class="hss-l">Publications</div>
       </div>
       <div class="hss-div"></div>
@@ -428,28 +428,22 @@ footer{background:var(--n);padding:2rem 0;border-top:1px solid rgba(232,180,184,
   <div class="ctr">
     <div class="about-grid">
 
-      <!-- COLLAGE PHOTOS -->
-      <!-- Pour ajouter tes photos : remplace les divs .cp par <img src="ta-photo.jpg"> -->
       <div class="collage rl">
         <div class="cp">
-          <div class="cp-init">C</div>
-          <!-- <img src="portrait.jpg" alt="Portrait" onload="this.classList.add('loaded')"> -->
+          <img id="img-portrait" src="photo-portrait.jpg" alt="Céline Scholinckx — Portrait">
           <span class="cp-tag">Mode</span>
         </div>
         <div class="cp">
-          <div class="cp-init">✦</div>
-          <!-- <img src="outfit.jpg" alt="Outfit" onload="this.classList.add('loaded')"> -->
-          <span class="cp-tag">Style</span>
-        </div>
-        <div class="cp">
-          <div class="cp-init">✦</div>
-          <!-- <img src="beauty.jpg" alt="Beauty" onload="this.classList.add('loaded')"> -->
-          <span class="cp-tag">Beauty</span>
-        </div>
-        <div class="cp">
-          <div class="cp-init">Rome · Venise · Ski</div>
-          <!-- <img src="voyage.jpg" alt="Voyage" onload="this.classList.add('loaded')"> -->
+          <img id="img-rome" src="photo-rome.jpg" alt="Céline à Rome">
           <span class="cp-tag">Voyage</span>
+        </div>
+        <div class="cp">
+          <img id="img-lifestyle" src="photo-lifestyle.jpg" alt="Lifestyle">
+          <span class="cp-tag">Lifestyle</span>
+        </div>
+        <div class="cp">
+          <img id="img-mode" src="photo-mode.jpg" alt="Céline — Mode">
+          <span class="cp-tag">Style</span>
         </div>
       </div>
 
@@ -517,6 +511,7 @@ footer{background:var(--n);padding:2rem 0;border-top:1px solid rgba(232,180,184,
     <div class="phone-grid">
       <div class="pw rv">
         <div class="phone">
+          <img id="img-fashion" src="photo-fashion.jpg" alt="Fashion">
           <div class="phone-bg"></div>
           <div class="phone-inner">
             <div class="phone-cat-label">Fashion</div>
@@ -527,6 +522,7 @@ footer{background:var(--n);padding:2rem 0;border-top:1px solid rgba(232,180,184,
       </div>
       <div class="pw rv">
         <div class="phone">
+          <img id="img-beauty" src="photo-beauty.jpg" alt="Beauty">
           <div class="phone-bg"></div>
           <div class="phone-inner">
             <div class="phone-cat-label">Beauty</div>
@@ -537,6 +533,7 @@ footer{background:var(--n);padding:2rem 0;border-top:1px solid rgba(232,180,184,
       </div>
       <div class="pw rv">
         <div class="phone">
+          <img id="img-travel" src="photo-travel.jpg" alt="Travel">
           <div class="phone-bg"></div>
           <div class="phone-inner">
             <div class="phone-cat-label">Travel</div>
@@ -547,6 +544,7 @@ footer{background:var(--n);padding:2rem 0;border-top:1px solid rgba(232,180,184,
       </div>
       <div class="pw rv">
         <div class="phone">
+          <img id="img-soiree" src="photo-soiree.jpg" alt="Soirée">
           <div class="phone-bg"></div>
           <div class="phone-inner">
             <div class="phone-cat-label">Lifestyle</div>
@@ -568,9 +566,9 @@ footer{background:var(--n);padding:2rem 0;border-top:1px solid rgba(232,180,184,
       <div class="sec-h2">Marques & <em>partenaires</em></div>
     </div>
     <div class="collab-grid">
-      <div class="cc rv"><div class="cc-brand">SALE Beauty</div><div class="cc-cat">Beauté · Cosmétiques</div><p class="cc-desc">Mise en avant produits beauté — publications authentiques, reels et stories lifestyle.</p><span class="cc-badge ba">Partenariat actif</span></div>
-      <div class="cc rv"><div class="cc-brand">Mode & Style</div><div class="cc-cat">Vêtements · Accessoires</div><p class="cc-desc">Collaborations mode en adéquation avec l'esthétique DigitalScho — edgy, authentique.</p><span class="cc-badge bo">Disponible</span></div>
-      <div class="cc rv"><div class="cc-brand">Lifestyle & Travel</div><div class="cc-cat">Voyage · Food · Beauty</div><p class="cc-desc">Post sponsorisé, UGC, ambassadrice, unboxing — formats sur mesure selon objectifs.</p><span class="cc-badge bo">Sur devis</span></div>
+      <div class="cc rv"><div class="cc-brand" id="collab1-name">SALE Beauty</div><div class="cc-cat" id="collab1-cat">Beauté · Cosmétiques</div><p class="cc-desc" id="collab1-desc">Mise en avant produits beauté — publications authentiques, reels et stories lifestyle.</p><span class="cc-badge ba" id="collab1-badge">Partenariat actif</span></div>
+      <div class="cc rv"><div class="cc-brand" id="collab2-name">Mode & Style</div><div class="cc-cat" id="collab2-cat">Vêtements · Accessoires</div><p class="cc-desc" id="collab2-desc">Collaborations mode en adéquation avec l'esthétique DigitalScho — edgy, authentique.</p><span class="cc-badge bo" id="collab2-badge">Disponible</span></div>
+      <div class="cc rv"><div class="cc-brand" id="collab3-name">Lifestyle & Travel</div><div class="cc-cat" id="collab3-cat">Voyage · Food · Beauty</div><p class="cc-desc" id="collab3-desc">Post sponsorisé, UGC, ambassadrice, unboxing — formats sur mesure selon objectifs.</p><span class="cc-badge bo" id="collab3-badge">Sur devis</span></div>
     </div>
   </div>
 </section>
@@ -728,6 +726,30 @@ document.querySelectorAll('.pc').forEach(pc => {
     pc.classList.add('act');
   });
 });
+
+/* ── LOCALSTORAGE SYNC (admin panel) ── */
+(function loadFromAdmin() {
+  // Stats
+  const f = localStorage.getItem('ds_followers');
+  const p = localStorage.getItem('ds_publications');
+  if (f) document.getElementById('stat-followers').textContent = f;
+  if (p) document.getElementById('stat-publications').textContent = p;
+
+  // Photos (base64 depuis admin)
+  ['portrait','rome','lifestyle','mode','fashion','beauty','travel','soiree'].forEach(k => {
+    const d = localStorage.getItem('ds_photo_' + k);
+    if (d) { const el = document.getElementById('img-' + k); if (el) el.src = d; }
+  });
+
+  // Collabs
+  [1,2,3].forEach(i => {
+    const set = (id, key) => { const v = localStorage.getItem(key); if (v) { const el = document.getElementById(id); if (el) el.textContent = v; } };
+    set(`collab${i}-name`,  `ds_collab${i}_name`);
+    set(`collab${i}-cat`,   `ds_collab${i}_cat`);
+    set(`collab${i}-desc`,  `ds_collab${i}_desc`);
+    set(`collab${i}-badge`, `ds_collab${i}_badge`);
+  });
+})();
 </script>
 </body>
 </html>

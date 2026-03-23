@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — DigitalScho</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400;1,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --n:    #0a0808;
+  --n2:   #120e0e;
+  --n3:   #1c1616;
+  --creme:#faf5ee;
+  --creme2:#f2ebe0;
+  --creme3:#e8dfd2;
+  --blush:#e8b4b8;
+  --blush2:#d4888e;
+  --blush3:#c06870;
+  --or:   #c8a060;
+  --or2:  #e0b878;
+  --texte:#2a1e1e;
+  --ok:   #7dba8c;
+  --err:  #c06870;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--n2);color:var(--creme);min-height:100vh}
+
+/* ── GATE ── */
+#gate{
+  position:fixed;inset:0;z-index:999;
+  background:var(--n);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;
+}
+.gate-brand{font-family:'Playfair Display',serif;font-style:italic;font-size:2rem;color:rgba(250,245,238,.2);margin-bottom:2.5rem}
+.gate-box{
+  background:rgba(250,245,238,.03);
+  border:1px solid rgba(250,245,238,.07);
+  padding:2.5rem 3rem;
+  display:flex;flex-direction:column;gap:1rem;
+  min-width:320px;
+}
+.gate-title{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(250,245,238,.25);margin-bottom:.5rem}
+.gate-input{
+  background:rgba(250,245,238,.04);
+  border:1px solid rgba(250,245,238,.1);
+  color:var(--creme);
+  padding:.85rem 1.1rem;
+  font-family:'DM Sans',sans-serif;font-size:.9rem;
+  width:100%;outline:none;transition:border-color .3s;
+}
+.gate-input:focus{border-color:rgba(232,180,184,.35)}
+.gate-btn{
+  background:var(--blush2);color:#fff;
+  border:none;padding:.9rem 1.5rem;
+  font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  cursor:pointer;transition:background .3s;
+}
+.gate-btn:hover{background:var(--blush3)}
+.gate-err{font-size:.75rem;color:var(--err);text-align:center;min-height:1rem}
+
+/* ── LAYOUT ── */
+.admin-wrap{display:none;min-height:100vh;flex-direction:column}
+.admin-wrap.visible{display:flex}
+
+/* ── TOPBAR ── */
+.topbar{
+  background:var(--n3);
+  border-bottom:1px solid rgba(232,180,184,.08);
+  padding:1rem 2.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:10;
+}
+.topbar-brand{font-family:'Playfair Display',serif;font-style:italic;font-size:1.1rem;color:rgba(250,245,238,.3)}
+.topbar-title{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--blush);font-weight:600}
+.topbar-actions{display:flex;gap:1rem;align-items:center}
+.topbar-link{
+  color:rgba(250,245,238,.35);text-decoration:none;
+  font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;transition:color .3s;
+}
+.topbar-link:hover{color:var(--creme)}
+#toast{
+  font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ok);
+  opacity:0;transition:opacity .4s;
+}
+#toast.show{opacity:1}
+
+/* ── MAIN GRID ── */
+.admin-main{padding:2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:1200px;margin:0 auto;width:100%}
+@media(max-width:800px){.admin-main{grid-template-columns:1fr}}
+
+/* ── SECTION CARD ── */
+.adm-card{
+  background:rgba(250,245,238,.03);
+  border:1px solid rgba(250,245,238,.06);
+  padding:2rem;
+  display:flex;flex-direction:column;gap:1.2rem;
+}
+.adm-card.full{grid-column:span 2}
+@media(max-width:800px){.adm-card.full{grid-column:span 1}}
+.card-title{
+  font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;
+  color:rgba(250,245,238,.25);padding-bottom:.8rem;
+  border-bottom:1px solid rgba(250,245,238,.05);
+  display:flex;align-items:center;gap:.6rem;
+}
+.card-title::before{content:'✦';color:var(--blush2);font-size:.45rem}
+
+/* ── FIELD ── */
+.field{display:flex;flex-direction:column;gap:.4rem}
+.field label{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(250,245,238,.3)}
+.field input,.field select,.field textarea{
+  background:rgba(250,245,238,.04);
+  border:1px solid rgba(250,245,238,.08);
+  color:var(--creme);
+  padding:.75rem 1rem;
+  font-family:'DM Sans',sans-serif;font-size:.88rem;
+  width:100%;outline:none;transition:border-color .3s;
+  resize:vertical;
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(232,180,184,.3)}
+.field select option{background:var(--n2);color:var(--creme)}
+
+/* ── COLLAB GROUP ── */
+.collab-group{
+  background:rgba(250,245,238,.02);
+  border:1px solid rgba(250,245,238,.05);
+  padding:1.2rem;
+  display:flex;flex-direction:column;gap:.8rem;
+}
+.collab-group-title{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(232,180,184,.4)}
+.fields-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+
+/* ── PHOTO GRID ── */
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+@media(max-width:600px){.photo-grid{grid-template-columns:1fr 1fr}}
+.photo-slot{display:flex;flex-direction:column;gap:.5rem}
+.photo-preview{
+  width:100%;aspect-ratio:3/4;
+  background:rgba(250,245,238,.04);
+  border:1px solid rgba(250,245,238,.07);
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.photo-preview img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.photo-preview .ph-label{font-family:'Playfair Display',serif;font-style:italic;font-size:.75rem;color:rgba(250,245,238,.12);position:relative;z-index:2;text-align:center;padding:.5rem}
+.photo-slot label.upload-btn{
+  display:flex;align-items:center;justify-content:center;gap:.5rem;
+  background:rgba(250,245,238,.04);border:1px solid rgba(250,245,238,.07);
+  padding:.55rem;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(250,245,238,.3);cursor:pointer;transition:all .3s;
+}
+.photo-slot label.upload-btn:hover{background:rgba(232,180,184,.07);border-color:rgba(232,180,184,.2);color:var(--blush)}
+.photo-slot input[type=file]{display:none}
+.photo-key{font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(250,245,238,.15);text-align:center}
+
+/* ── SAVE BTN ── */
+.save-btn{
+  background:var(--blush2);color:#fff;
+  border:none;padding:.9rem 2rem;
+  font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  cursor:pointer;transition:all .3s;align-self:flex-start;
+  display:flex;align-items:center;gap:.6rem;
+}
+.save-btn:hover{background:var(--blush3);transform:translateY(-1px)}
+.save-btn.or{background:var(--or);color:var(--n)}
+.save-btn.or:hover{background:var(--or2)}
+
+/* ── RESET BTN ── */
+.reset-btn{
+  background:transparent;border:1px solid rgba(250,245,238,.08);
+  color:rgba(250,245,238,.3);
+  padding:.7rem 1.4rem;
+  font-family:'DM Sans',sans-serif;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+  cursor:pointer;transition:all .3s;
+}
+.reset-btn:hover{border-color:var(--err);color:var(--err)}
+
+/* ── INFO BOX ── */
+.info-box{
+  background:rgba(200,160,96,.06);border:1px solid rgba(200,160,96,.15);
+  padding:1rem 1.2rem;font-size:.78rem;color:rgba(250,245,238,.4);line-height:1.65;
+}
+.info-box strong{color:rgba(200,160,96,.7)}
+</style>
+</head>
+<body>
+
+<!-- ── GATE MOT DE PASSE ── -->
+<div id="gate">
+  <div class="gate-brand">DigitalScho</div>
+  <div class="gate-box">
+    <div class="gate-title">Panneau d'administration</div>
+    <input type="password" class="gate-input" id="pwd" placeholder="Mot de passe" autocomplete="current-password">
+    <button class="gate-btn" onclick="checkPwd()">Accéder →</button>
+    <div class="gate-err" id="gate-err"></div>
+  </div>
+</div>
+
+<!-- ── PANNEAU ADMIN ── -->
+<div class="admin-wrap" id="adminWrap">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div>
+      <div class="topbar-brand">DigitalScho</div>
+    </div>
+    <div class="topbar-title">Panneau Admin</div>
+    <div class="topbar-actions">
+      <span id="toast">✓ Sauvegardé</span>
+      <a href="index.html" class="topbar-link" target="_blank">Voir le site ↗</a>
+      <a href="mediakit.html" class="topbar-link" target="_blank">Media Kit ↗</a>
+    </div>
+  </div>
+
+  <!-- CONTENU -->
+  <div class="admin-main">
+
+    <!-- ── STATS ── -->
+    <div class="adm-card">
+      <div class="card-title">Statistiques Instagram</div>
+      <div class="field">
+        <label>Followers</label>
+        <input type="text" id="adm-followers" placeholder="2 177">
+      </div>
+      <div class="field">
+        <label>Publications</label>
+        <input type="text" id="adm-publications" placeholder="385">
+      </div>
+      <div class="info-box">
+        <strong>Astuce :</strong> Ces chiffres s'affichent sur la page d'accueil et dans le media kit. Mets à jour après chaque jalon.
+      </div>
+      <button class="save-btn" onclick="saveStats()">Sauvegarder les stats</button>
+    </div>
+
+    <!-- ── COLLABS ── -->
+    <div class="adm-card">
+      <div class="card-title">Collaborations</div>
+
+      <div class="collab-group">
+        <div class="collab-group-title">Collab 1</div>
+        <div class="field"><label>Marque</label><input type="text" id="c1-name" placeholder="SALE Beauty"></div>
+        <div class="fields-row">
+          <div class="field"><label>Catégorie</label><input type="text" id="c1-cat" placeholder="Beauté · Cosmétiques"></div>
+          <div class="field">
+            <label>Statut</label>
+            <select id="c1-badge">
+              <option value="Partenariat actif">Partenariat actif</option>
+              <option value="Disponible">Disponible</option>
+              <option value="Sur devis">Sur devis</option>
+              <option value="Terminé">Terminé</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label>Description</label><textarea id="c1-desc" rows="2" placeholder="Description..."></textarea></div>
+      </div>
+
+      <div class="collab-group">
+        <div class="collab-group-title">Collab 2</div>
+        <div class="field"><label>Marque</label><input type="text" id="c2-name" placeholder="Mode & Style"></div>
+        <div class="fields-row">
+          <div class="field"><label>Catégorie</label><input type="text" id="c2-cat" placeholder="Vêtements · Accessoires"></div>
+          <div class="field">
+            <label>Statut</label>
+            <select id="c2-badge">
+              <option value="Disponible">Disponible</option>
+              <option value="Partenariat actif">Partenariat actif</option>
+              <option value="Sur devis">Sur devis</option>
+              <option value="Terminé">Terminé</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label>Description</label><textarea id="c2-desc" rows="2" placeholder="Description..."></textarea></div>
+      </div>
+
+      <div class="collab-group">
+        <div class="collab-group-title">Collab 3</div>
+        <div class="field"><label>Marque</label><input type="text" id="c3-name" placeholder="Lifestyle & Travel"></div>
+        <div class="fields-row">
+          <div class="field"><label>Catégorie</label><input type="text" id="c3-cat" placeholder="Voyage · Food · Beauty"></div>
+          <div class="field">
+            <label>Statut</label>
+            <select id="c3-badge">
+              <option value="Sur devis">Sur devis</option>
+              <option value="Partenariat actif">Partenariat actif</option>
+              <option value="Disponible">Disponible</option>
+              <option value="Terminé">Terminé</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label>Description</label><textarea id="c3-desc" rows="2" placeholder="Description..."></textarea></div>
+      </div>
+
+      <button class="save-btn or" onclick="saveCollabs()">Sauvegarder les collabs</button>
+    </div>
+
+    <!-- ── PHOTOS ── -->
+    <div class="adm-card full">
+      <div class="card-title">Photos du site</div>
+      <div class="info-box">
+        <strong>Comment ça marche :</strong> Clique sur une case pour uploader une photo depuis ton appareil. Elle sera stockée localement et s'affichera immédiatement sur le site et le media kit. Formats supportés : JPG, PNG, WebP.
+      </div>
+
+      <div style="margin-bottom:.5rem;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,245,238,.2)">Collage "À propos"</div>
+      <div class="photo-grid">
+        <div class="photo-slot">
+          <div class="photo-preview" id="prev-portrait">
+            <img id="padm-portrait" src="" style="display:none">
+            <span class="ph-label">Portrait<br>(grande case)</span>
+          </div>
+          <label class="upload-btn" for="upl-portrait">↑ Changer</label>
+          <input type="file" id="upl-portrait" accept="image/*" onchange="uploadPhoto('portrait',this)">
+          <div class="photo-key">photo-portrait.jpg</div>
+        </div>
+        <div class="photo-slot">
+          <div class="photo-preview" id="prev-rome">
+            <img id="padm-rome" src="" style="display:none">
+            <span class="ph-label">Rome · Voyage</span>
+          </div>
+          <label class="upload-btn" for="upl-rome">↑ Changer</label>
+          <input type="file" id="upl-rome" accept="image/*" onchange="uploadPhoto('rome',this)">
+          <div class="photo-key">photo-rome.jpg</div>
+        </div>
+        <div class="photo-slot">
+          <div class="photo-preview" id="prev-lifestyle">
+            <img id="padm-lifestyle" src="" style="display:none">
+            <span class="ph-label">Lifestyle</span>
+          </div>
+          <label class="upload-btn" for="upl-lifestyle">↑ Changer</label>
+          <input type="file" id="upl-lifestyle" accept="image/*" onchange="uploadPhoto('lifestyle',this)">
+          <div class="photo-key">photo-lifestyle.jpg</div>
+        </div>
+        <div class="photo-slot">
+          <div class="photo-preview" id="prev-mode">
+            <img id="padm-mode" src="" style="display:none">
+            <span class="ph-label">Mode · Style</span>
+          </div>
+          <label class="upload-btn" for="upl-mode">↑ Changer</label>
+          <input type="file" id="upl-mode" accept="image/*" onchange="uploadPhoto('mode',this)">
+          <div class="photo-key">photo-mode.jpg</div>
+        </div>
+      </div>
+
+      <div style="margin:1rem 0 .5rem;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,245,238,.2)">Portfolio — 4 téléphones</div>
+      <div class="photo-grid">
+        <div class="photo-slot">
+          <div class="photo-preview">
+            <img id="padm-fashion" src="" style="display:none">
+            <span class="ph-label">Fashion</span>
+          </div>
+          <label class="upload-btn" for="upl-fashion">↑ Changer</label>
+          <input type="file" id="upl-fashion" accept="image/*" onchange="uploadPhoto('fashion',this)">
+          <div class="photo-key">photo-fashion.jpg</div>
+        </div>
+        <div class="photo-slot">
+          <div class="photo-preview">
+            <img id="padm-beauty" src="" style="display:none">
+            <span class="ph-label">Beauty</span>
+          </div>
+          <label class="upload-btn" for="upl-beauty">↑ Changer</label>
+          <input type="file" id="upl-beauty" accept="image/*" onchange="uploadPhoto('beauty',this)">
+          <div class="photo-key">photo-beauty.jpg</div>
+        </div>
+        <div class="photo-slot">
+          <div class="photo-preview">
+            <img id="padm-travel" src="" style="display:none">
+            <span class="ph-label">Travel</span>
+          </div>
+          <label class="upload-btn" for="upl-travel">↑ Changer</label>
+          <input type="file" id="upl-travel" accept="image/*" onchange="uploadPhoto('travel',this)">
+          <div class="photo-key">photo-travel.jpg</div>
+        </div>
+        <div class="photo-slot">
+          <div class="photo-preview">
+            <img id="padm-soiree" src="" style="display:none">
+            <span class="ph-label">Soirée · Lifestyle</span>
+          </div>
+          <label class="upload-btn" for="upl-soiree">↑ Changer</label>
+          <input type="file" id="upl-soiree" accept="image/*" onchange="uploadPhoto('soiree',this)">
+          <div class="photo-key">photo-soiree.jpg</div>
+        </div>
+      </div>
+
+      <div style="margin:1rem 0 .5rem;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,245,238,.2)">Media Kit</div>
+      <div class="photo-grid">
+        <div class="photo-slot">
+          <div class="photo-preview" style="aspect-ratio:2/3">
+            <img id="padm-celine" src="" style="display:none">
+            <span class="ph-label">Photo principale<br>Media Kit</span>
+          </div>
+          <label class="upload-btn" for="upl-celine">↑ Changer</label>
+          <input type="file" id="upl-celine" accept="image/*" onchange="uploadPhoto('celine',this)">
+          <div class="photo-key">photo-celine.jpg</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:.5rem">
+        <button class="reset-btn" onclick="resetPhotos()">Réinitialiser toutes les photos</button>
+        <button class="reset-btn" onclick="resetAll()">Tout réinitialiser (stats + collabs + photos)</button>
+      </div>
+    </div>
+
+  </div><!-- /admin-main -->
+</div><!-- /admin-wrap -->
+
+<script>
+const PASS = 'digitalscho2025';
+const PHOTOS = ['portrait','rome','lifestyle','mode','fashion','beauty','travel','soiree','celine'];
+
+/* ── AUTH ── */
+function checkPwd() {
+  const val = document.getElementById('pwd').value;
+  if (val === PASS) {
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('adminWrap').classList.add('visible');
+    loadAll();
+  } else {
+    const err = document.getElementById('gate-err');
+    err.textContent = 'Mot de passe incorrect.';
+    setTimeout(() => { err.textContent = ''; }, 2000);
+  }
+}
+document.getElementById('pwd').addEventListener('keydown', e => { if (e.key === 'Enter') checkPwd(); });
+
+/* ── TOAST ── */
+function toast() {
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+/* ── LOAD ALL FROM LOCALSTORAGE ── */
+function loadAll() {
+  // Stats
+  const f = localStorage.getItem('ds_followers');
+  const p = localStorage.getItem('ds_publications');
+  if (f) document.getElementById('adm-followers').value = f;
+  if (p) document.getElementById('adm-publications').value = p;
+
+  // Collabs
+  [1,2,3].forEach(i => {
+    const get = (key, el) => { const v = localStorage.getItem(key); if (v && document.getElementById(el)) document.getElementById(el).value = v; };
+    get(`ds_collab${i}_name`,  `c${i}-name`);
+    get(`ds_collab${i}_cat`,   `c${i}-cat`);
+    get(`ds_collab${i}_desc`,  `c${i}-desc`);
+    // select badge
+    const badge = localStorage.getItem(`ds_collab${i}_badge`);
+    if (badge) {
+      const sel = document.getElementById(`c${i}-badge`);
+      if (sel) sel.value = badge;
+    }
+  });
+
+  // Photos previews
+  PHOTOS.forEach(k => {
+    const d = localStorage.getItem('ds_photo_' + k);
+    if (d) {
+      const img = document.getElementById('padm-' + k);
+      if (img) { img.src = d; img.style.display = 'block'; }
+      const ph = document.querySelector(`#prev-${k} .ph-label`);
+      if (ph) ph.style.display = 'none';
+    }
+  });
+}
+
+/* ── SAVE STATS ── */
+function saveStats() {
+  const f = document.getElementById('adm-followers').value.trim();
+  const p = document.getElementById('adm-publications').value.trim();
+  if (f) localStorage.setItem('ds_followers', f);
+  if (p) localStorage.setItem('ds_publications', p);
+  toast();
+}
+
+/* ── SAVE COLLABS ── */
+function saveCollabs() {
+  [1,2,3].forEach(i => {
+    const save = (key, el) => {
+      const el2 = document.getElementById(el);
+      if (el2 && el2.value.trim()) localStorage.setItem(key, el2.value.trim());
+    };
+    save(`ds_collab${i}_name`,  `c${i}-name`);
+    save(`ds_collab${i}_cat`,   `c${i}-cat`);
+    save(`ds_collab${i}_desc`,  `c${i}-desc`);
+    save(`ds_collab${i}_badge`, `c${i}-badge`);
+  });
+  toast();
+}
+
+/* ── UPLOAD PHOTO ── */
+function uploadPhoto(key, input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const data = e.target.result;
+    try {
+      localStorage.setItem('ds_photo_' + key, data);
+    } catch(err) {
+      alert('Photo trop lourde pour le stockage local. Compresse l\'image (< 1Mo recommandé).');
+      return;
+    }
+    // Update preview
+    const img = document.getElementById('padm-' + key);
+    if (img) { img.src = data; img.style.display = 'block'; }
+    const ph = document.querySelector(`#prev-${key} .ph-label`);
+    if (ph) ph.style.display = 'none';
+    toast();
+  };
+  reader.readAsDataURL(file);
+}
+
+/* ── RESET ── */
+function resetPhotos() {
+  if (!confirm('Réinitialiser toutes les photos ?')) return;
+  PHOTOS.forEach(k => localStorage.removeItem('ds_photo_' + k));
+  PHOTOS.forEach(k => {
+    const img = document.getElementById('padm-' + k);
+    if (img) { img.src = ''; img.style.display = 'none'; }
+    const ph = document.querySelector(`#prev-${k} .ph-label`);
+    if (ph) ph.style.display = '';
+  });
+  toast();
+}
+
+function resetAll() {
+  if (!confirm('Tout réinitialiser (stats, collabs, photos) ?')) return;
+  ['ds_followers','ds_publications',
+   'ds_collab1_name','ds_collab1_cat','ds_collab1_desc','ds_collab1_badge',
+   'ds_collab2_name','ds_collab2_cat','ds_collab2_desc','ds_collab2_badge',
+   'ds_collab3_name','ds_collab3_cat','ds_collab3_desc','ds_collab3_badge',
+   ...PHOTOS.map(k => 'ds_photo_' + k)
+  ].forEach(k => localStorage.removeItem(k));
+  location.reload();
+}
+</script>
+</body>
+</html>
