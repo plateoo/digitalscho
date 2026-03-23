@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DigitalScho — Céline Scholinckx</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --n:    #0a0808;
+  --n2:   #120e0e;
+  --n3:   #1c1616;
+  --creme:#faf5ee;
+  --creme2:#f2ebe0;
+  --creme3:#e8dfd2;
+  --blush:#e8b4b8;
+  --blush2:#d4888e;
+  --blush3:#c06870;
+  --or:   #c8a060;
+  --or2:  #e0b878;
+  --texte:#2a1e1e;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--creme);color:var(--texte);overflow-x:hidden}
+
+/* ── LOADER ── */
+#loader{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--n);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity .7s ease,visibility .7s ease;
+}
+#loader.hidden{opacity:0;visibility:hidden}
+.ld-over{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(.7rem,1.5vw,1rem);letter-spacing:.22em;color:rgba(232,180,184,.4);text-transform:uppercase;margin-bottom:1.2rem;animation:ldFadeIn .6s ease .1s both}
+.ld-name{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(2rem,6vw,4.5rem);color:var(--creme);line-height:1;animation:ldFadeUp .7s ease .2s both}
+.ld-brand{font-family:'DM Sans',sans-serif;font-weight:700;font-size:clamp(1rem,3vw,2rem);letter-spacing:.3em;text-transform:uppercase;color:var(--blush);margin-top:.5rem;animation:ldFadeUp .7s ease .45s both}
+.ld-bar{width:120px;height:1px;background:rgba(250,245,238,.06);margin-top:2.5rem;overflow:hidden;animation:ldFadeIn .6s ease .6s both}
+.ld-bar::after{content:'';display:block;height:1px;background:linear-gradient(90deg,var(--blush),var(--or));animation:ldProgress 1.3s ease .6s both}
+@keyframes ldFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes ldFadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes ldProgress{from{width:0}to{width:100%}}
+
+/* ── CURSEUR ── */
+*{cursor:none}
+#cur{position:fixed;width:6px;height:6px;background:var(--blush);border-radius:50%;pointer-events:none;z-index:9990;transition:transform .1s;mix-blend-mode:difference}
+#ring{position:fixed;width:28px;height:28px;border:1px solid rgba(232,180,184,.4);border-radius:50%;pointer-events:none;z-index:9989;transition:all .18s ease}
+
+/* ── TICKER ── */
+.ticker{position:fixed;top:0;left:0;right:0;z-index:200;height:24px;background:var(--n3);overflow:hidden;display:flex;align-items:center;border-bottom:1px solid rgba(232,180,184,.08)}
+.ticker-track{display:inline-flex;white-space:nowrap;animation:tick 22s linear infinite}
+.ti{font-size:.57rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,245,238,.35);padding:0 2rem;font-weight:500}
+.ti b{color:rgba(232,180,184,.7)}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── NAV ── */
+nav{position:fixed;top:24px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.3rem 5rem;transition:all .4s}
+nav.scrolled{background:rgba(10,8,8,.95);backdrop-filter:blur(24px);border-bottom:1px solid rgba(232,180,184,.06)}
+.nav-logo{font-family:'Playfair Display',serif;font-style:italic;font-size:1.25rem;color:var(--creme);text-decoration:none}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{color:rgba(250,245,238,.4);text-decoration:none;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;transition:color .3s}
+.nav-links a:hover{color:var(--creme)}
+.nav-cta{color:var(--blush)!important;border:1px solid rgba(232,180,184,.25);padding:.4rem 1.2rem}
+.nav-cta:hover{background:rgba(232,180,184,.1);border-color:var(--blush)!important}
+.nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:.4rem}
+.nav-burger span{display:block;width:22px;height:1px;background:rgba(250,245,238,.6);transition:all .3s}
+
+/* ══════════════════════
+   HERO — SOMBRE
+══════════════════════ */
+.hero{background:var(--n);min-height:100vh;padding-top:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 50% 40%,rgba(200,160,96,.07) 0%,transparent 65%);pointer-events:none}
+.h-arch{position:absolute;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.h-arch:nth-child(1){width:min(85vw,680px);height:min(85vw,680px);border:1px solid rgba(232,180,184,.04)}
+.h-arch:nth-child(2){width:min(62vw,500px);height:min(62vw,500px);border:1px solid rgba(200,160,96,.05)}
+.h-arch:nth-child(3){width:min(42vw,340px);height:min(42vw,340px);border:1px solid rgba(232,180,184,.06)}
+
+.hero-split{position:relative;z-index:2;display:grid;grid-template-columns:1fr 260px;width:100%;max-width:1200px;min-height:100vh;align-items:center;padding:8rem 5rem 4rem;gap:3rem}
+.hero-inner{position:relative;z-index:2;text-align:left}
+.h-overline{font-family:'Playfair Display',serif;font-size:clamp(1.2rem,3vw,2rem);font-style:italic;color:rgba(232,180,184,.55);margin-bottom:.6rem;animation:fadeIn .8s ease .3s both}
+.h-title{font-family:'DM Sans',sans-serif;font-size:clamp(4rem,11vw,11rem);font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--creme);line-height:.88;animation:fadeUp .8s ease .4s both}
+.h-title2{font-family:'DM Sans',sans-serif;font-size:clamp(2rem,5.5vw,5.5rem);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(250,245,238,.12);line-height:1;animation:fadeUp .8s ease .5s both}
+.h-pill{display:inline-flex;align-items:center;gap:.7rem;background:rgba(232,180,184,.07);border:1px solid rgba(232,180,184,.18);padding:.5rem 1.6rem;font-family:'Playfair Display',serif;font-style:italic;font-size:.85rem;color:rgba(232,180,184,.6);margin:1.8rem 0;animation:fadeIn .8s ease .6s both}
+.h-quote{font-family:'Playfair Display',serif;font-style:italic;font-size:.95rem;color:rgba(250,245,238,.28);margin-bottom:2.5rem;animation:fadeIn .8s ease .65s both}
+.h-actions{display:flex;gap:1rem;animation:fadeUp .8s ease .7s both}
+.btn-creme{background:var(--creme);color:var(--n);padding:.9rem 2.2rem;font-size:.76rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:all .3s;display:inline-block}
+.btn-creme:hover{background:#fff;transform:translateY(-2px)}
+.btn-ghost{border:1px solid rgba(250,245,238,.15);color:rgba(250,245,238,.7);padding:.9rem 2.2rem;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:all .3s;display:inline-block}
+.btn-ghost:hover{border-color:rgba(232,180,184,.4);color:var(--blush)}
+
+.hero-side-stats{display:flex;flex-direction:column;gap:0;border:1px solid rgba(232,180,184,.15);background:rgba(250,245,238,.04);backdrop-filter:blur(12px);padding:2rem 1.5rem;animation:fadeIn 1s ease .8s both}
+.hss-label{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(232,180,184,.4);margin-bottom:1rem}
+.hss-item{padding:.9rem 0}
+.hss-n{font-family:'DM Sans',sans-serif;font-size:2.2rem;font-weight:700;color:var(--creme);line-height:1}
+.hss-l{font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(250,245,238,.25);margin-top:.2rem}
+.hss-div{height:1px;background:rgba(250,245,238,.05)}
+
+/* ══════════════════════
+   À PROPOS — crème clair
+══════════════════════ */
+.about{background:var(--creme);padding:8rem 0}
+.ctr{max-width:1200px;margin:0 auto;padding:0 5rem}
+.about-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:5rem;align-items:center}
+
+/* Collage */
+.collage{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:220px 160px 180px;gap:.6rem;position:relative}
+.collage::after{content:'✦';position:absolute;top:-1rem;right:-1rem;font-size:1.1rem;color:rgba(200,160,96,.4);pointer-events:none}
+.cp{background:var(--creme3);border:1px solid rgba(42,30,30,.06);display:flex;align-items:flex-end;justify-content:flex-start;overflow:hidden;position:relative;transition:transform .4s ease}
+.cp:hover{transform:scale(1.02)}
+.cp:nth-child(1){grid-row:span 2}
+.cp:nth-child(4){grid-column:span 2}
+/* Photo backgrounds — remplace par tes images réelles */
+.cp:nth-child(1){background:linear-gradient(155deg,#2a1e1e 0%,#3d2828 40%,#c06870 100%)}
+.cp:nth-child(2){background:linear-gradient(135deg,#1c1616 0%,#d4888e 100%)}
+.cp:nth-child(3){background:linear-gradient(135deg,#3d2828 0%,#c8a060 100%)}
+.cp:nth-child(4){background:linear-gradient(90deg,#2a1e1e 0%,#e8b4b8 60%,#c8a060 100%)}
+.cp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s}
+.cp img.loaded{opacity:1}
+.cp-tag{position:absolute;bottom:.7rem;left:.7rem;background:rgba(10,8,8,.55);backdrop-filter:blur(8px);padding:.2rem .6rem;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(250,245,238,.7);z-index:2}
+.cp-init{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-style:italic;font-size:2.5rem;color:rgba(250,245,238,.08);pointer-events:none;z-index:1}
+
+.slbl{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(42,30,30,.35);margin-bottom:1rem;display:flex;align-items:center;gap:.8rem}
+.slbl::after{content:'';width:35px;height:1px;background:rgba(42,30,30,.15)}
+.about-h{font-family:'DM Sans',sans-serif;font-size:clamp(2.5rem,4vw,4rem);font-weight:700;line-height:.95;text-transform:uppercase;color:var(--texte)}
+.about-h em{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;text-transform:none;color:var(--blush2);display:block}
+.about-p{font-size:.88rem;color:rgba(42,30,30,.5);line-height:1.9;margin:1.5rem 0}
+.tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2rem}
+.tg{padding:.33rem .9rem;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(42,30,30,.12);color:rgba(42,30,30,.4);transition:all .3s}
+.tg:hover,.tg.on{background:var(--blush2);color:#fff;border-color:var(--blush2)}
+.btn-blush{display:inline-flex;align-items:center;gap:.7rem;background:var(--blush2);color:#fff;padding:.9rem 2rem;font-size:.76rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:all .3s}
+.btn-blush:hover{background:var(--blush3);transform:translateY(-2px)}
+
+/* ══════════════════════
+   STAT + SERVICES — sombre doux
+══════════════════════ */
+.keystat{background:var(--n2);padding:6rem 0}
+.ks-inner{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;align-items:stretch}
+.ks-l{padding:4rem 3rem;display:flex;flex-direction:column;justify-content:center;border-right:1px solid rgba(250,245,238,.05)}
+.ks-pct{font-family:'DM Sans',sans-serif;font-size:clamp(4rem,9vw,8rem);font-weight:700;color:var(--creme);line-height:.88}
+.ks-pct span{font-family:'Playfair Display',serif;font-style:italic;font-size:.45em;color:var(--or2)}
+.ks-txt{font-family:'Playfair Display',serif;font-style:italic;font-size:.93rem;color:rgba(250,245,238,.4);line-height:1.7;margin-top:1rem}
+.ks-src{font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(250,245,238,.15);margin-top:1.5rem}
+.ks-r{padding:4rem 3rem;display:flex;flex-direction:column;justify-content:center;gap:1.5rem;border-right:1px solid rgba(250,245,238,.05)}
+.ks-r h3{font-family:'DM Sans',sans-serif;font-size:clamp(1.2rem,2vw,1.8rem);font-weight:700;text-transform:uppercase;color:var(--creme);line-height:1.1}
+.ks-r h3 em{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;color:var(--blush);text-transform:none}
+.kpts{display:flex;flex-direction:column;gap:.6rem}
+.kp{display:flex;align-items:flex-start;font-size:.82rem;color:rgba(250,245,238,.4);gap:.8rem}
+.kp::before{content:'✦';color:var(--or);font-size:.5rem;flex-shrink:0;margin-top:.3rem}
+.ks-services{padding:3rem 2.5rem;display:flex;flex-direction:column;justify-content:center;gap:.6rem}
+.ks-services h3{font-family:'DM Sans',sans-serif;font-size:clamp(1.2rem,2vw,1.8rem);font-weight:700;text-transform:uppercase;color:var(--creme);line-height:1.1;margin-bottom:.5rem}
+.ks-services h3 em{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;color:var(--blush);text-transform:none}
+.svc{background:rgba(250,245,238,.03);border:1px solid rgba(250,245,238,.05);padding:.9rem 1.1rem;transition:all .3s;position:relative;overflow:hidden}
+.svc:hover{background:rgba(232,180,184,.05);border-color:rgba(232,180,184,.15)}
+.svc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--blush),var(--or));transform:scaleY(0);transform-origin:bottom;transition:transform .3s}
+.svc:hover::before{transform:scaleY(1)}
+.svc-n{font-size:.75rem;font-weight:600;color:var(--creme);letter-spacing:.05em;text-transform:uppercase;margin-bottom:.2rem}
+.svc-d{font-size:.7rem;color:rgba(250,245,238,.3);line-height:1.5}
+
+/* ══════════════════════
+   PORTFOLIO — crème
+══════════════════════ */
+.portfolio{background:var(--creme2);padding:8rem 0}
+.sec-head{margin-bottom:2rem}
+.sec-h2{font-family:'DM Sans',sans-serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:700;text-transform:uppercase;color:var(--texte);line-height:.92}
+.sec-h2 em{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;text-transform:none;color:var(--blush2)}
+.sec-sub{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(42,30,30,.3);margin-top:.6rem}
+.port-cats{display:flex;gap:2rem;margin-bottom:3rem}
+.pc{font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:rgba(42,30,30,.35);position:relative;padding-bottom:.3rem;transition:color .3s}
+.pc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--blush2);transform:scaleX(0);transition:transform .3s}
+.pc:hover,.pc.act{color:var(--blush2)}
+.pc:hover::after,.pc.act::after{transform:scaleX(1)}
+.phone-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.pw{display:flex;flex-direction:column;align-items:center;gap:.8rem}
+.phone{width:100%;aspect-ratio:9/19.5;background:var(--n3);border-radius:28px;border:1px solid rgba(42,30,30,.1);position:relative;overflow:hidden;box-shadow:0 16px 40px rgba(42,30,30,.12);transition:transform .4s ease,box-shadow .4s}
+.phone:hover{transform:translateY(-8px);box-shadow:0 24px 50px rgba(42,30,30,.18)}
+.phone::before{content:'';position:absolute;top:10px;left:50%;transform:translateX(-50%);width:34%;height:11px;background:var(--n);border-radius:0 0 8px 8px;z-index:2}
+.phone-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem}
+.phone-bg{position:absolute;inset:0;opacity:.18}
+.pw:nth-child(1) .phone-bg{background:linear-gradient(160deg,#c06870,#e8b4b8)}
+.pw:nth-child(2) .phone-bg{background:linear-gradient(160deg,#2a1e1e,#c8a060)}
+.pw:nth-child(3) .phone-bg{background:linear-gradient(160deg,#d4888e,#c8a060)}
+.pw:nth-child(4) .phone-bg{background:linear-gradient(160deg,#1c1616,#e8b4b8)}
+.phone-cat-label{font-family:'Playfair Display',serif;font-style:italic;font-size:.8rem;color:rgba(250,245,238,.3);position:relative;z-index:2}
+.phone-play{width:40px;height:40px;border-radius:50%;background:rgba(232,180,184,.12);display:flex;align-items:center;justify-content:center;font-size:.75rem;color:rgba(232,180,184,.5);transition:all .3s;position:relative;z-index:2;border:1px solid rgba(232,180,184,.2)}
+.phone:hover .phone-play{background:rgba(232,180,184,.22);color:var(--blush);transform:scale(1.1)}
+.p-cat{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(42,30,30,.35)}
+.port-note{text-align:center;margin-top:3rem;padding-top:2.5rem;border-top:1px solid rgba(42,30,30,.06)}
+.port-note p{font-family:'Playfair Display',serif;font-style:italic;font-size:.85rem;color:rgba(42,30,30,.3)}
+
+/* ══════════════════════
+   COLLABS — blanc
+══════════════════════ */
+.collabs{background:#fff;padding:8rem 0}
+.collab-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:3.5rem}
+.cc{background:var(--creme);padding:2.5rem 2rem;border:1px solid rgba(42,30,30,.06);transition:all .4s;position:relative;overflow:hidden}
+.cc:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(42,30,30,.08)}
+.cc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blush),var(--or));transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.cc:hover::before{transform:scaleX(1)}
+.cc-brand{font-family:'Playfair Display',serif;font-style:italic;font-size:1.6rem;color:var(--texte);margin-bottom:.4rem}
+.cc-cat{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--blush2);margin-bottom:1.2rem}
+.cc-desc{font-size:.82rem;color:rgba(42,30,30,.45);line-height:1.65}
+.cc-badge{display:inline-block;margin-top:1.5rem;padding:.22rem .8rem;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase}
+.ba{background:rgba(212,136,142,.1);color:var(--blush2)}
+.bo{border:1px solid rgba(42,30,30,.1);color:rgba(42,30,30,.3)}
+
+/* ══════════════════════
+   PACKAGES — sombre
+══════════════════════ */
+.packages{background:var(--n2);padding:8rem 0}
+.pkg-grid{display:grid;grid-template-columns:auto 1fr;gap:4rem;align-items:start}
+.pkg-vtitle{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'DM Sans',sans-serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(250,245,238,.04);align-self:center}
+.pkg-list{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:3rem}
+.pkg{background:rgba(250,245,238,.03);border:1px solid rgba(250,245,238,.06);padding:2rem 1.5rem;transition:all .3s}
+.pkg:hover{background:rgba(232,180,184,.05);border-color:rgba(232,180,184,.15)}
+.pkg:nth-child(3){background:rgba(232,180,184,.08);border-color:rgba(232,180,184,.2)}
+.pkg-price{font-family:'Playfair Display',serif;font-size:1.8rem;font-style:italic;font-weight:700;color:var(--creme);line-height:1;margin-bottom:.4rem}
+.pkg-name{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(250,245,238,.25);margin-bottom:1rem}
+.pkg-items{display:flex;flex-direction:column;gap:.4rem}
+.pi{font-size:.8rem;color:rgba(250,245,238,.38);display:flex;align-items:center;gap:.6rem}
+.pi::before{content:'–';color:rgba(232,180,184,.3)}
+.pkg-cta{grid-column:span 3;background:rgba(250,245,238,.02);border:1px dashed rgba(250,245,238,.08);padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;margin-top:1rem}
+.pkg-cta p{font-family:'Playfair Display',serif;font-style:italic;color:rgba(250,245,238,.3);font-size:.9rem}
+
+/* ══════════════════════
+   MEDIA KIT — crème
+══════════════════════ */
+.mediakit{background:var(--creme);padding:8rem 0}
+.mk-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start}
+.mk-doc{background:var(--n2);border:1px solid rgba(250,245,238,.05);overflow:hidden;box-shadow:0 20px 60px rgba(42,30,30,.12)}
+.mk-top{background:linear-gradient(135deg,var(--n3),var(--n2));padding:1.8rem 2rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(232,180,184,.08)}
+.mk-ttl{font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem;color:var(--creme)}
+.mk-yr{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(232,180,184,.4)}
+.mk-body{padding:2rem}
+.mk-row{display:flex;justify-content:space-between;padding:.85rem 0;border-bottom:1px solid rgba(250,245,238,.04);font-size:.82rem}
+.mk-row:last-child{border:none}
+.mk-k{color:rgba(250,245,238,.25);font-size:.76rem}
+.mk-v{color:var(--creme);font-weight:500}
+.mk-inc{margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(250,245,238,.04)}
+.mk-inc-ttl{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(250,245,238,.16);margin-bottom:.8rem}
+.mk-i{display:flex;align-items:center;gap:.8rem;font-size:.8rem;color:rgba(250,245,238,.32);padding:.3rem 0}
+.mk-i::before{content:'✦';color:rgba(232,180,184,.3);font-size:.55rem}
+.mk-h{font-family:'DM Sans',sans-serif;font-size:clamp(2rem,3.5vw,3.5rem);font-weight:700;line-height:1;text-transform:uppercase;color:var(--texte);margin-bottom:1rem}
+.mk-h em{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;text-transform:none;color:var(--blush2)}
+.mk-p{font-size:.88rem;color:rgba(42,30,30,.45);line-height:1.85;margin-bottom:2rem}
+.mk-feats{display:flex;flex-direction:column;gap:.65rem;margin-bottom:2.5rem}
+.mf{display:flex;align-items:center;gap:.8rem;font-size:.83rem;color:rgba(42,30,30,.5)}
+.mf::before{content:'✦';color:var(--blush2);font-size:.55rem}
+
+/* ══════════════════════
+   LINK IN BIO — sombre
+══════════════════════ */
+.lib{background:var(--n3);padding:6rem 0}
+.lib-inner{max-width:440px;margin:0 auto;text-align:center}
+.lib-av{width:88px;height:88px;border-radius:50%;border:1px solid rgba(232,180,184,.2);background:linear-gradient(135deg,rgba(232,180,184,.08),rgba(200,160,96,.08));margin:0 auto 1.2rem;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-style:italic;font-size:1.5rem;color:rgba(232,180,184,.35)}
+.lib-name{font-family:'Playfair Display',serif;font-style:italic;font-size:1.6rem;color:var(--creme);margin-bottom:.3rem}
+.lib-handle{font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(250,245,238,.22);margin-bottom:.5rem}
+.lib-bio{font-family:'Playfair Display',serif;font-style:italic;font-size:.88rem;color:rgba(250,245,238,.28);margin-bottom:.4rem}
+.lib-loc{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(232,180,184,.3);margin-bottom:2.5rem}
+.lib-links{display:flex;flex-direction:column;gap:.55rem}
+.lb{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.5rem;border:1px solid rgba(250,245,238,.06);background:transparent;color:var(--creme);text-decoration:none;font-size:.82rem;transition:all .3s}
+.lb:hover{background:rgba(232,180,184,.05);border-color:rgba(232,180,184,.2)}
+.lb.main-lb{background:rgba(232,180,184,.12);color:var(--creme);border-color:rgba(232,180,184,.3)}
+.lb.main-lb:hover{background:rgba(232,180,184,.2)}
+.lb-ico{opacity:.25;font-size:.85rem}
+
+/* ══════════════════════
+   CONTACT — crème
+══════════════════════ */
+.contact{background:var(--creme2);padding:8rem 0;text-align:center}
+.contact-h{font-family:'DM Sans',sans-serif;font-size:clamp(2rem,4vw,4rem);font-weight:700;text-transform:uppercase;color:var(--texte);line-height:1;margin-bottom:.5rem}
+.contact-h em{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;text-transform:none;color:var(--blush2)}
+.contact-sub{font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:rgba(42,30,30,.4);margin-bottom:3rem}
+.c-mail{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.4rem,3vw,2.8rem);color:var(--texte);text-decoration:none;border-bottom:1px solid rgba(42,30,30,.15);padding-bottom:.3rem;display:inline-block;transition:all .3s}
+.c-mail:hover{color:var(--blush2);border-color:var(--blush2)}
+.c-soc{display:flex;gap:2.5rem;justify-content:center;margin-top:3rem}
+.cs{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(42,30,30,.25);text-decoration:none;transition:color .3s}
+.cs:hover{color:var(--blush2)}
+
+/* FOOTER */
+footer{background:var(--n);padding:2rem 0;border-top:1px solid rgba(232,180,184,.05)}
+.fi{max-width:1200px;margin:0 auto;padding:0 5rem;display:flex;align-items:center;justify-content:space-between}
+.flo{font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:rgba(250,245,238,.22)}
+.fm{font-size:.6rem;color:rgba(250,245,238,.14)}
+.fc{font-size:.6rem;color:rgba(250,245,238,.1)}
+.fc span{color:rgba(232,180,184,.25)}
+
+/* ── SCROLL REVEAL ── */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.rl{opacity:0;transform:translateX(-30px);transition:opacity .8s ease,transform .8s ease}
+.rv.on,.rl.on{opacity:1;transform:none}
+
+/* ── KEYFRAMES ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .ctr{padding:0 3rem}
+  nav{padding:1.3rem 3rem}
+  .fi{padding:0 3rem}
+}
+@media(max-width:900px){
+  *{cursor:auto}
+  #cur,#ring{display:none}
+  nav{padding:1rem 1.5rem}
+  .nav-links{
+    display:none;position:fixed;inset:0;top:0;
+    background:rgba(10,8,8,.98);
+    flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;
+    z-index:90;
+  }
+  .nav-links.open{display:flex}
+  .nav-links a{font-size:1.1rem;letter-spacing:.1em}
+  .nav-burger{display:flex}
+  .ctr{padding:0 1.5rem}
+  .about-grid,.mk-grid{grid-template-columns:1fr}
+  .ks-inner{grid-template-columns:1fr}
+  .ks-l{border-right:none;border-bottom:1px solid rgba(250,245,238,.05)}
+  .ks-r{border-right:none;border-bottom:1px solid rgba(250,245,238,.05)}
+  .phone-grid{grid-template-columns:1fr 1fr;gap:1rem}
+  .collab-grid,.pkg-list{grid-template-columns:1fr}
+  .pkg-cta{grid-column:1}
+  .pkg-vtitle{display:none}
+  .pkg-grid{grid-template-columns:1fr}
+  .hero-split{grid-template-columns:1fr;padding:7rem 1.5rem 3rem;min-height:auto;gap:2rem;text-align:center}
+  .hero-inner{text-align:center}
+  .h-actions{justify-content:center}
+  .hero-side-stats{display:grid;grid-template-columns:1fr 1fr;padding:1.2rem 1rem;gap:.5rem}
+  .hss-n{font-size:1.4rem}
+  .hss-div{display:none}
+  .hss-item{padding:.5rem 0}
+  .fi{flex-direction:column;gap:1rem;text-align:center}
+  .collage{grid-template-rows:180px 130px 150px}
+  .port-cats{gap:1rem;flex-wrap:wrap}
+}
+@media(max-width:480px){
+  .phone-grid{grid-template-columns:1fr 1fr}
+  .about{padding:5rem 0}
+  .keystat,.portfolio,.collabs,.packages,.mediakit,.lib,.contact{padding:5rem 0}
+  .hero-side-stats{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="ld-over">Content Creator</div>
+  <div class="ld-name">Céline Scholinckx</div>
+  <div class="ld-brand">DigitalScho</div>
+  <div class="ld-bar"></div>
+</div>
+
+<!-- CURSEUR -->
+<div id="cur"></div>
+<div id="ring"></div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track" id="tick">
+    <span class="ti"><b>DigitalScho</b></span><span class="ti">· Céline Scholinckx ·</span><span class="ti"><b>Mode & Lifestyle</b></span><span class="ti">· Liège · Belgique ·</span><span class="ti"><b>Collaborations ouvertes</b></span><span class="ti">· @iamcelineschobis ·</span><span class="ti"><b>UGC Creator</b></span><span class="ti">· Content Creator ·</span><span class="ti"><b>SALE Beauty</b></span><span class="ti">· Fashion · Beauty · Travel ·</span>
+    <span class="ti"><b>DigitalScho</b></span><span class="ti">· Céline Scholinckx ·</span><span class="ti"><b>Mode & Lifestyle</b></span><span class="ti">· Liège · Belgique ·</span><span class="ti"><b>Collaborations ouvertes</b></span><span class="ti">· @iamcelineschobis ·</span><span class="ti"><b>UGC Creator</b></span><span class="ti">· Content Creator ·</span><span class="ti"><b>SALE Beauty</b></span><span class="ti">· Fashion · Beauty · Travel ·</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">DigitalScho</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about" onclick="closeMenu()">À propos</a></li>
+    <li><a href="#portfolio" onclick="closeMenu()">Portfolio</a></li>
+    <li><a href="#collabs" onclick="closeMenu()">Collabs</a></li>
+    <li><a href="#mediakit" onclick="closeMenu()">Media Kit</a></li>
+    <li><a href="#contact" class="nav-cta" onclick="closeMenu()">Contact</a></li>
+  </ul>
+  <button class="nav-burger" id="burger" aria-label="Menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="h-arch"></div><div class="h-arch"></div><div class="h-arch"></div>
+  <div class="hero-split">
+    <div class="hero-inner">
+      <div class="h-overline">Céline Scholinckx</div>
+      <div class="h-title">Digital</div>
+      <div class="h-title2">Portfolio</div>
+      <div class="h-pill">✦ UGC Creator & Lifestyle Influencer</div>
+      <div class="h-quote">"je romantise ma vie... mais je dis la vérité"</div>
+      <div class="h-actions">
+        <a href="mediakit.html" class="btn-creme">Media Kit</a>
+        <a href="#about" class="btn-ghost">En savoir plus</a>
+      </div>
+    </div>
+    <div class="hero-side-stats">
+      <div class="hss-label">— Stats</div>
+      <div class="hss-item">
+        <div class="hss-n">2 177</div>
+        <div class="hss-l">Followers Instagram</div>
+      </div>
+      <div class="hss-div"></div>
+      <div class="hss-item">
+        <div class="hss-n">385</div>
+        <div class="hss-l">Publications</div>
+      </div>
+      <div class="hss-div"></div>
+      <div class="hss-item">
+        <div class="hss-n" style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.8rem">Mode</div>
+        <div class="hss-l">Niche principale</div>
+      </div>
+      <div class="hss-div"></div>
+      <div class="hss-item">
+        <div class="hss-n" style="font-size:1.8rem">Liège</div>
+        <div class="hss-l">Belgique</div>
+      </div>
+      <div class="hss-div"></div>
+      <div class="hss-item">
+        <div class="hss-n" style="font-size:1.2rem">SALE Beauty</div>
+        <div class="hss-l">Collab active</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- À PROPOS -->
+<section class="about" id="about">
+  <div class="ctr">
+    <div class="about-grid">
+
+      <!-- COLLAGE PHOTOS -->
+      <!-- Pour ajouter tes photos : remplace les divs .cp par <img src="ta-photo.jpg"> -->
+      <div class="collage rl">
+        <div class="cp">
+          <div class="cp-init">C</div>
+          <!-- <img src="portrait.jpg" alt="Portrait" onload="this.classList.add('loaded')"> -->
+          <span class="cp-tag">Mode</span>
+        </div>
+        <div class="cp">
+          <div class="cp-init">✦</div>
+          <!-- <img src="outfit.jpg" alt="Outfit" onload="this.classList.add('loaded')"> -->
+          <span class="cp-tag">Style</span>
+        </div>
+        <div class="cp">
+          <div class="cp-init">✦</div>
+          <!-- <img src="beauty.jpg" alt="Beauty" onload="this.classList.add('loaded')"> -->
+          <span class="cp-tag">Beauty</span>
+        </div>
+        <div class="cp">
+          <div class="cp-init">Rome · Venise · Ski</div>
+          <!-- <img src="voyage.jpg" alt="Voyage" onload="this.classList.add('loaded')"> -->
+          <span class="cp-tag">Voyage</span>
+        </div>
+      </div>
+
+      <div class="rv">
+        <div class="slbl">Qui suis-je ?</div>
+        <h2 class="about-h">Créatrice <em>lifestyle</em></h2>
+        <p class="about-p">Basée à Liège, je crée du contenu mode & lifestyle sans filtre. Entre Rome, Venise et les Alpes, looks assumés et découvertes beauty — une esthétique authentique, un peu trop honnête.</p>
+        <p class="about-p" style="margin-top:0">Mon focus : un contenu qui parle vrai, des collaborations sincères, une communauté engagée autour d'un univers fort et cohérent.</p>
+        <div class="tags">
+          <span class="tg on">Mode</span><span class="tg on">Lifestyle</span><span class="tg">Beauty</span><span class="tg">Voyage</span><span class="tg">Food</span><span class="tg">Outfit</span>
+        </div>
+        <a href="#contact" class="btn-blush">Travaillons ensemble ✦</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAT + SERVICES -->
+<section class="keystat">
+  <div class="ctr">
+    <div class="ks-inner">
+      <div class="ks-l rv">
+        <div class="ks-pct">93<span>%</span></div>
+        <p class="ks-txt">des consommateurs font davantage confiance au contenu généré par les utilisateurs qu'aux publicités traditionnelles.</p>
+        <div class="ks-src">Source · Nielsen Consumer Trust Index</div>
+      </div>
+      <div class="ks-r rv">
+        <h3>Pourquoi collaborer <em>avec moi ?</em></h3>
+        <div class="kpts">
+          <div class="kp">Contenu authentique ancré dans le quotidien</div>
+          <div class="kp">Esthétique mode & lifestyle cohérente</div>
+          <div class="kp">Audience engagée à Liège & Belgique</div>
+          <div class="kp">Formats variés : Post, Reel, Stories, UGC</div>
+          <div class="kp">Livraison rapide, communication directe</div>
+        </div>
+        <a href="#contact" class="btn-blush" style="margin-top:1.5rem">Travaillez avec moi</a>
+      </div>
+      <div class="ks-services rv">
+        <h3>Mes <em>services</em></h3>
+        <div class="svc"><div class="svc-n">📸 Post · Reel · Stories</div><div class="svc-d">Contenu sponsorisé authentique sur Instagram.</div></div>
+        <div class="svc"><div class="svc-n">🎁 UGC livrable</div><div class="svc-d">Contenu brut livré pour vos propres campagnes.</div></div>
+        <div class="svc"><div class="svc-n">📱 Gestion réseaux sociaux</div><div class="svc-d">Création & gestion de contenu pour votre compte.</div></div>
+        <div class="svc"><div class="svc-n">🛍 Shopping & Relooking</div><div class="svc-d">Accompagnement style, sélection de tenues & looks.</div></div>
+        <div class="svc"><div class="svc-n">💼 Community Manager</div><div class="svc-d">Animation & modération de vos communautés en ligne.</div></div>
+        <div class="svc"><div class="svc-n">🍽 Collab Restaurant & Hôtel</div><div class="svc-d">Mise en avant d'établissements lifestyle & food.</div></div>
+        <div class="svc"><div class="svc-n">👗 Collab Mode & Accessoires</div><div class="svc-d">Partenariats vêtements, accessoires, marques mode.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio" id="portfolio">
+  <div class="ctr">
+    <div class="sec-head rv">
+      <div class="sec-h2">Digital <em>Portfolio</em></div>
+      <div class="sec-sub">Contenu vidéo & photo UGC</div>
+      <div class="port-cats">
+        <span class="pc act">Fashion</span>
+        <span class="pc">Beauty</span>
+        <span class="pc">Travel</span>
+        <span class="pc">Lifestyle</span>
+      </div>
+    </div>
+    <div class="phone-grid">
+      <div class="pw rv">
+        <div class="phone">
+          <div class="phone-bg"></div>
+          <div class="phone-inner">
+            <div class="phone-cat-label">Fashion</div>
+            <div class="phone-play">▶</div>
+          </div>
+        </div>
+        <div class="p-cat">Mode</div>
+      </div>
+      <div class="pw rv">
+        <div class="phone">
+          <div class="phone-bg"></div>
+          <div class="phone-inner">
+            <div class="phone-cat-label">Beauty</div>
+            <div class="phone-play">▶</div>
+          </div>
+        </div>
+        <div class="p-cat">Beauty</div>
+      </div>
+      <div class="pw rv">
+        <div class="phone">
+          <div class="phone-bg"></div>
+          <div class="phone-inner">
+            <div class="phone-cat-label">Travel</div>
+            <div class="phone-play">▶</div>
+          </div>
+        </div>
+        <div class="p-cat">Voyage</div>
+      </div>
+      <div class="pw rv">
+        <div class="phone">
+          <div class="phone-bg"></div>
+          <div class="phone-inner">
+            <div class="phone-cat-label">Lifestyle</div>
+            <div class="phone-play">▶</div>
+          </div>
+        </div>
+        <div class="p-cat">Lifestyle</div>
+      </div>
+    </div>
+    <div class="port-note rv"><p>91% des consommateurs veulent voir plus de contenu vidéo en ligne de la part des marques.</p></div>
+  </div>
+</section>
+
+<!-- COLLABS -->
+<section class="collabs" id="collabs">
+  <div class="ctr">
+    <div class="rv" style="margin-bottom:3.5rem">
+      <div class="slbl">Partenariats</div>
+      <div class="sec-h2">Marques & <em>partenaires</em></div>
+    </div>
+    <div class="collab-grid">
+      <div class="cc rv"><div class="cc-brand">SALE Beauty</div><div class="cc-cat">Beauté · Cosmétiques</div><p class="cc-desc">Mise en avant produits beauté — publications authentiques, reels et stories lifestyle.</p><span class="cc-badge ba">Partenariat actif</span></div>
+      <div class="cc rv"><div class="cc-brand">Mode & Style</div><div class="cc-cat">Vêtements · Accessoires</div><p class="cc-desc">Collaborations mode en adéquation avec l'esthétique DigitalScho — edgy, authentique.</p><span class="cc-badge bo">Disponible</span></div>
+      <div class="cc rv"><div class="cc-brand">Lifestyle & Travel</div><div class="cc-cat">Voyage · Food · Beauty</div><p class="cc-desc">Post sponsorisé, UGC, ambassadrice, unboxing — formats sur mesure selon objectifs.</p><span class="cc-badge bo">Sur devis</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section class="packages" id="packages">
+  <div class="ctr">
+    <div class="pkg-grid">
+      <div class="pkg-vtitle">Packages</div>
+      <div>
+        <div class="rv" style="margin-bottom:0">
+          <div class="slbl" style="color:rgba(250,245,238,.2)">Tarifs & services</div>
+          <div class="sec-h2" style="color:var(--creme)">Mes <em style="color:var(--blush)">Prestations</em></div>
+        </div>
+        <div class="pkg-list">
+          <div class="pkg rv"><div class="pkg-price">Sur devis</div><div class="pkg-name">Post · Stories</div><div class="pkg-items"><div class="pi">1 publication Instagram</div><div class="pi">Stories associées</div><div class="pi">Contenu authentique</div></div></div>
+          <div class="pkg rv"><div class="pkg-price">Sur devis</div><div class="pkg-name">Reel · Vidéo</div><div class="pkg-items"><div class="pi">1 Reel Instagram</div><div class="pi">Montage inclus</div><div class="pi">Hook accrocheur</div></div></div>
+          <div class="pkg rv"><div class="pkg-price">Pack</div><div class="pkg-name">Bundle complet</div><div class="pkg-items"><div class="pi">Post + Reel + Stories</div><div class="pi">UGC livré en fichier</div><div class="pi">Droits d'utilisation</div></div></div>
+          <div class="pkg-cta rv"><p>Besoin d'un package personnalisé ?</p><a href="#contact" class="btn-creme" style="white-space:nowrap">Contactez-moi</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEDIA KIT -->
+<section class="mediakit" id="mediakit">
+  <div class="ctr">
+    <div class="mk-grid">
+      <div class="mk-doc rv">
+        <div class="mk-top"><div class="mk-ttl">Media Kit 2025</div><div class="mk-yr">DigitalScho</div></div>
+        <div class="mk-body">
+          <div class="mk-row"><span class="mk-k">Nom</span><span class="mk-v">Céline Scholinckx</span></div>
+          <div class="mk-row"><span class="mk-k">Handle</span><span class="mk-v">@iamcelineschobis</span></div>
+          <div class="mk-row"><span class="mk-k">Niche</span><span class="mk-v">Mode · Lifestyle · Beauty · Voyage</span></div>
+          <div class="mk-row"><span class="mk-k">Followers</span><span class="mk-v">2 177</span></div>
+          <div class="mk-row"><span class="mk-k">Publications</span><span class="mk-v">385</span></div>
+          <div class="mk-row"><span class="mk-k">Localisation</span><span class="mk-v">Liège · Belgique</span></div>
+          <div class="mk-row"><span class="mk-k">Formats</span><span class="mk-v">Post · Reel · Stories · UGC</span></div>
+          <div class="mk-row"><span class="mk-k">Collab active</span><span class="mk-v">SALE Beauty</span></div>
+          <div class="mk-inc">
+            <div class="mk-inc-ttl">Contenu du Media Kit</div>
+            <div class="mk-i">Statistiques Instagram détaillées</div>
+            <div class="mk-i">Analyse audience (âge, genre, géo)</div>
+            <div class="mk-i">Portfolio collaborations passées</div>
+            <div class="mk-i">Formats disponibles & tarifs</div>
+          </div>
+        </div>
+      </div>
+      <div class="rv">
+        <div class="slbl">Media Kit</div>
+        <div class="mk-h">Travaillons <em>ensemble</em></div>
+        <p class="mk-p">Toutes les informations pour une collaboration réussie — statistiques, audience, formats et tarifs dans un document professionnel prêt à partager.</p>
+        <div class="mk-feats">
+          <div class="mf">Statistiques Instagram complètes</div>
+          <div class="mf">Analyse démographique de l'audience</div>
+          <div class="mf">Portfolio de collaborations passées</div>
+          <div class="mf">Tarifs & formats disponibles</div>
+          <div class="mf">Charte éditoriale & univers visuel</div>
+        </div>
+        <a href="mediakit.html" class="btn-blush">Voir le Media Kit complet ✦</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LINK IN BIO -->
+<section class="lib" id="links">
+  <div class="ctr">
+    <div class="lib-inner rv">
+      <div class="lib-av">C</div>
+      <div class="lib-name">Céline Scholinckx</div>
+      <div class="lib-handle">@iamcelineschobis</div>
+      <div class="lib-bio">"je romantise ma vie... mais je dis la vérité"</div>
+      <div class="lib-loc">📍 Liège · Belgique</div>
+      <div class="lib-links">
+        <a href="https://www.instagram.com/iamcelineschobis" target="_blank" rel="noopener" class="lb main-lb"><span>Instagram @iamcelineschobis</span><span class="lb-ico">↗</span></a>
+        <a href="mediakit.html" class="lb"><span>Télécharger mon Media Kit</span><span class="lb-ico">→</span></a>
+        <a href="#packages" class="lb"><span>Voir mes packages & tarifs</span><span class="lb-ico">→</span></a>
+        <a href="#contact" class="lb"><span>Me contacter</span><span class="lb-ico">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="ctr rv">
+    <div class="contact-h">Travaillons <em>ensemble</em></div>
+    <p class="contact-sub">Pour toute proposition de collaboration ou partenariat.</p>
+    <a href="mailto:celine@digitalscho.com" class="c-mail">celine@digitalscho.com</a>
+    <div class="c-soc">
+      <a href="https://www.instagram.com/iamcelineschobis" target="_blank" rel="noopener" class="cs">✦ Instagram</a>
+      <a href="#" class="cs">✦ TikTok</a>
+      <a href="#" class="cs">✦ Facebook</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fi">
+    <div class="flo">DigitalScho</div>
+    <div class="fm">© 2025 Céline Scholinckx · Tous droits réservés</div>
+    <div class="fc">Site réalisé par <span>Serenity Studio</span></div>
+  </div>
+</footer>
+
+<script>
+/* ── LOADER ── */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+  }, 1900);
+});
+
+/* ── CURSEUR ── */
+const cur = document.getElementById('cur');
+const ring = document.getElementById('ring');
+document.addEventListener('mousemove', e => {
+  cur.style.cssText = `left:${e.clientX - 3}px;top:${e.clientY - 3}px`;
+  ring.style.cssText = `left:${e.clientX - 14}px;top:${e.clientY - 14}px`;
+});
+document.querySelectorAll('a,button').forEach(el => {
+  el.addEventListener('mouseenter', () => { ring.style.transform = 'scale(1.8)'; ring.style.borderColor = 'rgba(232,180,184,.5)'; });
+  el.addEventListener('mouseleave', () => { ring.style.transform = 'scale(1)'; ring.style.borderColor = 'rgba(232,180,184,.25)'; });
+});
+
+/* ── NAV SCROLL ── */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+
+/* ── MENU MOBILE ── */
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+function closeMenu() {
+  document.getElementById('navLinks').classList.remove('open');
+}
+
+/* ── SCROLL REVEAL ── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((x, i) => {
+    if (x.isIntersecting) {
+      setTimeout(() => x.target.classList.add('on'), i * 80);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.rv,.rl').forEach(el => obs.observe(el));
+
+/* ── PORTFOLIO CATS ── */
+document.querySelectorAll('.pc').forEach(pc => {
+  pc.addEventListener('click', () => {
+    document.querySelectorAll('.pc').forEach(p => p.classList.remove('act'));
+    pc.classList.add('act');
+  });
+});
+</script>
+</body>
+</html>

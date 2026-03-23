@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Media Kit 2025 — Céline Scholinckx · DigitalScho</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --n:    #0a0808;
+  --n2:   #120e0e;
+  --n3:   #1c1616;
+  --creme:#faf5ee;
+  --creme2:#f2ebe0;
+  --creme3:#e8dfd2;
+  --blush:#e8b4b8;
+  --blush2:#d4888e;
+  --blush3:#c06870;
+  --or:   #c8a060;
+  --or2:  #e0b878;
+  --texte:#2a1e1e;
+}
+
+/* ── GLOBAL ── */
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--creme2);
+  color:var(--texte);
+  min-height:100vh;
+}
+
+/* ── BACK LINK ── */
+.back{
+  position:fixed;top:1.5rem;left:2rem;z-index:100;
+  display:flex;align-items:center;gap:.5rem;
+  font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(42,30,30,.4);text-decoration:none;transition:color .3s;
+}
+.back:hover{color:var(--blush2)}
+@media print{.back,.print-btn{display:none!important}}
+
+/* ── PRINT BUTTON ── */
+.print-btn{
+  position:fixed;top:1.5rem;right:2rem;z-index:100;
+  background:var(--n);color:var(--creme);
+  border:none;padding:.7rem 1.6rem;
+  font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;
+  cursor:pointer;transition:all .3s;
+}
+.print-btn:hover{background:var(--blush2)}
+
+/* ══════════════════════
+   PAGE A4
+══════════════════════ */
+.page{
+  width:210mm;
+  min-height:297mm;
+  margin:3rem auto;
+  background:var(--creme);
+  box-shadow:0 20px 80px rgba(42,30,30,.14);
+  position:relative;
+  overflow:hidden;
+}
+
+/* ── HEADER / PHOTO ZONE ── */
+.mk-header{
+  background:var(--n);
+  padding:3.5rem 3.5rem 2.5rem;
+  position:relative;
+  overflow:hidden;
+  display:grid;
+  grid-template-columns:1fr 200px;
+  gap:2.5rem;
+  align-items:center;
+}
+.mk-header::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 70% at 30% 50%,rgba(200,160,96,.07),transparent 70%);
+  pointer-events:none;
+}
+.mk-header-deco{
+  position:absolute;right:0;top:0;bottom:0;
+  width:200px;
+  background:linear-gradient(135deg,rgba(232,180,184,.06),rgba(200,160,96,.08));
+  border-left:1px solid rgba(232,180,184,.08);
+}
+
+/* Photo principale */
+.mk-photo-wrap{
+  width:200px;height:260px;
+  border:1px solid rgba(232,180,184,.2);
+  background:linear-gradient(155deg,#2a1e1e 0%,#c06870 60%,#c8a060 100%);
+  position:relative;overflow:hidden;
+  flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.mk-photo-wrap img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity .4s;
+}
+.mk-photo-wrap img.loaded{opacity:1}
+.mk-photo-ph{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:3rem;color:rgba(250,245,238,.08);
+  position:relative;z-index:2;
+}
+.mk-photo-tag{
+  position:absolute;bottom:.7rem;left:.7rem;right:.7rem;
+  background:rgba(10,8,8,.55);backdrop-filter:blur(8px);
+  padding:.3rem .7rem;
+  font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(250,245,238,.55);text-align:center;
+}
+
+.mk-header-left{position:relative;z-index:2}
+.mk-brand{
+  font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(232,180,184,.35);margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:.8rem;
+}
+.mk-brand::before{content:'';width:24px;height:1px;background:rgba(232,180,184,.25)}
+.mk-name{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:2.8rem;color:var(--creme);line-height:1;margin-bottom:.4rem;
+}
+.mk-handle{
+  font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(232,180,184,.45);margin-bottom:.5rem;
+}
+.mk-tagline{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:.9rem;color:rgba(250,245,238,.25);margin-bottom:2rem;
+}
+.mk-location{
+  font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(250,245,238,.2);display:flex;align-items:center;gap:.5rem;
+}
+
+/* ── GOLD STRIP ── */
+.gold-strip{
+  height:3px;
+  background:linear-gradient(90deg,var(--blush),var(--or),var(--blush2));
+}
+
+/* ── STATS ROW ── */
+.stats-row{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  background:var(--n2);
+}
+.stat-cell{
+  padding:1.8rem 1.5rem;
+  border-right:1px solid rgba(250,245,238,.04);
+  text-align:center;
+}
+.stat-cell:last-child{border-right:none}
+.stat-n{
+  font-family:'DM Sans',sans-serif;font-weight:700;
+  font-size:2.2rem;color:var(--creme);line-height:1;margin-bottom:.3rem;
+}
+.stat-n sub{font-family:'Playfair Display',serif;font-style:italic;font-size:.9rem;color:var(--or2)}
+.stat-l{
+  font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(250,245,238,.2);
+}
+
+/* ── BODY CONTENT ── */
+.mk-body{padding:2.5rem 3.5rem;display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}
+
+/* Column */
+.mk-col{display:flex;flex-direction:column;gap:2rem}
+
+/* Section block */
+.mk-section{display:flex;flex-direction:column;gap:.8rem}
+.mk-section-title{
+  font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(42,30,30,.3);padding-bottom:.6rem;
+  border-bottom:1px solid rgba(42,30,30,.07);
+  display:flex;align-items:center;gap:.7rem;
+}
+.mk-section-title::before{content:'✦';color:var(--blush2);font-size:.45rem}
+
+/* Niches pills */
+.niche-wrap{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.2rem}
+.niche{
+  padding:.3rem .9rem;
+  font-size:.63rem;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid rgba(42,30,30,.1);color:rgba(42,30,30,.5);
+  transition:all .3s;
+}
+.niche.hl{background:var(--blush2);color:#fff;border-color:var(--blush2)}
+
+/* Services list */
+.svc-list{display:flex;flex-direction:column;gap:.45rem}
+.svc-item{
+  display:flex;align-items:flex-start;gap:.8rem;
+  font-size:.78rem;color:rgba(42,30,30,.55);padding:.5rem .7rem;
+  border-left:2px solid transparent;transition:border-color .3s;
+}
+.svc-item:hover{border-color:var(--blush)}
+.svc-ico{font-size:.9rem;flex-shrink:0;opacity:.7}
+
+/* Collab active */
+.collab-active{
+  background:var(--n2);padding:1.2rem 1.5rem;
+  display:flex;align-items:center;gap:1.2rem;
+}
+.ca-logo{
+  width:44px;height:44px;
+  background:linear-gradient(135deg,rgba(232,180,184,.1),rgba(200,160,96,.1));
+  border:1px solid rgba(232,180,184,.15);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-style:italic;font-size:.8rem;
+  color:rgba(232,180,184,.5);flex-shrink:0;
+}
+.ca-name{font-weight:600;font-size:.88rem;color:var(--creme);margin-bottom:.15rem}
+.ca-sub{font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(250,245,238,.25)}
+.ca-badge{
+  margin-left:auto;background:rgba(212,136,142,.12);
+  color:var(--blush2);padding:.22rem .7rem;
+  font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;flex-shrink:0;
+}
+
+/* About text */
+.mk-about-text{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:.88rem;color:rgba(42,30,30,.5);line-height:1.85;
+}
+
+/* ── CONTACT FOOTER ── */
+.mk-footer{
+  background:var(--n);
+  padding:1.8rem 3.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:2rem;
+  margin-top:auto;
+}
+.mk-footer-brand{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:1.3rem;color:rgba(250,245,238,.3);
+}
+.mk-contacts{display:flex;gap:2.5rem;align-items:center}
+.mk-contact-item{display:flex;flex-direction:column;gap:.2rem}
+.mc-label{font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,245,238,.18)}
+.mc-val{font-size:.78rem;color:rgba(250,245,238,.5)}
+.mc-val a{color:rgba(232,180,184,.6);text-decoration:none}
+.mk-year{font-size:.58rem;color:rgba(250,245,238,.12);text-align:right}
+
+/* ── PRINT ── */
+@media print{
+  body{background:white}
+  .page{margin:0;box-shadow:none;width:100%;min-height:auto}
+  .mk-footer{page-break-inside:avoid}
+}
+
+/* ── RESPONSIVE SCREEN ── */
+@media(max-width:750px){
+  .page{width:100%;margin:0;box-shadow:none}
+  .mk-header{grid-template-columns:1fr;padding:2rem 1.5rem 1.5rem}
+  .mk-photo-wrap{width:100%;height:200px}
+  .stats-row{grid-template-columns:1fr 1fr}
+  .stat-cell:nth-child(2){border-right:none}
+  .stat-cell:nth-child(3){border-top:1px solid rgba(250,245,238,.04)}
+  .stat-cell:nth-child(4){border-top:1px solid rgba(250,245,238,.04)}
+  .mk-body{grid-template-columns:1fr;padding:2rem 1.5rem}
+  .mk-footer{flex-direction:column;gap:1.5rem;text-align:center;padding:1.5rem}
+  .mk-contacts{flex-direction:column;gap:1rem}
+  .print-btn{display:none}
+  .back{position:relative;top:auto;left:auto;padding:1rem 1.5rem;display:block}
+}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back">← Retour au site</a>
+<button class="print-btn" onclick="window.print()">Imprimer / PDF</button>
+
+<!-- PAGE A4 -->
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="mk-header">
+    <div class="mk-header-left">
+      <div class="mk-brand">Media Kit · 2025</div>
+      <div class="mk-name">Céline Scholinckx</div>
+      <div class="mk-handle">@iamcelineschobis</div>
+      <div class="mk-tagline">"je romantise ma vie... mais je dis la vérité"</div>
+      <div class="mk-location">📍 Liège · Belgique · Mode & Lifestyle</div>
+    </div>
+    <!-- Photo principale — remplace par l'image réelle -->
+    <div class="mk-photo-wrap">
+      <!-- <img src="photo-celine.jpg" alt="Céline Scholinckx" onload="this.classList.add('loaded')"> -->
+      <div class="mk-photo-ph">C</div>
+      <div class="mk-photo-tag">Céline Scholinckx</div>
+    </div>
+  </div>
+
+  <!-- GOLD STRIP -->
+  <div class="gold-strip"></div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-cell">
+      <div class="stat-n">2 177</div>
+      <div class="stat-l">Followers Instagram</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n">385</div>
+      <div class="stat-l">Publications</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n" style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.6rem">Mode</div>
+      <div class="stat-l">Niche principale</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n" style="font-size:1.6rem">Liège</div>
+      <div class="stat-l">Belgique</div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="mk-body">
+
+    <!-- COL GAUCHE -->
+    <div class="mk-col">
+
+      <div class="mk-section">
+        <div class="mk-section-title">Qui suis-je</div>
+        <p class="mk-about-text">Basée à Liège, je crée du contenu mode & lifestyle sans filtre. Entre Rome, Venise et les Alpes, looks assumés et découvertes beauty — une esthétique authentique, un peu trop honnête.<br><br>Mon focus : un contenu qui parle vrai, des collaborations sincères, une communauté engagée.</p>
+      </div>
+
+      <div class="mk-section">
+        <div class="mk-section-title">Niches</div>
+        <div class="niche-wrap">
+          <span class="niche hl">Mode</span>
+          <span class="niche hl">Lifestyle</span>
+          <span class="niche hl">Beauty</span>
+          <span class="niche hl">Voyage</span>
+          <span class="niche">Food</span>
+          <span class="niche">Outfit</span>
+        </div>
+      </div>
+
+      <div class="mk-section">
+        <div class="mk-section-title">Collaboration active</div>
+        <div class="collab-active">
+          <div class="ca-logo">SB</div>
+          <div>
+            <div class="ca-name">SALE Beauty</div>
+            <div class="ca-sub">Beauté · Cosmétiques</div>
+          </div>
+          <span class="ca-badge">Actif</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- COL DROITE -->
+    <div class="mk-col">
+
+      <div class="mk-section">
+        <div class="mk-section-title">Services proposés</div>
+        <div class="svc-list">
+          <div class="svc-item"><span class="svc-ico">📸</span>Post Instagram sponsorisé</div>
+          <div class="svc-item"><span class="svc-ico">🎬</span>Reel Instagram (montage inclus)</div>
+          <div class="svc-item"><span class="svc-ico">📲</span>Stories (swipe-up · mentions)</div>
+          <div class="svc-item"><span class="svc-ico">🎁</span>UGC livrable (fichier brut)</div>
+          <div class="svc-item"><span class="svc-ico">📱</span>Gestion réseaux sociaux</div>
+          <div class="svc-item"><span class="svc-ico">🛍</span>Shopping & Relooking</div>
+          <div class="svc-item"><span class="svc-ico">💼</span>Community Manager</div>
+          <div class="svc-item"><span class="svc-ico">🍽</span>Collab Restaurant & Hôtel</div>
+          <div class="svc-item"><span class="svc-ico">👗</span>Collab Mode & Accessoires</div>
+        </div>
+      </div>
+
+      <div class="mk-section">
+        <div class="mk-section-title">Tarifs</div>
+        <div class="svc-list">
+          <div class="svc-item"><span class="svc-ico">—</span>Post · Stories · Reel : sur devis</div>
+          <div class="svc-item"><span class="svc-ico">—</span>Bundle complet (Post + Reel + Stories) : sur devis</div>
+          <div class="svc-item"><span class="svc-ico">—</span>UGC livrable : sur devis</div>
+          <div class="svc-item"><span class="svc-ico">—</span>Packages personnalisés disponibles</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- FOOTER CONTACT -->
+  <div class="mk-footer">
+    <div class="mk-footer-brand">DigitalScho</div>
+    <div class="mk-contacts">
+      <div class="mk-contact-item">
+        <div class="mc-label">Email</div>
+        <div class="mc-val"><a href="mailto:celine@digitalscho.com">celine@digitalscho.com</a></div>
+      </div>
+      <div class="mk-contact-item">
+        <div class="mc-label">Instagram</div>
+        <div class="mc-val"><a href="https://www.instagram.com/iamcelineschobis" target="_blank" rel="noopener">@iamcelineschobis</a></div>
+      </div>
+    </div>
+    <div class="mk-year">© 2025 Céline Scholinckx<br>Tous droits réservés</div>
+  </div>
+
+</div><!-- /page -->
+
+</body>
+</html>
