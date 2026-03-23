@@ -6,401 +6,518 @@
 <title>Media Kit 2025 — Céline Scholinckx · DigitalScho</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
+/* ── RESET & VARS ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --n:    #0a0808;
-  --n2:   #120e0e;
-  --n3:   #1c1616;
-  --creme:#faf5ee;
-  --creme2:#f2ebe0;
-  --creme3:#e8dfd2;
+  --n2:   #110d0d;
+  --n3:   #1a1414;
   --blush:#e8b4b8;
   --blush2:#d4888e;
-  --blush3:#c06870;
   --or:   #c8a060;
   --or2:  #e0b878;
-  --texte:#2a1e1e;
+  --creme:#faf5ee;
+  --creme2:#f0e8da;
 }
+html,body{font-family:'DM Sans',sans-serif;background:var(--n);color:var(--creme);margin:0;padding:0}
 
-/* ── GLOBAL ── */
-body{
-  font-family:'DM Sans',sans-serif;
-  background:var(--creme2);
-  color:var(--texte);
-  min-height:100vh;
+/* ── UI CHROME (non imprimé) ── */
+.ui-bar{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(10,8,8,.95);backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(232,180,184,.08);
+  padding:.9rem 2.5rem;
+  display:flex;align-items:center;justify-content:space-between;
 }
-
-/* ── BACK LINK ── */
-.back{
-  position:fixed;top:1.5rem;left:2rem;z-index:100;
-  display:flex;align-items:center;gap:.5rem;
-  font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
-  color:rgba(42,30,30,.4);text-decoration:none;transition:color .3s;
+.ui-logo{font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:rgba(250,245,238,.25)}
+.ui-actions{display:flex;gap:.8rem;align-items:center}
+.ui-back{
+  font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(250,245,238,.3);text-decoration:none;transition:color .3s;
 }
-.back:hover{color:var(--blush2)}
-@media print{.back,.print-btn{display:none!important}}
-
-/* ── PRINT BUTTON ── */
-.print-btn{
-  position:fixed;top:1.5rem;right:2rem;z-index:100;
-  background:var(--n);color:var(--creme);
-  border:none;padding:.7rem 1.6rem;
-  font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:600;
-  letter-spacing:.12em;text-transform:uppercase;
-  cursor:pointer;transition:all .3s;
+.ui-back:hover{color:var(--creme)}
+#pdf-btn{
+  background:linear-gradient(135deg,var(--blush2),var(--or));
+  color:var(--n);border:none;
+  padding:.7rem 1.8rem;
+  font-family:'DM Sans',sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+  cursor:pointer;transition:opacity .3s;display:flex;align-items:center;gap:.5rem;
 }
-.print-btn:hover{background:var(--blush2)}
+#pdf-btn:hover{opacity:.85}
+#pdf-btn .ico{font-size:.9rem}
+@media print{.ui-bar{display:none!important}}
 
-/* ══════════════════════
-   PAGE A4
-══════════════════════ */
-.page{
+/* ── PAGE A4 ── */
+#mk-page{
   width:210mm;
-  min-height:297mm;
-  margin:3rem auto;
-  background:var(--creme);
-  box-shadow:0 20px 80px rgba(42,30,30,.14);
-  position:relative;
-  overflow:hidden;
-}
-
-/* ── HEADER / PHOTO ZONE ── */
-.mk-header{
+  margin:0 auto;
+  padding-top:52px; /* ui-bar height */
   background:var(--n);
-  padding:3.5rem 3.5rem 2.5rem;
-  position:relative;
-  overflow:hidden;
-  display:grid;
-  grid-template-columns:1fr 200px;
-  gap:2.5rem;
-  align-items:center;
 }
-.mk-header::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 80% 70% at 30% 50%,rgba(200,160,96,.07),transparent 70%);
-  pointer-events:none;
-}
-.mk-header-deco{
-  position:absolute;right:0;top:0;bottom:0;
-  width:200px;
-  background:linear-gradient(135deg,rgba(232,180,184,.06),rgba(200,160,96,.08));
-  border-left:1px solid rgba(232,180,184,.08);
+@media print{
+  html,body{background:var(--n)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #mk-page{margin:0;padding-top:0;width:100%}
+  .ui-bar{display:none!important}
+  @page{size:A4 portrait;margin:0}
 }
 
-/* Photo principale */
-.mk-photo-wrap{
-  width:200px;height:260px;
-  border:1px solid rgba(232,180,184,.2);
-  background:linear-gradient(155deg,#2a1e1e 0%,#c06870 60%,#c8a060 100%);
-  position:relative;overflow:hidden;
-  flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
+/* ══════════════════════════
+   BLOC 1 — HERO
+══════════════════════════ */
+.hero-block{
+  position:relative;width:100%;height:320px;overflow:hidden;
 }
-.mk-photo-wrap img{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+.hero-block img{
+  width:100%;height:100%;object-fit:cover;object-position:center 20%;
+  display:block;
 }
-.mk-photo-ph{
-  font-family:'Playfair Display',serif;font-style:italic;
-  font-size:3rem;color:rgba(250,245,238,.08);
-  position:relative;z-index:2;
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,8,8,.92) 0%,rgba(10,8,8,.45) 45%,rgba(10,8,8,.08) 100%);
 }
-.mk-photo-tag{
-  position:absolute;bottom:.7rem;left:.7rem;right:.7rem;
-  background:rgba(10,8,8,.55);backdrop-filter:blur(8px);
-  padding:.3rem .7rem;
-  font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;
-  color:rgba(250,245,238,.55);text-align:center;
+.hero-deco-line{
+  position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--blush),var(--or),transparent);
 }
-
-.mk-header-left{position:relative;z-index:2}
-.mk-brand{
-  font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;
-  color:rgba(232,180,184,.35);margin-bottom:1.5rem;
-  display:flex;align-items:center;gap:.8rem;
+.hero-text{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:2rem 2.5rem;
 }
-.mk-brand::before{content:'';width:24px;height:1px;background:rgba(232,180,184,.25)}
-.mk-name{
-  font-family:'Playfair Display',serif;font-style:italic;
+.hero-name{
+  font-family:'Playfair Display',serif;font-style:italic;font-weight:700;
   font-size:2.8rem;color:var(--creme);line-height:1;margin-bottom:.4rem;
 }
-.mk-handle{
-  font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
-  color:rgba(232,180,184,.45);margin-bottom:.5rem;
+.hero-handle{
+  font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--blush);margin-bottom:.35rem;
 }
-.mk-tagline{
-  font-family:'Playfair Display',serif;font-style:italic;
-  font-size:.9rem;color:rgba(250,245,238,.25);margin-bottom:2rem;
-}
-.mk-location{
+.hero-sub{
   font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;
-  color:rgba(250,245,238,.2);display:flex;align-items:center;gap:.5rem;
+  color:rgba(250,245,238,.35);display:flex;align-items:center;gap:.6rem;
+}
+.hero-sub span{color:rgba(200,160,96,.5)}
+.hero-badge{
+  position:absolute;top:1.5rem;right:1.5rem;
+  background:rgba(10,8,8,.6);backdrop-filter:blur(12px);
+  border:1px solid rgba(232,180,184,.2);
+  padding:.4rem 1rem;
+  font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blush);
 }
 
-/* ── GOLD STRIP ── */
-.gold-strip{
-  height:3px;
-  background:linear-gradient(90deg,var(--blush),var(--or),var(--blush2));
+/* ══════════════════════════
+   BLOC 2 — BIO + STATS
+══════════════════════════ */
+.bio-stats{
+  display:grid;grid-template-columns:1fr 1fr;
+  border-bottom:1px solid rgba(250,245,238,.05);
+}
+.bio-col{
+  padding:2rem 2.5rem;
+  border-right:1px solid rgba(250,245,238,.05);
+}
+.stats-col{
+  padding:2rem 2.5rem;
+  background:rgba(250,245,238,.02);
 }
 
-/* ── STATS ROW ── */
-.stats-row{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  background:var(--n2);
+/* Bio */
+.section-label{
+  font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;
+  color:rgba(232,180,184,.4);margin-bottom:1rem;
+  display:flex;align-items:center;gap:.6rem;
 }
-.stat-cell{
-  padding:1.8rem 1.5rem;
-  border-right:1px solid rgba(250,245,238,.04);
-  text-align:center;
+.section-label::after{content:'';flex:1;height:1px;background:rgba(232,180,184,.1)}
+.bio-text{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:.85rem;color:rgba(250,245,238,.45);line-height:1.8;margin-bottom:1.2rem;
 }
-.stat-cell:last-child{border-right:none}
-.stat-n{
-  font-family:'DM Sans',sans-serif;font-weight:700;
-  font-size:2.2rem;color:var(--creme);line-height:1;margin-bottom:.3rem;
-}
-.stat-n sub{font-family:'Playfair Display',serif;font-style:italic;font-size:.9rem;color:var(--or2)}
-.stat-l{
-  font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;
-  color:rgba(250,245,238,.2);
-}
-
-/* ── BODY CONTENT ── */
-.mk-body{padding:2.5rem 3.5rem;display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}
-
-/* Column */
-.mk-col{display:flex;flex-direction:column;gap:2rem}
-
-/* Section block */
-.mk-section{display:flex;flex-direction:column;gap:.8rem}
-.mk-section-title{
-  font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;
-  color:rgba(42,30,30,.3);padding-bottom:.6rem;
-  border-bottom:1px solid rgba(42,30,30,.07);
-  display:flex;align-items:center;gap:.7rem;
-}
-.mk-section-title::before{content:'✦';color:var(--blush2);font-size:.45rem}
-
-/* Niches pills */
-.niche-wrap{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.2rem}
-.niche{
-  padding:.3rem .9rem;
-  font-size:.63rem;letter-spacing:.08em;text-transform:uppercase;
-  border:1px solid rgba(42,30,30,.1);color:rgba(42,30,30,.5);
+.niches{display:flex;flex-wrap:wrap;gap:.35rem}
+.niche-tag{
+  padding:.22rem .75rem;
+  border:1px solid rgba(232,180,184,.2);
+  font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(232,180,184,.6);
   transition:all .3s;
 }
-.niche.hl{background:var(--blush2);color:#fff;border-color:var(--blush2)}
+.niche-tag.hl{background:rgba(232,180,184,.1);border-color:var(--blush);color:var(--blush)}
 
-/* Services list */
-.svc-list{display:flex;flex-direction:column;gap:.45rem}
-.svc-item{
-  display:flex;align-items:flex-start;gap:.8rem;
-  font-size:.78rem;color:rgba(42,30,30,.55);padding:.5rem .7rem;
-  border-left:2px solid transparent;transition:border-color .3s;
+/* Stats */
+.stats-grid{display:flex;flex-direction:column;gap:0}
+.stat-item{
+  padding:.85rem 0;border-bottom:1px solid rgba(250,245,238,.04);
+  display:flex;align-items:baseline;gap:.8rem;
 }
-.svc-item:hover{border-color:var(--blush)}
-.svc-ico{font-size:.9rem;flex-shrink:0;opacity:.7}
+.stat-item:last-child{border-bottom:none}
+.stat-n{
+  font-family:'DM Sans',sans-serif;font-weight:700;
+  font-size:2rem;color:var(--creme);line-height:1;
+  min-width:5rem;
+}
+.stat-n.italic{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;font-size:1.6rem}
+.stat-l{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(250,245,238,.25)}
 
-/* Collab active */
-.collab-active{
-  background:var(--n2);padding:1.2rem 1.5rem;
-  display:flex;align-items:center;gap:1.2rem;
+/* ══════════════════════════
+   BLOC 3 — GRILLE 4 PHOTOS
+══════════════════════════ */
+.photo-grid-block{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-bottom:1px solid rgba(250,245,238,.05);
 }
-.ca-logo{
-  width:44px;height:44px;
-  background:linear-gradient(135deg,rgba(232,180,184,.1),rgba(200,160,96,.1));
-  border:1px solid rgba(232,180,184,.15);
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Playfair Display',serif;font-style:italic;font-size:.8rem;
-  color:rgba(232,180,184,.5);flex-shrink:0;
+.pg-item{position:relative;overflow:hidden}
+.pg-item img{
+  width:100%;height:160px;object-fit:cover;
+  display:block;transition:transform .6s ease;
+  filter:brightness(.9);
 }
-.ca-name{font-weight:600;font-size:.88rem;color:var(--creme);margin-bottom:.15rem}
-.ca-sub{font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(250,245,238,.25)}
-.ca-badge{
-  margin-left:auto;background:rgba(212,136,142,.12);
-  color:var(--blush2);padding:.22rem .7rem;
-  font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;flex-shrink:0;
+.pg-item:hover img{transform:scale(1.04)}
+.pg-overlay{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(to top,rgba(10,8,8,.85) 0%,transparent 100%);
+  padding:.6rem .8rem;
+}
+.pg-label{
+  font-size:.55rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(250,245,238,.65);
+  display:flex;align-items:center;gap:.4rem;
+}
+.pg-label::before{content:'✦';color:var(--or);font-size:.45rem}
+.pg-sep{width:1px;background:rgba(250,245,238,.05)}
+
+/* ══════════════════════════
+   BLOC 4 — SERVICES
+══════════════════════════ */
+.services-block{
+  padding:2rem 2.5rem;
+  border-bottom:1px solid rgba(250,245,238,.05);
+}
+.services-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:.6rem;margin-top:1.2rem;
+}
+.svc-card{
+  background:rgba(250,245,238,.03);
+  border:1px solid rgba(250,245,238,.06);
+  padding:1rem 1.1rem;
+  position:relative;overflow:hidden;
+  transition:background .3s,border-color .3s;
+}
+.svc-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,var(--blush),var(--or));
+  transform:scaleX(0);transition:transform .3s;transform-origin:left;
+}
+.svc-card:hover{background:rgba(232,180,184,.05);border-color:rgba(232,180,184,.12)}
+.svc-card:hover::before{transform:scaleX(1)}
+.svc-ico{font-size:1.1rem;margin-bottom:.4rem;display:block}
+.svc-name{font-size:.7rem;font-weight:600;color:var(--creme);letter-spacing:.04em;text-transform:uppercase;margin-bottom:.2rem}
+.svc-desc{font-size:.65rem;color:rgba(250,245,238,.28);line-height:1.5}
+
+/* ══════════════════════════
+   BLOC 5 — COLLABS + CONTACT
+══════════════════════════ */
+.collabs-contact{
+  display:grid;grid-template-columns:1fr 1fr;
+  border-bottom:1px solid rgba(250,245,238,.05);
+}
+.collabs-col{
+  padding:2rem 2.5rem;
+  border-right:1px solid rgba(250,245,238,.05);
+}
+.contact-col{
+  padding:2rem 2.5rem;
+  display:flex;flex-direction:column;justify-content:space-between;
 }
 
-/* About text */
-.mk-about-text{
+/* Collabs */
+.collab-item{
+  display:flex;align-items:center;gap:1rem;
+  padding:.85rem 0;border-bottom:1px solid rgba(250,245,238,.04);
+}
+.collab-item:last-child{border-bottom:none}
+.ci-dot{
+  width:36px;height:36px;flex-shrink:0;
+  background:rgba(232,180,184,.07);border:1px solid rgba(232,180,184,.15);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.65rem;color:rgba(232,180,184,.4);
+}
+.ci-name{font-size:.82rem;font-weight:600;color:var(--creme);margin-bottom:.1rem}
+.ci-cat{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(250,245,238,.25)}
+.ci-badge{
+  margin-left:auto;flex-shrink:0;
+  padding:.18rem .65rem;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;
+}
+.badge-active{background:rgba(124,186,140,.12);color:#7dba8c;border:1px solid rgba(124,186,140,.2)}
+.badge-open{border:1px solid rgba(250,245,238,.1);color:rgba(250,245,238,.3)}
+
+/* Contact */
+.contact-headline{
   font-family:'Playfair Display',serif;font-style:italic;
-  font-size:.88rem;color:rgba(42,30,30,.5);line-height:1.85;
+  font-size:1.6rem;color:var(--creme);line-height:1.2;margin-bottom:.4rem;
 }
+.contact-headline em{color:var(--blush)}
+.contact-avail{
+  font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(232,180,184,.4);margin-bottom:1.5rem;
+}
+.contact-links{display:flex;flex-direction:column;gap:.65rem}
+.cl-item{
+  display:flex;align-items:center;gap:.8rem;
+  padding:.75rem 1rem;
+  border:1px solid rgba(250,245,238,.06);
+  background:rgba(250,245,238,.02);
+  text-decoration:none;transition:all .3s;
+}
+.cl-item:hover{background:rgba(232,180,184,.05);border-color:rgba(232,180,184,.15)}
+.cl-ico{width:28px;text-align:center;font-size:.9rem;color:var(--blush);flex-shrink:0}
+.cl-val{font-size:.78rem;color:rgba(250,245,238,.55)}
+.contact-strip{
+  margin-top:1.5rem;
+  padding:.75rem 1rem;
+  background:linear-gradient(135deg,rgba(232,180,184,.07),rgba(200,160,96,.07));
+  border:1px solid rgba(232,180,184,.12);
+  font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(250,245,238,.4);display:flex;align-items:center;gap:.6rem;
+}
+.contact-strip::before{content:'✦';color:var(--blush);font-size:.5rem}
 
-/* ── CONTACT FOOTER ── */
+/* ══════════════════════════
+   FOOTER
+══════════════════════════ */
 .mk-footer{
-  background:var(--n);
-  padding:1.8rem 3.5rem;
+  padding:1rem 2.5rem;
   display:flex;align-items:center;justify-content:space-between;
-  gap:2rem;
-  margin-top:auto;
+  border-top:1px solid rgba(232,180,184,.06);
+  background:var(--n2);
 }
-.mk-footer-brand{
-  font-family:'Playfair Display',serif;font-style:italic;
-  font-size:1.3rem;color:rgba(250,245,238,.3);
-}
-.mk-contacts{display:flex;gap:2.5rem;align-items:center}
-.mk-contact-item{display:flex;flex-direction:column;gap:.2rem}
-.mc-label{font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,245,238,.18)}
-.mc-val{font-size:.78rem;color:rgba(250,245,238,.5)}
-.mc-val a{color:rgba(232,180,184,.6);text-decoration:none}
-.mk-year{font-size:.58rem;color:rgba(250,245,238,.12);text-align:right}
+.ft-brand{font-family:'Playfair Display',serif;font-style:italic;font-size:.95rem;color:rgba(250,245,238,.18)}
+.ft-mid{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(250,245,238,.1)}
+.ft-credit{font-size:.58rem;color:rgba(250,245,238,.1)}
+.ft-credit span{color:rgba(232,180,184,.2)}
 
 /* ── PRINT ── */
 @media print{
-  body{background:white}
-  .page{margin:0;box-shadow:none;width:100%;min-height:auto}
+  .svc-card:hover::before{transform:none}
+  .bio-stats,
+  .collabs-contact,
+  .services-block,
+  .photo-grid-block,
+  .hero-block,
   .mk-footer{page-break-inside:avoid}
-}
-
-/* ── RESPONSIVE SCREEN ── */
-@media(max-width:750px){
-  .page{width:100%;margin:0;box-shadow:none}
-  .mk-header{grid-template-columns:1fr;padding:2rem 1.5rem 1.5rem}
-  .mk-photo-wrap{width:100%;height:200px}
-  .stats-row{grid-template-columns:1fr 1fr}
-  .stat-cell:nth-child(2){border-right:none}
-  .stat-cell:nth-child(3){border-top:1px solid rgba(250,245,238,.04)}
-  .stat-cell:nth-child(4){border-top:1px solid rgba(250,245,238,.04)}
-  .mk-body{grid-template-columns:1fr;padding:2rem 1.5rem}
-  .mk-footer{flex-direction:column;gap:1.5rem;text-align:center;padding:1.5rem}
-  .mk-contacts{flex-direction:column;gap:1rem}
-  .print-btn{display:none}
-  .back{position:relative;top:auto;left:auto;padding:1rem 1.5rem;display:block}
+  .svc-card,.collab-item,.cl-item{transition:none}
 }
 </style>
 </head>
 <body>
 
-<a href="index.html" class="back">← Retour au site</a>
-<button class="print-btn" onclick="window.print()">Imprimer / PDF</button>
+<!-- UI CHROME -->
+<div class="ui-bar">
+  <div class="ui-logo">DigitalScho</div>
+  <div class="ui-actions">
+    <a href="index.html" class="ui-back">← Site</a>
+    <button id="pdf-btn"><span class="ico">⬇</span> Télécharger PDF</button>
+  </div>
+</div>
 
 <!-- PAGE A4 -->
-<div class="page">
+<div id="mk-page">
 
-  <!-- HEADER -->
-  <div class="mk-header">
-    <div class="mk-header-left">
-      <div class="mk-brand">Media Kit · 2025</div>
-      <div class="mk-name">Céline Scholinckx</div>
-      <div class="mk-handle">@iamcelineschobis</div>
-      <div class="mk-tagline">"je romantise ma vie... mais je dis la vérité"</div>
-      <div class="mk-location">📍 Liège · Belgique · Mode & Lifestyle</div>
-    </div>
-    <div class="mk-photo-wrap">
-      <img src="photo-celine.jpg" alt="Céline Scholinckx">
-      <div class="mk-photo-tag">Céline Scholinckx</div>
+  <!-- ═══ BLOC 1 — HERO ═══ -->
+  <div class="hero-block">
+    <img src="photo-celine.jpg" alt="Céline Scholinckx">
+    <div class="hero-overlay"></div>
+    <div class="hero-deco-line"></div>
+    <div class="hero-badge">Media Kit · 2025</div>
+    <div class="hero-text">
+      <div class="hero-name">Céline Scholinckx</div>
+      <div class="hero-handle">@iamcelineschobis</div>
+      <div class="hero-sub">
+        Mode <span>·</span> Lifestyle <span>·</span> Liège <span>·</span> Belgique
+      </div>
     </div>
   </div>
 
-  <!-- GOLD STRIP -->
-  <div class="gold-strip"></div>
-
-  <!-- STATS -->
-  <div class="stats-row">
-    <div class="stat-cell">
-      <div class="stat-n">2 177</div>
-      <div class="stat-l">Followers Instagram</div>
+  <!-- ═══ BLOC 2 — BIO + STATS ═══ -->
+  <div class="bio-stats">
+    <div class="bio-col">
+      <div class="section-label">Qui suis-je</div>
+      <p class="bio-text">Basée à Liège, je crée du contenu mode & lifestyle sans filtre. Entre Rome, Venise et les Alpes, looks assumés et découvertes beauty — une esthétique authentique, un peu trop honnête. Mon focus : des collaborations sincères et un univers cohérent.</p>
+      <div class="niches">
+        <span class="niche-tag hl">Mode</span>
+        <span class="niche-tag hl">Lifestyle</span>
+        <span class="niche-tag hl">Beauty</span>
+        <span class="niche-tag hl">Voyage</span>
+        <span class="niche-tag">Food</span>
+      </div>
     </div>
-    <div class="stat-cell">
-      <div class="stat-n">385</div>
-      <div class="stat-l">Publications</div>
-    </div>
-    <div class="stat-cell">
-      <div class="stat-n" style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.6rem">Mode</div>
-      <div class="stat-l">Niche principale</div>
-    </div>
-    <div class="stat-cell">
-      <div class="stat-n" style="font-size:1.6rem">Liège</div>
-      <div class="stat-l">Belgique</div>
+    <div class="stats-col">
+      <div class="section-label">Stats Instagram</div>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-n">2 177</div>
+          <div class="stat-l">Followers</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-n">385</div>
+          <div class="stat-l">Publications</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-n italic">Micro</div>
+          <div class="stat-l">Influenceuse engagée</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-n italic">Belgique</div>
+          <div class="stat-l">Liège · Wallonie</div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- BODY -->
-  <div class="mk-body">
-
-    <!-- COL GAUCHE -->
-    <div class="mk-col">
-
-      <div class="mk-section">
-        <div class="mk-section-title">Qui suis-je</div>
-        <p class="mk-about-text">Basée à Liège, je crée du contenu mode & lifestyle sans filtre. Entre Rome, Venise et les Alpes, looks assumés et découvertes beauty — une esthétique authentique, un peu trop honnête.<br><br>Mon focus : un contenu qui parle vrai, des collaborations sincères, une communauté engagée.</p>
-      </div>
-
-      <div class="mk-section">
-        <div class="mk-section-title">Niches</div>
-        <div class="niche-wrap">
-          <span class="niche hl">Mode</span>
-          <span class="niche hl">Lifestyle</span>
-          <span class="niche hl">Beauty</span>
-          <span class="niche hl">Voyage</span>
-          <span class="niche">Food</span>
-          <span class="niche">Outfit</span>
-        </div>
-      </div>
-
-      <div class="mk-section">
-        <div class="mk-section-title">Collaboration active</div>
-        <div class="collab-active">
-          <div class="ca-logo">SB</div>
-          <div>
-            <div class="ca-name">SALE Beauty</div>
-            <div class="ca-sub">Beauté · Cosmétiques</div>
-          </div>
-          <span class="ca-badge">Actif</span>
-        </div>
-      </div>
-
+  <!-- ═══ BLOC 3 — GRILLE 4 PHOTOS ═══ -->
+  <div class="photo-grid-block">
+    <div class="pg-item">
+      <img src="photo-portrait.jpg" alt="Mode — Céline Scholinckx">
+      <div class="pg-overlay"><div class="pg-label">Mode</div></div>
     </div>
-
-    <!-- COL DROITE -->
-    <div class="mk-col">
-
-      <div class="mk-section">
-        <div class="mk-section-title">Services proposés</div>
-        <div class="svc-list">
-          <div class="svc-item"><span class="svc-ico">📸</span>Post Instagram sponsorisé</div>
-          <div class="svc-item"><span class="svc-ico">🎬</span>Reel Instagram (montage inclus)</div>
-          <div class="svc-item"><span class="svc-ico">📲</span>Stories (swipe-up · mentions)</div>
-          <div class="svc-item"><span class="svc-ico">🎁</span>UGC livrable (fichier brut)</div>
-          <div class="svc-item"><span class="svc-ico">📱</span>Gestion réseaux sociaux</div>
-          <div class="svc-item"><span class="svc-ico">🛍</span>Shopping & Relooking</div>
-          <div class="svc-item"><span class="svc-ico">💼</span>Community Manager</div>
-          <div class="svc-item"><span class="svc-ico">🍽</span>Collab Restaurant & Hôtel</div>
-          <div class="svc-item"><span class="svc-ico">👗</span>Collab Mode & Accessoires</div>
-        </div>
-      </div>
-
-      <div class="mk-section">
-        <div class="mk-section-title">Tarifs</div>
-        <div class="svc-list">
-          <div class="svc-item"><span class="svc-ico">—</span>Post · Stories · Reel : sur devis</div>
-          <div class="svc-item"><span class="svc-ico">—</span>Bundle complet (Post + Reel + Stories) : sur devis</div>
-          <div class="svc-item"><span class="svc-ico">—</span>UGC livrable : sur devis</div>
-          <div class="svc-item"><span class="svc-ico">—</span>Packages personnalisés disponibles</div>
-        </div>
-      </div>
-
+    <div class="pg-item" style="border-left:1px solid rgba(250,245,238,.05)">
+      <img src="photo-rome.jpg" alt="Voyage — Rome">
+      <div class="pg-overlay"><div class="pg-label">Voyage</div></div>
     </div>
-
+    <div class="pg-item" style="border-left:1px solid rgba(250,245,238,.05)">
+      <img src="photo-fashion.jpg" alt="Fashion">
+      <div class="pg-overlay"><div class="pg-label">Fashion</div></div>
+    </div>
+    <div class="pg-item" style="border-left:1px solid rgba(250,245,238,.05)">
+      <img src="photo-soiree.jpg" alt="Lifestyle — Soirée">
+      <div class="pg-overlay"><div class="pg-label">Lifestyle</div></div>
+    </div>
   </div>
 
-  <!-- FOOTER CONTACT -->
+  <!-- ═══ BLOC 4 — SERVICES ═══ -->
+  <div class="services-block">
+    <div class="section-label">Services & Formats</div>
+    <div class="services-grid">
+      <div class="svc-card">
+        <span class="svc-ico">📸</span>
+        <div class="svc-name">Post · Reel · Stories</div>
+        <div class="svc-desc">Contenu sponsorisé authentique sur Instagram · Montage Reel inclus</div>
+      </div>
+      <div class="svc-card">
+        <span class="svc-ico">🎁</span>
+        <div class="svc-name">UGC Livrable</div>
+        <div class="svc-desc">Contenu brut livré en fichier pour vos propres campagnes · Droits d'usage</div>
+      </div>
+      <div class="svc-card">
+        <span class="svc-ico">📱</span>
+        <div class="svc-name">Gestion Réseaux Sociaux</div>
+        <div class="svc-desc">Création & planification de contenu pour votre compte</div>
+      </div>
+      <div class="svc-card">
+        <span class="svc-ico">🛍</span>
+        <div class="svc-name">Shopping & Relooking</div>
+        <div class="svc-desc">Accompagnement style, sélection de tenues & conseils looks</div>
+      </div>
+      <div class="svc-card">
+        <span class="svc-ico">💼</span>
+        <div class="svc-name">Community Manager</div>
+        <div class="svc-desc">Animation, modération & engagement de vos communautés</div>
+      </div>
+      <div class="svc-card">
+        <span class="svc-ico">🍽</span>
+        <div class="svc-name">Collab Restaurant · Hôtel</div>
+        <div class="svc-desc">Mise en avant d'établissements lifestyle, food & hospitality</div>
+      </div>
+      <div class="svc-card" style="grid-column:span 3">
+        <span class="svc-ico">👗</span>
+        <div class="svc-name">Collab Mode & Accessoires</div>
+        <div class="svc-desc">Partenariats vêtements, chaussures, accessoires & marques mode — post, reel, stories, unboxing, lookbook</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ BLOC 5 — COLLABS + CONTACT ═══ -->
+  <div class="collabs-contact">
+    <div class="collabs-col">
+      <div class="section-label">Collaborations</div>
+
+      <div class="collab-item">
+        <div class="ci-dot">SB</div>
+        <div>
+          <div class="ci-name">SALE Beauty</div>
+          <div class="ci-cat">Beauté · Cosmétiques</div>
+        </div>
+        <span class="ci-badge badge-active">Actif</span>
+      </div>
+
+      <div class="collab-item">
+        <div class="ci-dot">+</div>
+        <div>
+          <div class="ci-name">Mode & Accessoires</div>
+          <div class="ci-cat">Vêtements · Style</div>
+        </div>
+        <span class="ci-badge badge-open">Disponible</span>
+      </div>
+
+      <div class="collab-item">
+        <div class="ci-dot">+</div>
+        <div>
+          <div class="ci-name">Lifestyle · Food · Travel</div>
+          <div class="ci-cat">Restaurants · Hôtels · Voyage</div>
+        </div>
+        <span class="ci-badge badge-open">Sur devis</span>
+      </div>
+    </div>
+
+    <div class="contact-col">
+      <div>
+        <div class="section-label">Contact</div>
+        <div class="contact-headline">Travaillons<br><em>ensemble</em></div>
+        <div class="contact-avail">Disponible pour collaborations 2025</div>
+        <div class="contact-links">
+          <a href="mailto:celine@digitalscho.com" class="cl-item">
+            <span class="cl-ico">✉</span>
+            <span class="cl-val">celine@digitalscho.com</span>
+          </a>
+          <a href="https://www.instagram.com/iamcelineschobis" target="_blank" rel="noopener" class="cl-item">
+            <span class="cl-ico">◎</span>
+            <span class="cl-val">@iamcelineschobis</span>
+          </a>
+        </div>
+      </div>
+      <div class="contact-strip">
+        Tarifs sur devis · Réponse sous 48h
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ FOOTER ═══ -->
   <div class="mk-footer">
-    <div class="mk-footer-brand">DigitalScho</div>
-    <div class="mk-contacts">
-      <div class="mk-contact-item">
-        <div class="mc-label">Email</div>
-        <div class="mc-val"><a href="mailto:celine@digitalscho.com">celine@digitalscho.com</a></div>
-      </div>
-      <div class="mk-contact-item">
-        <div class="mc-label">Instagram</div>
-        <div class="mc-val"><a href="https://www.instagram.com/iamcelineschobis" target="_blank" rel="noopener">@iamcelineschobis</a></div>
-      </div>
-    </div>
-    <div class="mk-year">© 2025 Céline Scholinckx<br>Tous droits réservés</div>
+    <div class="ft-brand">DigitalScho</div>
+    <div class="ft-mid">Media Kit · 2025 · Céline Scholinckx</div>
+    <div class="ft-credit">Réalisé par <span>Serenity Studio</span></div>
   </div>
 
-</div><!-- /page -->
+</div><!-- /mk-page -->
 
+<!-- html2pdf.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+document.getElementById('pdf-btn').addEventListener('click', function() {
+  const btn = this;
+  btn.textContent = '⏳ Génération…';
+  btn.disabled = true;
+
+  const el = document.getElementById('mk-page');
+  const opt = {
+    margin:       0,
+    filename:     'MediaKit-DigitalScho-2025.pdf',
+    image:        { type: 'jpeg', quality: 0.97 },
+    html2canvas:  { scale: 2, useCORS: true, logging: false, backgroundColor: '#0a0808' },
+    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+
+  html2pdf().set(opt).from(el).save().then(() => {
+    btn.innerHTML = '<span class="ico">⬇</span> Télécharger PDF';
+    btn.disabled = false;
+  });
+});
+</script>
 </body>
 </html>
