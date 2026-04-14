@@ -429,9 +429,65 @@ footer{background:var(--n);padding:1.2rem 0;border-top:1px solid rgba(232,180,18
   .real-grid{grid-template-columns:1fr}
   .hero-side-stats{grid-template-columns:1fr 1fr}
 }
+
+/* ══════════════════════
+   LANDING CHOICE PAGE
+══════════════════════ */
+#landing-choice{
+  position:fixed;inset:0;z-index:10000;
+  background:var(--n);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+  transition:opacity .6s ease,visibility .6s ease;
+}
+#landing-choice.hide{opacity:0;visibility:hidden;pointer-events:none}
+.lc-logo{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(2rem,5vw,3.5rem);color:var(--creme);margin-bottom:.5rem;animation:fadeIn .8s ease both}
+.lc-tagline{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(.9rem,2vw,1.2rem);color:rgba(232,180,184,.55);margin-bottom:3.5rem;animation:fadeIn .8s ease .2s both}
+.lc-cards{display:flex;gap:2rem;animation:fadeUp .8s ease .4s both}
+.lc-card{
+  background:rgba(250,245,238,.04);
+  border:1px solid rgba(232,180,184,.15);
+  padding:3rem 2.5rem;
+  width:min(340px,42vw);
+  text-decoration:none;
+  transition:all .4s ease;
+  cursor:pointer;
+}
+.lc-card:hover{background:rgba(232,180,184,.08);border-color:rgba(232,180,184,.35);transform:translateY(-4px)}
+.lc-icon{font-size:2.8rem;margin-bottom:1.2rem;display:block}
+.lc-card-title{font-family:'DM Sans',sans-serif;font-size:clamp(.9rem,1.6vw,1.15rem);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--creme);margin-bottom:.7rem}
+.lc-card-sub{font-size:.82rem;color:rgba(250,245,238,.35);line-height:1.6}
+
+#main-site{opacity:0;transition:opacity .6s ease}
+#main-site.visible{opacity:1}
+
+@media(max-width:700px){
+  .lc-cards{flex-direction:column;align-items:center}
+  .lc-card{width:min(320px,85vw)}
+}
 </style>
 </head>
 <body>
+
+<!-- LANDING CHOICE -->
+<div id="landing-choice">
+  <div class="lc-logo">DigitalScho</div>
+  <div class="lc-tagline">Bienvenue — que puis-je faire pour toi ?</div>
+  <div class="lc-cards">
+    <div class="lc-card" onclick="chooseLanding('creatrice')">
+      <span class="lc-icon">🎬</span>
+      <div class="lc-card-title">Créatrice de Contenu & UGC</div>
+      <div class="lc-card-sub">Posts, Reels, Stories, UGC pour ta marque</div>
+    </div>
+    <div class="lc-card" onclick="chooseLanding('community')">
+      <span class="lc-icon">📱</span>
+      <div class="lc-card-title">Community Management</div>
+      <div class="lc-card-sub">Gestion complète de ton Instagram</div>
+    </div>
+  </div>
+</div>
+
+<div id="main-site" style="display:none">
 
 <!-- LOADER -->
 <div id="loader">
@@ -942,6 +998,26 @@ document.querySelectorAll('.pc').forEach(pc => {
     set(`collab${i}-badge`, `ds_collab${i}_badge`);
   });
 })();
+</script>
+</div><!-- /main-site -->
+
+<script>
+function chooseLanding(target) {
+  var landing = document.getElementById('landing-choice');
+  var main = document.getElementById('main-site');
+  landing.classList.add('hide');
+  setTimeout(function() {
+    landing.style.display = 'none';
+    main.style.display = 'block';
+    requestAnimationFrame(function() {
+      main.classList.add('visible');
+      var section = document.getElementById(target);
+      if (section) {
+        setTimeout(function() { section.scrollIntoView({ behavior: 'smooth' }); }, 100);
+      }
+    });
+  }, 600);
+}
 </script>
 </body>
 </html>
