@@ -293,6 +293,78 @@ footer{background:var(--n);padding:1.2rem 0;border-top:1px solid rgba(232,180,18
 .nav-admin{color:rgba(250,245,238,.4);text-decoration:none;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;transition:color .3s}
 .nav-admin:hover{color:var(--creme)}
 
+/* ── HERO VIDEO ── */
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.25;pointer-events:none}
+
+/* ══════════════════════
+   CRÉATRICE DE CONTENU
+══════════════════════ */
+.creatrice{background:var(--n2);padding:8rem 0}
+.crea-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.crea-badge{display:inline-flex;align-items:center;gap:.6rem;background:rgba(232,180,184,.1);border:1px solid rgba(232,180,184,.25);padding:.4rem 1.2rem;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--blush);margin-bottom:1.5rem}
+.crea-h{font-family:'DM Sans',sans-serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:700;text-transform:uppercase;color:var(--creme);line-height:1;margin-bottom:.6rem}
+.crea-h em{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;text-transform:none;color:var(--blush)}
+.crea-p{font-size:.88rem;color:rgba(250,245,238,.4);line-height:1.85;margin-bottom:2rem}
+.crea-services{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.crea-svc{background:rgba(250,245,238,.04);border:1px solid rgba(250,245,238,.06);padding:1.2rem 1.3rem;transition:all .3s;position:relative;overflow:hidden}
+.crea-svc:hover{background:rgba(232,180,184,.06);border-color:rgba(232,180,184,.18)}
+.crea-svc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--blush),var(--or));transform:scaleY(0);transform-origin:bottom;transition:transform .3s}
+.crea-svc:hover::before{transform:scaleY(1)}
+.crea-svc-n{font-size:.78rem;font-weight:600;color:var(--creme);letter-spacing:.05em;text-transform:uppercase;margin-bottom:.2rem}
+.crea-svc-d{font-size:.72rem;color:rgba(250,245,238,.3);line-height:1.5}
+
+/* ══════════════════════
+   COMMUNITY MANAGEMENT
+══════════════════════ */
+.community{background:var(--creme2);padding:8rem 0}
+.cm-intro{font-size:.9rem;color:rgba(42,30,30,.5);line-height:1.8;margin-bottom:1rem}
+.cm-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:3rem}
+.cm-tg{padding:.33rem .9rem;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--blush2);color:var(--blush2)}
+.cm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-bottom:4rem}
+.cm-card{background:#fff;border:1px solid rgba(42,30,30,.08);padding:2.2rem 1.8rem;transition:all .4s;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.cm-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(42,30,30,.1)}
+.cm-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blush),var(--or));transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.cm-card:hover::before{transform:scaleX(1)}
+.cm-card.popular{border-color:var(--blush2);box-shadow:0 4px 20px rgba(212,136,142,.12)}
+.cm-card.popular::before{transform:scaleX(1)}
+.cm-pop-badge{position:absolute;top:0;right:1.5rem;background:var(--blush2);color:#fff;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .8rem;font-weight:600}
+.cm-card-name{font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--texte);margin-bottom:.2rem}
+.cm-card-price{font-family:'Playfair Display',serif;font-style:italic;font-size:1.8rem;color:var(--blush2);margin-bottom:.5rem}
+.cm-card-desc{font-size:.78rem;color:rgba(42,30,30,.4);line-height:1.5;margin-bottom:1.2rem;font-style:italic}
+.cm-card-items{display:flex;flex-direction:column;gap:.45rem;flex:1}
+.cm-ci{font-size:.8rem;color:rgba(42,30,30,.55);display:flex;align-items:center;gap:.6rem}
+.cm-ci::before{content:'✦';color:var(--blush2);font-size:.45rem;flex-shrink:0}
+.cm-card-cta{margin-top:1.5rem;display:inline-block;text-align:center;padding:.7rem 1.5rem;font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1px solid var(--blush2);color:var(--blush2);transition:all .3s}
+.cm-card-cta:hover{background:var(--blush2);color:#fff}
+.cm-card.popular .cm-card-cta{background:var(--blush2);color:#fff}
+.cm-card.popular .cm-card-cta:hover{background:var(--blush3)}
+
+.cm-alacarte{background:#fff;border:1px solid rgba(42,30,30,.08);padding:2.5rem 2.5rem}
+.cm-alacarte h3{font-family:'DM Sans',sans-serif;font-size:1.2rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--texte);margin-bottom:1.5rem}
+.cm-alacarte h3 em{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;text-transform:none;color:var(--blush2)}
+.cm-ala-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem}
+.cm-ala{display:flex;justify-content:space-between;align-items:center;padding:.85rem 1rem;border:1px solid rgba(42,30,30,.06);transition:all .3s}
+.cm-ala:hover{border-color:rgba(212,136,142,.2);background:rgba(232,180,184,.03)}
+.cm-ala-label{font-size:.8rem;color:rgba(42,30,30,.55)}
+.cm-ala-price{font-family:'Playfair Display',serif;font-style:italic;font-size:.95rem;color:var(--blush2);font-weight:700;white-space:nowrap;margin-left:1rem}
+
+/* ══════════════════════
+   RÉALISATIONS
+══════════════════════ */
+.realisations{background:var(--n2);padding:8rem 0}
+.real-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem;margin-top:3rem}
+.real-card{background:rgba(250,245,238,.04);border:1px solid rgba(250,245,238,.06);padding:2rem 1.8rem;transition:all .4s;position:relative;overflow:hidden}
+.real-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(232,180,184,.08);border-color:rgba(232,180,184,.2)}
+.real-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blush),var(--or));transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.real-card:hover::before{transform:scaleX(1)}
+.real-name{font-family:'Playfair Display',serif;font-style:italic;font-size:1.4rem;color:var(--creme);margin-bottom:.5rem}
+.real-ig{display:inline-flex;align-items:center;gap:.5rem;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--blush);text-decoration:none;margin-bottom:1.2rem;transition:color .3s}
+.real-ig:hover{color:var(--or2)}
+.real-ig::before{content:'✦';font-size:.5rem}
+.real-items{display:flex;flex-direction:column;gap:.4rem}
+.real-i{font-size:.8rem;color:rgba(250,245,238,.4);display:flex;align-items:center;gap:.6rem}
+.real-i::before{content:'–';color:rgba(232,180,184,.35)}
+
 /* ── SCROLL REVEAL ── */
 /* localStorage override: photos loaded dynamically by JS */
 .rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
@@ -342,11 +414,19 @@ footer{background:var(--n);padding:1.2rem 0;border-top:1px solid rgba(232,180,18
   .fi{flex-direction:column;gap:1rem;text-align:center}
   .collage{grid-template-rows:180px 130px 150px}
   .port-cats{gap:1rem;flex-wrap:wrap}
+  .crea-grid{grid-template-columns:1fr}
+  .crea-services{grid-template-columns:1fr 1fr}
+  .cm-grid{grid-template-columns:1fr}
+  .cm-alacarte{padding:1.5rem}
+  .cm-ala-grid{grid-template-columns:1fr}
+  .real-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:480px){
   .phone-grid{grid-template-columns:1fr 1fr}
   .about{padding:5rem 0}
-  .keystat,.portfolio,.collabs,.packages,.mediakit,.lib,.contact{padding:5rem 0}
+  .keystat,.portfolio,.collabs,.packages,.mediakit,.lib,.contact,.creatrice,.community,.realisations{padding:5rem 0}
+  .crea-services{grid-template-columns:1fr}
+  .real-grid{grid-template-columns:1fr}
   .hero-side-stats{grid-template-columns:1fr 1fr}
 }
 </style>
@@ -377,9 +457,9 @@ footer{background:var(--n);padding:1.2rem 0;border-top:1px solid rgba(232,180,18
 <nav id="nav">
   <a href="#" class="nav-logo">DigitalScho</a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#about" onclick="closeMenu()">À propos</a></li>
-    <li><a href="#portfolio" onclick="closeMenu()">Portfolio</a></li>
-    <li><a href="#collabs" onclick="closeMenu()">Collabs</a></li>
+    <li><a href="#community" onclick="closeMenu()">Community Management</a></li>
+    <li><a href="#creatrice" onclick="closeMenu()">Créatrice de Contenu</a></li>
+    <li><a href="#realisations" onclick="closeMenu()">Réalisations</a></li>
     <li><a href="#mediakit" onclick="closeMenu()">Media Kit</a></li>
     <li><a href="#contact" class="nav-cta" onclick="closeMenu()">Contact</a></li>
     <li><a href="https://digitalscho.be/admin.html" class="nav-admin">⚙️ Admin</a></li>
@@ -391,17 +471,17 @@ footer{background:var(--n);padding:1.2rem 0;border-top:1px solid rgba(232,180,18
 
 <!-- HERO -->
 <section class="hero">
+  <video class="hero-video" src="hero-video.mp4" autoplay muted loop playsinline></video>
   <div class="h-arch"></div><div class="h-arch"></div><div class="h-arch"></div>
   <div class="hero-split">
     <div class="hero-inner">
       <div class="h-overline">Céline Scholinckx</div>
-      <div class="h-title">Digital</div>
-      <div class="h-title2">Portfolio</div>
-      <div class="h-pill">✦ UGC Creator & Lifestyle Influencer</div>
-      <div class="h-quote">"je romantise ma vie... mais je dis la vérité"</div>
+      <div class="h-title" style="font-size:clamp(2.2rem,6vw,5.5rem);line-height:1.05;letter-spacing:.01em;text-transform:none">Je transforme ton Instagram en outil de vente.</div>
+      <div class="h-pill">✦ Community Management · Création de Contenu · Collaborations</div>
+      <div class="h-quote">Community management, création de contenu & collaborations<br>pour les marques qui veulent être vues (et vendre vraiment).</div>
       <div class="h-actions">
-        <a href="mediakit.html" class="btn-creme">Media Kit</a>
-        <a href="#about" class="btn-ghost">En savoir plus</a>
+        <a href="#contact" class="btn-creme">👉 Travailler avec moi</a>
+        <a href="#realisations" class="btn-ghost">👉 Voir mes réalisations</a>
       </div>
     </div>
     <div class="hero-side-stats">
@@ -473,35 +553,23 @@ footer{background:var(--n);padding:1.2rem 0;border-top:1px solid rgba(232,180,18
   </div>
 </section>
 
-<!-- STAT + SERVICES -->
-<section class="keystat">
+<!-- CRÉATRICE DE CONTENU -->
+<section class="creatrice" id="creatrice">
   <div class="ctr">
-    <div class="ks-inner">
-      <div class="ks-l rv">
-        <div class="ks-pct">93<span>%</span></div>
-        <p class="ks-txt">des consommateurs font davantage confiance au contenu généré par les utilisateurs qu'aux publicités traditionnelles.</p>
-        <div class="ks-src">Source · Nielsen Consumer Trust Index</div>
+    <div class="crea-grid">
+      <div class="rv">
+        <div class="slbl" style="color:rgba(250,245,238,.2)">Création de contenu</div>
+        <h2 class="crea-h">Créatrice <em>de Contenu</em></h2>
+        <p class="crea-p">Collaborations avec les marques qui veulent du contenu authentique et vendeur.</p>
+        <div class="crea-badge">✦ Créatrice Sale Beauty</div>
+        <p class="crea-p" style="margin-top:1rem">Contenu authentique ancré dans le quotidien, esthétique mode & lifestyle cohérente, audience engagée à Liège & Belgique. Livraison rapide, communication directe.</p>
+        <a href="#contact" class="btn-blush" style="margin-top:.5rem">Collaborer avec moi ✦</a>
       </div>
-      <div class="ks-r rv">
-        <h3>Pourquoi collaborer <em>avec moi ?</em></h3>
-        <div class="kpts">
-          <div class="kp">Contenu authentique ancré dans le quotidien</div>
-          <div class="kp">Esthétique mode & lifestyle cohérente</div>
-          <div class="kp">Audience engagée à Liège & Belgique</div>
-          <div class="kp">Formats variés : Post, Reel, Stories, UGC</div>
-          <div class="kp">Livraison rapide, communication directe</div>
-        </div>
-        <a href="#contact" class="btn-blush" style="margin-top:1.5rem">Travaillez avec moi</a>
-      </div>
-      <div class="ks-services rv">
-        <h3>Mes <em>services</em></h3>
-        <div class="svc"><div class="svc-n">📸 Post · Reel · Stories</div><div class="svc-d">Contenu sponsorisé authentique sur Instagram.</div></div>
-        <div class="svc"><div class="svc-n">🎁 UGC livrable</div><div class="svc-d">Contenu brut livré pour vos propres campagnes.</div></div>
-        <div class="svc"><div class="svc-n">📱 Gestion réseaux sociaux</div><div class="svc-d">Création & gestion de contenu pour votre compte.</div></div>
-        <div class="svc"><div class="svc-n">🛍 Shopping & Relooking</div><div class="svc-d">Accompagnement style, sélection de tenues & looks.</div></div>
-        <div class="svc"><div class="svc-n">💼 Community Manager</div><div class="svc-d">Animation & modération de vos communautés en ligne.</div></div>
-        <div class="svc"><div class="svc-n">🍽 Collab Restaurant & Hôtel</div><div class="svc-d">Mise en avant d'établissements lifestyle & food.</div></div>
-        <div class="svc"><div class="svc-n">👗 Collab Mode & Accessoires</div><div class="svc-d">Partenariats vêtements, accessoires, marques mode.</div></div>
+      <div class="crea-services rv">
+        <div class="crea-svc"><div class="crea-svc-n">📸 Posts</div><div class="crea-svc-d">Publications Instagram sponsorisées, authentiques et alignées avec votre marque.</div></div>
+        <div class="crea-svc"><div class="crea-svc-n">🎬 Reels</div><div class="crea-svc-d">Vidéos courtes engageantes avec montage et hook accrocheur.</div></div>
+        <div class="crea-svc"><div class="crea-svc-n">📱 Stories</div><div class="crea-svc-d">Contenu éphémère pour créer du lien et de la proximité.</div></div>
+        <div class="crea-svc"><div class="crea-svc-n">🎁 UGC</div><div class="crea-svc-d">User Generated Content — contenu brut livré pour vos propres campagnes.</div></div>
       </div>
     </div>
   </div>
@@ -585,22 +653,68 @@ footer{background:var(--n);padding:1.2rem 0;border-top:1px solid rgba(232,180,18
   </div>
 </section>
 
-<!-- PACKAGES -->
-<section class="packages" id="packages">
+<!-- COMMUNITY MANAGEMENT -->
+<section class="community" id="community">
   <div class="ctr">
-    <div class="pkg-grid">
-      <div class="pkg-vtitle">Packages</div>
-      <div>
-        <div class="rv" style="margin-bottom:0">
-          <div class="slbl" style="color:rgba(250,245,238,.2)">Tarifs & services</div>
-          <div class="sec-h2" style="color:var(--creme)">Mes <em style="color:var(--blush)">Prestations</em></div>
+    <div class="rv" style="margin-bottom:1rem">
+      <div class="slbl">Services</div>
+      <div class="sec-h2">Community <em>Management</em></div>
+    </div>
+    <p class="cm-intro rv">Gestion complète de ton Instagram :</p>
+    <div class="cm-tags rv">
+      <span class="cm-tg">Stratégie</span>
+      <span class="cm-tg">Posts</span>
+      <span class="cm-tg">Stories</span>
+      <span class="cm-tg">Planning</span>
+    </div>
+    <div class="cm-grid">
+      <div class="cm-card rv">
+        <div class="cm-card-name">Pack Essentiel</div>
+        <div class="cm-card-price">300€ <span style="font-size:.7rem;font-style:normal;color:rgba(42,30,30,.35)">/ mois</span></div>
+        <p class="cm-card-desc">Idéal pour assurer une présence régulière et cohérente.</p>
+        <div class="cm-card-items">
+          <div class="cm-ci">1 à 2 publications par semaine</div>
+          <div class="cm-ci">Création d'un calendrier éditorial mensuel</div>
+          <div class="cm-ci">Rédaction des légendes</div>
+          <div class="cm-ci">Planification des publications</div>
         </div>
-        <div class="pkg-list">
-          <div class="pkg rv"><div class="pkg-price">Sur devis</div><div class="pkg-name">Post · Stories</div><div class="pkg-items"><div class="pi">1 publication Instagram</div><div class="pi">Stories associées</div><div class="pi">Contenu authentique</div></div></div>
-          <div class="pkg rv"><div class="pkg-price">Sur devis</div><div class="pkg-name">Reel · Vidéo</div><div class="pkg-items"><div class="pi">1 Reel Instagram</div><div class="pi">Montage inclus</div><div class="pi">Hook accrocheur</div></div></div>
-          <div class="pkg rv"><div class="pkg-price">Pack</div><div class="pkg-name">Bundle complet</div><div class="pkg-items"><div class="pi">Post + Reel + Stories</div><div class="pi">UGC livré en fichier</div><div class="pi">Droits d'utilisation</div></div></div>
-          <div class="pkg-cta rv"><p>Besoin d'un package personnalisé ?</p><a href="#contact" class="btn-creme" style="white-space:nowrap">Contactez-moi</a></div>
+        <a href="#contact" class="cm-card-cta">Choisir ce pack</a>
+      </div>
+      <div class="cm-card popular rv">
+        <div class="cm-pop-badge">Populaire</div>
+        <div class="cm-card-name">Pack Visibilité</div>
+        <div class="cm-card-price">500€ <span style="font-size:.7rem;font-style:normal;color:rgba(42,30,30,.35)">/ mois</span></div>
+        <p class="cm-card-desc">Conçu pour développer la visibilité et engager la communauté.</p>
+        <div class="cm-card-items">
+          <div class="cm-ci">3 à 4 publications par semaine</div>
+          <div class="cm-ci">Création et publication de stories</div>
+          <div class="cm-ci">Gestion du calendrier éditorial</div>
+          <div class="cm-ci">Rédaction des légendes et planification</div>
         </div>
+        <a href="#contact" class="cm-card-cta">Choisir ce pack</a>
+      </div>
+      <div class="cm-card rv">
+        <div class="cm-card-name">Pack Premium</div>
+        <div class="cm-card-price">600€ <span style="font-size:.7rem;font-style:normal;color:rgba(42,30,30,.35)">/ mois</span></div>
+        <p class="cm-card-desc">Une prise en charge complète pour faire évoluer activement l'image de marque.</p>
+        <div class="cm-card-items">
+          <div class="cm-ci">Publications quotidiennes</div>
+          <div class="cm-ci">Création de stories régulières</div>
+          <div class="cm-ci">Élaboration d'une stratégie de contenu</div>
+          <div class="cm-ci">Création des visuels et rédaction des textes</div>
+          <div class="cm-ci">Planification et gestion globale du compte</div>
+        </div>
+        <a href="#contact" class="cm-card-cta">Choisir ce pack</a>
+      </div>
+    </div>
+    <div class="cm-alacarte rv">
+      <h3>Prestations <em>à la carte</em></h3>
+      <div class="cm-ala-grid">
+        <div class="cm-ala"><span class="cm-ala-label">Création de visuel + rédaction de légende</span><span class="cm-ala-price">80€ / post</span></div>
+        <div class="cm-ala"><span class="cm-ala-label">Création de story</span><span class="cm-ala-price">40€ / story</span></div>
+        <div class="cm-ala"><span class="cm-ala-label">Création + montage de Reel</span><span class="cm-ala-price">200€</span></div>
+        <div class="cm-ala"><span class="cm-ala-label">Élaboration de stratégie de contenu</span><span class="cm-ala-price">180€</span></div>
+        <div class="cm-ala"><span class="cm-ala-label">Shooting photo de marque</span><span class="cm-ala-price">100€</span></div>
       </div>
     </div>
   </div>
@@ -642,6 +756,60 @@ footer{background:var(--n);padding:1.2rem 0;border-top:1px solid rgba(232,180,18
           <div class="mf">Charte éditoriale & univers visuel</div>
         </div>
         <a href="mediakit.html" class="btn-blush">Voir le Media Kit complet ✦</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RÉALISATIONS -->
+<section class="realisations" id="realisations">
+  <div class="ctr">
+    <div class="rv">
+      <div class="slbl" style="color:rgba(250,245,238,.2)">Portfolio clients</div>
+      <div class="sec-h2" style="color:var(--creme)">Mes <em style="color:var(--blush)">Réalisations</em></div>
+    </div>
+    <div class="real-grid">
+      <div class="real-card rv">
+        <div class="real-name">Made by Nana</div>
+        <a href="https://www.instagram.com/madebynanabougie" target="_blank" rel="noopener" class="real-ig">@madebynanabougie ↗</a>
+        <div class="real-items">
+          <div class="real-i">Réalisation du feed</div>
+          <div class="real-i">Création des légendes</div>
+          <div class="real-i">Stories</div>
+        </div>
+      </div>
+      <div class="real-card rv">
+        <div class="real-name">Ranieri</div>
+        <a href="https://www.instagram.com/ranieri_tea_time" target="_blank" rel="noopener" class="real-ig">@ranieri_tea_time ↗</a>
+        <div class="real-items">
+          <div class="real-i">Réalisation du feed</div>
+          <div class="real-i">Création des légendes et parfois des photos</div>
+          <div class="real-i">Stories</div>
+        </div>
+      </div>
+      <div class="real-card rv">
+        <div class="real-name">Poetic</div>
+        <a href="https://www.instagram.com/ranieri_tea_time" target="_blank" rel="noopener" class="real-ig">@poetic ↗</a>
+        <div class="real-items">
+          <div class="real-i">Réalisation du feed</div>
+          <div class="real-i">Création des légendes</div>
+        </div>
+      </div>
+      <div class="real-card rv">
+        <div class="real-name">Inakiél</div>
+        <a href="https://www.instagram.com/inakiel_institut" target="_blank" rel="noopener" class="real-ig">@inakiel_institut ↗</a>
+        <div class="real-items">
+          <div class="real-i">Réalisation du feed</div>
+          <div class="real-i">Réalisation des photos</div>
+        </div>
+      </div>
+      <div class="real-card rv">
+        <div class="real-name">Glossy</div>
+        <a href="https://www.instagram.com/glossyliss__" target="_blank" rel="noopener" class="real-ig">@glossyliss__ ↗</a>
+        <div class="real-items">
+          <div class="real-i">Réalisation du feed</div>
+          <div class="real-i">Création des légendes</div>
+        </div>
       </div>
     </div>
   </div>
