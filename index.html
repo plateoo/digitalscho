@@ -435,35 +435,95 @@ footer{background:var(--n);padding:1.2rem 0;border-top:1px solid rgba(232,180,18
 ══════════════════════ */
 #landing-choice{
   position:fixed;inset:0;z-index:10000;
-  background:var(--n);
+  background:linear-gradient(135deg,#1a1a1a 0%,#2d1f1f 50%,#1a1410 100%);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   text-align:center;
   transition:opacity .6s ease,visibility .6s ease;
 }
-#landing-choice.hide{opacity:0;visibility:hidden;pointer-events:none}
-.lc-logo{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(2rem,5vw,3.5rem);color:var(--creme);margin-bottom:.5rem;animation:fadeIn .8s ease both}
-.lc-tagline{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(.9rem,2vw,1.2rem);color:rgba(232,180,184,.55);margin-bottom:3.5rem;animation:fadeIn .8s ease .2s both}
-.lc-cards{display:flex;gap:2rem;animation:fadeUp .8s ease .4s both}
-.lc-card{
-  background:rgba(250,245,238,.04);
-  border:1px solid rgba(232,180,184,.15);
-  padding:3rem 2.5rem;
-  width:min(340px,42vw);
-  text-decoration:none;
-  transition:all .4s ease;
-  cursor:pointer;
+#landing-choice::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.04;pointer-events:none;z-index:0;
 }
-.lc-card:hover{background:rgba(232,180,184,.08);border-color:rgba(232,180,184,.35);transform:translateY(-4px)}
-.lc-icon{font-size:2.8rem;margin-bottom:1.2rem;display:block}
-.lc-card-title{font-family:'DM Sans',sans-serif;font-size:clamp(.9rem,1.6vw,1.15rem);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--creme);margin-bottom:.7rem}
-.lc-card-sub{font-size:.82rem;color:rgba(250,245,238,.35);line-height:1.6}
+#landing-choice.hide{opacity:0;visibility:hidden;pointer-events:none}
+
+.lc-logo{
+  position:relative;z-index:1;
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:clamp(3rem,7vw,6rem);color:#F5F0E8;
+  letter-spacing:.04em;margin-bottom:.8rem;
+  animation:fadeIn .8s ease both;
+}
+.lc-tagline{
+  position:relative;z-index:1;
+  font-family:'DM Sans',sans-serif;font-size:.72rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:#C9A99A;margin-bottom:3.5rem;
+  animation:fadeIn .8s ease .2s both;
+}
+
+.lc-cards{position:relative;z-index:1;display:flex;gap:24px;animation:fadeUp .8s ease .4s both}
+
+.lc-card{
+  position:relative;
+  width:min(420px,42vw);height:340px;
+  border-radius:2px;
+  padding:2.5rem;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  text-decoration:none;
+  transition:all .4s cubic-bezier(.25,.46,.45,.94);
+  cursor:pointer;overflow:hidden;
+}
+.lc-card--crea{
+  background:linear-gradient(160deg,#2a1f1a 0%,#3d2318 100%);
+  border:1px solid rgba(201,169,154,.3);
+}
+.lc-card--comm{
+  background:linear-gradient(160deg,#1a1f2a 0%,#182030 100%);
+  border:1px solid rgba(154,169,201,.3);
+}
+.lc-card--crea:hover{transform:translateY(-6px);border-color:rgba(201,169,154,.7)}
+.lc-card--comm:hover{transform:translateY(-6px);border-color:rgba(154,169,201,.7)}
+
+.lc-num{
+  position:absolute;top:2rem;left:2.5rem;
+  font-family:'Playfair Display',serif;font-size:11px;
+  letter-spacing:.3em;
+}
+.lc-card--crea .lc-num{color:rgba(201,169,154,.4)}
+.lc-card--comm .lc-num{color:rgba(154,169,201,.4)}
+
+.lc-card-title{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:1.6rem;color:#F5F0E8;line-height:1.2;
+}
+.lc-sep{width:30px;height:1px;margin:16px 0}
+.lc-card--crea .lc-sep{background:#C9A99A}
+.lc-card--comm .lc-sep{background:#9AA9C9}
+
+.lc-card-sub{
+  font-family:'DM Sans',sans-serif;font-size:.75rem;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(245,240,232,.5);
+}
+
+.lc-arrow{
+  position:absolute;bottom:2rem;right:2.5rem;
+  font-size:1.2rem;
+  transition:transform .4s cubic-bezier(.25,.46,.45,.94);
+}
+.lc-card--crea .lc-arrow{color:#C9A99A}
+.lc-card--comm .lc-arrow{color:#9AA9C9}
+.lc-card:hover .lc-arrow{transform:translateX(4px)}
 
 #main-site{opacity:0;transition:opacity .6s ease}
 #main-site.visible{opacity:1}
 
 @media(max-width:700px){
   .lc-cards{flex-direction:column;align-items:center}
-  .lc-card{width:min(320px,85vw)}
+  .lc-card{width:90%;height:220px;padding:2rem}
+  .lc-num{top:1.5rem;left:2rem}
+  .lc-arrow{bottom:1.5rem;right:2rem}
 }
 </style>
 </head>
@@ -472,17 +532,21 @@ footer{background:var(--n);padding:1.2rem 0;border-top:1px solid rgba(232,180,18
 <!-- LANDING CHOICE -->
 <div id="landing-choice">
   <div class="lc-logo">DigitalScho</div>
-  <div class="lc-tagline">Bienvenue — que puis-je faire pour toi ?</div>
+  <div class="lc-tagline">Choisis ton univers</div>
   <div class="lc-cards">
-    <div class="lc-card" onclick="chooseLanding('creatrice')">
-      <span class="lc-icon">🎬</span>
+    <div class="lc-card lc-card--crea" onclick="chooseLanding('creatrice')">
+      <span class="lc-num">01</span>
       <div class="lc-card-title">Créatrice de Contenu & UGC</div>
-      <div class="lc-card-sub">Posts, Reels, Stories, UGC pour ta marque</div>
+      <div class="lc-sep"></div>
+      <div class="lc-card-sub">Posts · Reels · Stories · UGC</div>
+      <span class="lc-arrow">→</span>
     </div>
-    <div class="lc-card" onclick="chooseLanding('community')">
-      <span class="lc-icon">📱</span>
+    <div class="lc-card lc-card--comm" onclick="chooseLanding('community')">
+      <span class="lc-num">02</span>
       <div class="lc-card-title">Community Management</div>
-      <div class="lc-card-sub">Gestion complète de ton Instagram</div>
+      <div class="lc-sep"></div>
+      <div class="lc-card-sub">Stratégie · Contenu · Planification</div>
+      <span class="lc-arrow">→</span>
     </div>
   </div>
 </div>
